@@ -17,11 +17,61 @@
 
 package com.ambenavente.origins.gameplay.entities.player;
 
+import com.ambenavente.origins.gameplay.entities.AnimatedEntity;
+import com.ambenavente.origins.gameplay.entities.Direction;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.geom.Vector2f;
+
 /**
  * Created with IntelliJ IDEA.
  *
  * @author Anthony Benavente
  * @version 2/9/14
  */
-public class Player {
+public class Player extends AnimatedEntity {
+
+    public Player(float x, float y) {
+        super(x, y);
+    }
+
+    @Override
+    public void init() {
+        // Don't do anything yet
+    }
+
+    @Override
+    public void update(GameContainer container, int delta) {
+        getInput(container.getInput());
+    }
+
+    private void getInput(Input input) {
+
+        Vector2f vel = new Vector2f(0, 0);
+
+        // Check for arrow keys
+        if (input.isKeyDown(Input.KEY_UP)) {
+            setDirection(Direction.NORTH);
+            vel.y -= getWalkingSpeed();
+        }
+
+        if (input.isKeyDown(Input.KEY_DOWN)) {
+            setDirection(Direction.SOUTH);
+            vel.y += getWalkingSpeed();
+        }
+
+        if (input.isKeyDown(Input.KEY_LEFT)) {
+            setDirection(Direction.WEST);
+            vel.x -= getWalkingSpeed();
+        }
+
+        if (input.isKeyDown(Input.KEY_RIGHT)) {
+            setDirection(Direction.EAST);
+            vel.x += getWalkingSpeed();
+        }
+
+        setMoving(vel.x != 0 || vel.y != 0);
+
+        move(vel);
+    }
 }
