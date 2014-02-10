@@ -17,11 +17,87 @@
 
 package com.ambenavente.origins.gameplay.entities;
 
+import com.ambenavente.origins.gameplay.entities.interfaces.Collidable;
+import com.ambenavente.origins.gameplay.entities.interfaces.Renderable;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Vector2f;
+
 /**
  * Created with IntelliJ IDEA.
  *
  * @author Anthony Benavente
  * @version 2/9/14
  */
-public class Entity {
+public abstract class Entity implements Renderable, Collidable {
+
+    private Vector2f pos;
+    private int width;
+    private int height;
+    private Direction direction;
+
+    public Entity(float x, float y) {
+        this(new Vector2f(x, y));
+    }
+
+    public Entity(Vector2f pos) {
+        this.pos = pos;
+    }
+
+    /**
+     * Called on each update in the game loop
+     *
+     * @param container The container that is holding the game
+     * @param delta     Delta time
+     */
+    public abstract void update(GameContainer container, int delta);
+
+    @Override
+    public abstract void render(Graphics g);
+
+    @Override
+    public abstract void onEntityCollision(Entity other);
+
+    @Override
+    public abstract void onWallCollision();
+
+    public Vector2f getPos() {
+        return pos;
+    }
+
+    protected void setPos(Vector2f pos) {
+        this.pos = pos;
+    }
+
+    public float getX() {
+        return pos.x;
+    }
+
+    public float getY() {
+        return pos.y;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    protected void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    protected void setHeight(int height) {
+        this.height = height;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    protected void setDirection(Direction direction) {
+        this.direction = direction;
+    }
 }
