@@ -46,14 +46,28 @@ public abstract class Entity implements Renderable {
     private int width;
     private int height;
     private Direction direction;
+    private float walkingSpeed;
+    private boolean isMoving;
 
     public Entity(float x, float y) {
         this(new Vector2f(x, y));
     }
 
     public Entity(Vector2f pos) {
-        this.pos = pos;
+        this.pos            = pos;
+        this.width          = 0;
+        this.height         = 0;
+        this.direction      = Direction.SOUTH;
+        this.walkingSpeed   = 0.0f;
+        this.isMoving       = false;
+
+        init();
     }
+
+    /**
+     * Called when an entity is created
+     */
+    public abstract void init();
 
     /**
      * Called on each update in the game loop
@@ -104,5 +118,32 @@ public abstract class Entity implements Renderable {
 
     protected void setDirection(Direction direction) {
         this.direction = direction;
+    }
+
+    public float getWalkingSpeed() {
+        return walkingSpeed;
+    }
+
+    protected void setWalkingSpeed(float walkingSpeed) {
+        this.walkingSpeed = walkingSpeed;
+    }
+
+    public boolean isMoving() {
+        return isMoving;
+    }
+
+    protected void setMoving(boolean isMoving) {
+        this.isMoving = isMoving;
+    }
+
+    /**
+     * Moves the entity
+     *
+     * @param amount A vector representing how much to add onto the position
+     *               vector
+     */
+    protected void move(Vector2f amount) {
+        pos.x += amount.x;
+        pos.y += amount.y;
     }
 }

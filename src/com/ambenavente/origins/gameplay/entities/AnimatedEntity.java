@@ -36,7 +36,6 @@ public abstract class AnimatedEntity extends StaticEntity {
     public AnimatedEntity(float x, float y) {
         super(x, y);
 
-        this.isMoving           = false;
         this.movingAnimations   = new Animation[Direction.values().length];
         this.stillAnimations    = new Animation[Direction.values().length];
     }
@@ -62,14 +61,6 @@ public abstract class AnimatedEntity extends StaticEntity {
     @Override
     public abstract void update(GameContainer container, int delta);
     /* ------------------------ */
-
-    public boolean isMoving() {
-        return isMoving;
-    }
-
-    public void setMoving(boolean isMoving) {
-        this.isMoving = isMoving;
-    }
 
     protected void setStillAnimation(Direction dir, Animation animation) {
         stillAnimations[dir.ordinal()] = animation;
