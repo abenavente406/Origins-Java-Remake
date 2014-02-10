@@ -17,6 +17,7 @@
 
 package com.ambenavente.origins.states;
 
+import com.ambenavente.origins.util.Camera;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -31,22 +32,23 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class StateGameplay extends BasicGameState {
 
-    public StateGameplay() {
+    @Override
+    public void init(GameContainer container,
+                     StateBasedGame stateBasedGame) throws SlickException {
 
     }
 
     @Override
-    public void init(GameContainer container, StateBasedGame stateBasedGame) throws SlickException {
+    public void render(GameContainer container,
+                       StateBasedGame stateBasedGame,
+                       Graphics graphics) throws SlickException {
 
     }
 
     @Override
-    public void render(GameContainer container, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
-
-    }
-
-    @Override
-    public void update(GameContainer container, StateBasedGame stateBasedGame, int i) throws SlickException {
+    public void update(GameContainer container,
+                       StateBasedGame stateBasedGame,
+                       int i) throws SlickException {
 
     }
 
