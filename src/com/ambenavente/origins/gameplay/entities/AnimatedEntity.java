@@ -46,7 +46,13 @@ public abstract class AnimatedEntity extends StaticEntity {
         if (!isMoving()) {
             super.render(g);
         } else {
-            movingAnimations[getDirection().ordinal()].draw(getX(), getY());
+            Animation anim = movingAnimations[getDirection().ordinal()];
+
+            if (anim != null) {
+                anim.draw(getX(), getY());
+            } else {
+                Entity.NO_TEX.draw(getX(), getY());
+            }
         }
     }
 

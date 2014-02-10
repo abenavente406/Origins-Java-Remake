@@ -21,6 +21,8 @@ import com.ambenavente.origins.gameplay.entities.interfaces.Collidable;
 import com.ambenavente.origins.gameplay.entities.interfaces.Renderable;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 
 /**
@@ -30,6 +32,15 @@ import org.newdawn.slick.geom.Vector2f;
  * @version 2/9/14
  */
 public abstract class Entity implements Renderable {
+
+    protected static Image NO_TEX;
+    static {
+        try {
+            NO_TEX = new Image("no_tex.png");
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
+    }
 
     private Vector2f pos;
     private int width;

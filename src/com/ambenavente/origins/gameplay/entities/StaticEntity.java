@@ -40,7 +40,12 @@ public abstract class StaticEntity extends Entity {
 
     @Override
     public void render(Graphics g) {
-        avatars[getDirection().ordinal()].draw(getX(), getY());
+        Image image = avatars[getDirection().ordinal()];
+        if (image != null) {
+            image.draw(getX(), getY());
+        } else {
+            Entity.NO_TEX.draw(getX(), getY());
+        }
     }
 
     /* ------------------------ */
