@@ -54,12 +54,6 @@ public abstract class AnimatedEntity extends StaticEntity {
     /* Methods to be overloaded */
     /* ------------------------ */
     @Override
-    public abstract void onWallCollision();
-
-    @Override
-    public abstract void onEntityCollision(Entity other);
-
-    @Override
     public abstract void update(GameContainer container, int delta);
     /* ------------------------ */
 

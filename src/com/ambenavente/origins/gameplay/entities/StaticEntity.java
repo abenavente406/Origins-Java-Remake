@@ -48,11 +48,5 @@ public abstract class StaticEntity extends Entity {
     /* ------------------------ */
     @Override
     public abstract void update(GameContainer container, int delta);
-
-    @Override
-    public abstract void onEntityCollision(Entity other);
-
-    @Override
-    public abstract void onWallCollision();
     /* ------------------------ */
 }

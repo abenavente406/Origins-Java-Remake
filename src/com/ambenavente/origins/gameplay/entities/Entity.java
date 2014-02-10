@@ -29,7 +29,7 @@ import org.newdawn.slick.geom.Vector2f;
  * @author Anthony Benavente
  * @version 2/9/14
  */
-public abstract class Entity implements Renderable, Collidable {
+public abstract class Entity implements Renderable {
 
     private Vector2f pos;
     private int width;
@@ -54,12 +54,6 @@ public abstract class Entity implements Renderable, Collidable {
 
     @Override
     public abstract void render(Graphics g);
-
-    @Override
-    public abstract void onEntityCollision(Entity other);
-
-    @Override
-    public abstract void onWallCollision();
 
     public Vector2f getPos() {
         return pos;
