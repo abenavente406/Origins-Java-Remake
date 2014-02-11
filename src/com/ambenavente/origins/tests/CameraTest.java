@@ -38,7 +38,7 @@ public class CameraTest extends BasicGame {
 
     private Random rand;
     private Camera camera;
-    private Tile[][] tiles;
+    private ColorTile[][] tiles;
 
     public CameraTest(String title) {
         super(title);
@@ -47,16 +47,17 @@ public class CameraTest extends BasicGame {
     @Override
     public void init(GameContainer container) throws SlickException {
         rand        = new Random();
-        camera      = new Camera(0, 0, container.getWidth(), container.getHeight());
-        tiles       = new Tile[DEFAULT_HEIGHT][DEFAULT_WIDTH];
+        camera      = new Camera(0,
+                                 0,
+                                 container.getWidth(),
+                                 container.getHeight());
+        tiles       = new ColorTile[DEFAULT_HEIGHT][DEFAULT_WIDTH];
 
         for (int y = 0; y < DEFAULT_HEIGHT; y++) {
             for (int x = 0; x < DEFAULT_WIDTH; x++) {
-                tiles[y][x] = new Tile(x,
-                                       y,
-                                       DEFAULT_TILE_WIDTH,
-                                       DEFAULT_TILE_HEIGHT,
-                                       getRandColor());
+                tiles[y][x] = new ColorTile(x,
+                                            y,
+                                            getRandColor());
             }
         }
     }
@@ -132,23 +133,3 @@ public class CameraTest extends BasicGame {
     }
 }
 
-class Tile {
-
-    private int x;
-    private int y;
-    private int width;
-    private int height;
-    private Color color;
-
-    public Tile(int x, int y, int width, int height, Color color) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.color = color;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-}
