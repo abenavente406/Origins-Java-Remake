@@ -24,10 +24,10 @@ package com.ambenavente.origins.gameplay.world.level;
  * @author Anthony Benavente
  * @version 2/10/14
  */
-public class LevelLayer {
+public class TiledLayer {
 
     /**
-     * The id of the LevelMap that houses this layer
+     * The id of the TiledMap that houses this layer
      */
     private int parentId;
 
@@ -42,12 +42,12 @@ public class LevelLayer {
     private int height;
 
     /**
-     * The width of an individual tile in this layer (gotten from LevelMap)
+     * The width of an individual tile in this layer (gotten from TiledMap)
      */
     private int tileWidth;
 
     /**
-     * The height of an individual tile in this layer (gotten from LevelMap)
+     * The height of an individual tile in this layer (gotten from TiledMap)
      */
     private int tileHeight;
 
@@ -64,25 +64,25 @@ public class LevelLayer {
     /**
      * A 2D array containing each tile in the layer
      */
-    private LevelTile[][] tiles;
+    private Tile[][] tiles;
 
     /**
      * Creates a default layer using its parent's values and a completely
      * null tiles array
      *
-     * @param parent The LevelMap object that owns this layer
+     * @param parent The TiledMap object that owns this layer
      */
-    public LevelLayer(LevelMap parent) {
-        this(parent, new LevelTile[parent.getHeight()][parent.getHeight()]);
+    public TiledLayer(TiledMap parent) {
+        this(parent, new Tile[parent.getHeight()][parent.getHeight()]);
     }
 
     /**
      * Creates a layer with a given map
      *
-     * @param parent The LevelMap object that owns this layer
+     * @param parent The TiledMap object that owns this layer
      * @param map    The array of tiles to set to this layer's tiles
      */
-    public LevelLayer(LevelMap parent, LevelTile[][] map) {
+    public TiledLayer(TiledMap parent, Tile[][] map) {
         this.parentId   = parent.getId();
         this.width      = parent.getWidth();
         this.height     = parent.getHeight();
@@ -94,21 +94,21 @@ public class LevelLayer {
     /**
      * @return All the tiles in this layer
      */
-    public LevelTile[][] getTiles() {
+    public Tile[][] getTiles() {
         return tiles;
     }
 
     /**
-     * @return The width of this layer in tiles (gotten from LevelMap)
-     * @see com.ambenavente.origins.gameplay.world.level.LevelMap
+     * @return The width of this layer in tiles (gotten from TiledMap)
+     * @see TiledMap
      */
     public int getWidth() {
         return width;
     }
 
     /**
-     * @return The height of this layer in tiles (gotten from LevelMap)
-     * @see com.ambenavente.origins.gameplay.world.level.LevelMap
+     * @return The height of this layer in tiles (gotten from TiledMap)
+     * @see TiledMap
      */
     public int getHeight() {
         return height;
@@ -116,8 +116,8 @@ public class LevelLayer {
 
     /**
      * @return The width of an individual tile in this layer
-     * (gotten from LevelMap)
-     * @see com.ambenavente.origins.gameplay.world.level.LevelMap
+     * (gotten from TiledMap)
+     * @see TiledMap
      */
     public int getTileWidth() {
         return tileWidth;
@@ -125,8 +125,8 @@ public class LevelLayer {
 
     /**
      * @return The height of an individual tile in this layer
-     * (gotten from LevelMap)
-     * @see com.ambenavente.origins.gameplay.world.level.LevelMap
+     * (gotten from TiledMap)
+     * @see TiledMap
      */
     public int getTileHeight() {
         return tileHeight;
@@ -141,7 +141,7 @@ public class LevelLayer {
      * bounds, the function throws an IndexOutOfBoundsException
      * @throws java.lang.IndexOutOfBoundsException
      */
-    public LevelTile getTile(int x, int y) {
+    public Tile getTile(int x, int y) {
         if (x >= 0 &&
             x < width &&
             y >= 0 &&

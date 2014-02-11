@@ -23,7 +23,7 @@ package com.ambenavente.origins.gameplay.world.level;
  * @author Anthony Benavente
  * @version 2/10/14
  */
-public class LevelTile {
+public class Tile {
 
     /**
      * The id that the tile resides in the tile sheet
@@ -36,12 +36,12 @@ public class LevelTile {
     private int tileSetId;
 
     /**
-     * Creates a LevelTile object
+     * Creates a Tile object
      *
      * @param tileId    The id of the tile
      * @param tileSetId The id of the tile sheet containing the tile's image
      */
-    public LevelTile(int tileId, int tileSetId) {
+    public Tile(int tileId, int tileSetId) {
         this.tileId = tileId;
         this.tileSetId = tileSetId;
     }

@@ -19,9 +19,9 @@ package com.ambenavente.origins.tests;
 
 import com.ambenavente.origins.gameplay.world.json.MapDeserializer;
 import com.ambenavente.origins.gameplay.world.json.MapSerializer;
-import com.ambenavente.origins.gameplay.world.level.LevelLayer;
-import com.ambenavente.origins.gameplay.world.level.LevelMap;
-import com.ambenavente.origins.gameplay.world.level.LevelTile;
+import com.ambenavente.origins.gameplay.world.level.TiledLayer;
+import com.ambenavente.origins.gameplay.world.level.TiledMap;
+import com.ambenavente.origins.gameplay.world.level.Tile;
 
 import java.io.File;
 
@@ -36,9 +36,9 @@ public class LevelSerializeDeserializeTest {
         final int SIZE = 20;
         final int TILE_SIZE = 32;
 
-        LevelTile[][] testMap = new LevelTile[SIZE][SIZE];
-        LevelMap map = new LevelMap(SIZE, SIZE, TILE_SIZE, TILE_SIZE);
-        LevelLayer testLayer = new LevelLayer(map, testMap);
+        Tile[][] testMap = new Tile[SIZE][SIZE];
+        TiledMap map = new TiledMap(SIZE, SIZE, TILE_SIZE, TILE_SIZE);
+        TiledLayer testLayer = new TiledLayer(map, testMap);
         map.addLayer(testLayer);
 
         MapSerializer serializer = new MapSerializer(map);
@@ -47,7 +47,7 @@ public class LevelSerializeDeserializeTest {
                 new File("res/json/test_map.json").exists());
 
         MapDeserializer deserializer = new MapDeserializer();
-        LevelMap map2 = deserializer.readFromJsonFile("res/json/test_map.json");
+        TiledMap map2 = deserializer.readFromJsonFile("res/json/test_map.json");
 
         System.out.println("The map saved is the same as the map " +
                 "loaded: " + map2.equals(map));

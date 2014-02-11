@@ -17,13 +17,13 @@
 
 package com.ambenavente.origins.gameplay.world.json;
 
-import com.ambenavente.origins.gameplay.world.level.LevelMap;
+import com.ambenavente.origins.gameplay.world.level.TiledMap;
 import com.google.gson.Gson;
 
 import java.io.*;
 
 /**
- * Reads a json file and spits out a LevelMap object.
+ * Reads a json file and spits out a TiledMap object.
  *
  * @author Anthony Benavente
  * @version 2/10/14
@@ -43,13 +43,13 @@ public class MapDeserializer {
     }
 
     /**
-     * Reads a json file and creates a LevelMap object from it
+     * Reads a json file and creates a TiledMap object from it
      *
      * @param path The path to the json file
      * @return The level map that is created from the json file that was
      * just read
      */
-    public LevelMap readFromJsonFile(String path) {
+    public TiledMap readFromJsonFile(String path) {
         FileInputStream stream;
         InputStreamReader inputStreamReader;
         BufferedReader reader;
@@ -74,13 +74,13 @@ public class MapDeserializer {
     }
 
     /**
-     * Creates a LevelMap object from json that is passed in
+     * Creates a TiledMap object from json that is passed in
      *
-     * @param json The json to convert to a LevelMap object
-     * @return The LevelMap object converted from json
+     * @param json The json to convert to a TiledMap object
+     * @return The TiledMap object converted from json
      */
-    public LevelMap readFromJson(String json) {
-        LevelMap map = gson.fromJson(json, LevelMap.class);
+    public TiledMap readFromJson(String json) {
+        TiledMap map = gson.fromJson(json, TiledMap.class);
         return map;
     }
 }

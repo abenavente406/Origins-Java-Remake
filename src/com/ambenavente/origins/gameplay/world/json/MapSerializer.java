@@ -17,9 +17,9 @@
 
 package com.ambenavente.origins.gameplay.world.json;
 
-import com.ambenavente.origins.gameplay.world.level.LevelLayer;
-import com.ambenavente.origins.gameplay.world.level.LevelMap;
-import com.ambenavente.origins.gameplay.world.level.LevelTile;
+import com.ambenavente.origins.gameplay.world.level.Tile;
+import com.ambenavente.origins.gameplay.world.level.TiledLayer;
+import com.ambenavente.origins.gameplay.world.level.TiledMap;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -42,14 +42,14 @@ public class MapSerializer {
     /**
      * The map object to write
      */
-    private LevelMap map;
+    private TiledMap map;
 
     /**
      * Creates a MapSerializer object
      *
      * @param map The map object to write to a file
      */
-    public MapSerializer(LevelMap map) {
+    public MapSerializer(TiledMap map) {
         this.gson = new Gson();
         this.map = map;
     }
@@ -110,21 +110,21 @@ public class MapSerializer {
      */
     public static void main(String[] args) {
 
-        LevelTile tiles[][] = new LevelTile[50][50];
+        Tile tiles[][] = new Tile[50][50];
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles.length; j++) {
-                tiles[i][j] = new LevelTile(-1, -1);
+                tiles[i][j] = new Tile(-1, -1);
             }
         }
 
-        LevelMap map = new LevelMap(50, 50, 32, 32);
-        LevelLayer layer = new LevelLayer(map, tiles);
+        TiledMap map = new TiledMap(50, 50, 32, 32);
+        TiledLayer layer = new TiledLayer(map, tiles);
         map.addLayer(layer);
 
         MapSerializer serializer = new MapSerializer(map);
         System.out.println(serializer.getJson());
 
-        LevelMap map1 = new MapDeserializer().readFromJson(serializer.getJson());
+        TiledMap map1 = new MapDeserializer().readFromJson(serializer.getJson());
 
         System.out.println(String.valueOf(map.equals(map1)));
 

@@ -23,7 +23,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +33,7 @@ import java.util.List;
  * @author Anthony Benavente
  * @version 2/10/14
  */
-public class LevelMap {
+public class TiledMap {
 
     /**
      * An integer used to tack IDs onto newly created level objects
@@ -86,7 +85,7 @@ public class LevelMap {
     /**
      * An array list of layers in the map
      */
-    private List<LevelLayer> layers;
+    private List<TiledLayer> layers;
 
     /**
      * An array list of tile sheets used by the layers in this map
@@ -101,22 +100,22 @@ public class LevelMap {
     private boolean[][] collisionMap;
 
     /**
-     * Creates a default LevelMap with the dimensions of [width:0, height:0]
+     * Creates a default TiledMap with the dimensions of [width:0, height:0]
      * and with tileWidth and tileHeight of 0
      */
-    public LevelMap() {
+    public TiledMap() {
         this(0, 0, 0, 0);
     }
 
     /**
-     * Creates a LevelMap with given dimensions and tile dimensions
+     * Creates a TiledMap with given dimensions and tile dimensions
      *
      * @param width      The width of the map in tiles
      * @param height     The height of the map in tiles
      * @param tileWidth  The width of an individual tile in the map
      * @param tileHeight The height of an individual tile in the map
      */
-    public LevelMap(int width, int height, int tileWidth, int tileHeight) {
+    public TiledMap(int width, int height, int tileWidth, int tileHeight) {
         this.id             = ID_TRACK++;
         this.width          = width;
         this.height         = height;
@@ -124,7 +123,7 @@ public class LevelMap {
         this.tileHeight     = tileHeight;
         this.realWidth      = width  * tileWidth;
         this.realHeight     = height * tileHeight;
-        this.layers         = new ArrayList<LevelLayer>();
+        this.layers         = new ArrayList<TiledLayer>();
         this.tileSheets     = new ArrayList<TileSheet>();
         this.collisionMap   = new boolean[height][width];
     }
@@ -146,12 +145,12 @@ public class LevelMap {
         int maxX = toTileX(camera.getX()) + toTileX(camera.getViewWidth());
         int maxY = toTileY(camera.getY()) + toTileY(camera.getViewHeight());
 
-        for (LevelLayer l : layers) {
+        for (TiledLayer l : layers) {
             for (int y = minY; y < maxY + 1; y++) {
                 if (y < height && y >= 0) {
                     for (int x = minX; x < maxX + 1; x++) {
                         if (x < width && x >= 0) {
-                            LevelTile tile = l.getTile(x, y);
+                            Tile tile = l.getTile(x, y);
                             TileSheet sheet =
                                     tileSheets.get(tile.getTileSetId());
                             Rectangle rect = sheet.getRect(tile.getTileId());
@@ -238,7 +237,7 @@ public class LevelMap {
      *
      * @param layer The layer to add
      */
-    public void addLayer(LevelLayer layer) {
+    public void addLayer(TiledLayer layer) {
         layers.add(layer);
     }
 
@@ -281,7 +280,7 @@ public class LevelMap {
      */
     public void loadMap(String path) {
         MapDeserializer deserializer = new MapDeserializer();
-        LevelMap map = deserializer.readFromJsonFile(path);
+        TiledMap map = deserializer.readFromJsonFile(path);
         loadMap(map);
     }
 
@@ -291,7 +290,7 @@ public class LevelMap {
      *
      * @param map The map to load values from
      */
-    public void loadMap(LevelMap map) {
+    public void loadMap(TiledMap map) {
 
         // ------------------------------------------ //
         // Since we're loading this map from another, //
@@ -312,7 +311,7 @@ public class LevelMap {
     }
 
     /**
-     * @return The id of this LevelMap object
+     * @return The id of this TiledMap object
      */
     public int getId() {
         return id;
@@ -322,15 +321,15 @@ public class LevelMap {
      * Gets if two map objects are equal to each other by comparing dimensions,
      * tile dimensions, and the id number.
      *
-     * @param obj The object to compare against. If this is not a LevelMap
+     * @param obj The object to compare against. If this is not a TiledMap
      *            object, the function will return false
      * @return If this map object is equal to the object passed in
      */
     @Override
     public boolean equals(Object obj) {
         boolean result = true;
-        if (obj instanceof LevelMap) {
-            LevelMap map = (LevelMap)obj;
+        if (obj instanceof TiledMap) {
+            TiledMap map = (TiledMap)obj;
 
             result &= map.getHeight()       == getHeight();
             result &= map.getId()           == getId();
