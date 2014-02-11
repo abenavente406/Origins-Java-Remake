@@ -38,6 +38,7 @@ public class Player extends AnimatedEntity {
     @Override
     public void init() {
         // Don't do anything yet
+        setWalkingSpeed(2.56f);
     }
 
     @Override
