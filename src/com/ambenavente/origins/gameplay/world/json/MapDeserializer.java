@@ -17,7 +17,7 @@
 
 package com.ambenavente.origins.gameplay.world.json;
 
-import com.ambenavente.origins.gameplay.world.level.Map;
+import com.ambenavente.origins.gameplay.world.level.LevelMap;
 import com.google.gson.Gson;
 
 import java.io.*;
@@ -36,7 +36,7 @@ public class MapDeserializer {
         gson = new Gson();
     }
 
-    public Map readFromJsonFile(String path) {
+    public LevelMap readFromJsonFile(String path) {
         FileInputStream stream;
         InputStreamReader inputStreamReader;
         BufferedReader reader;
@@ -60,8 +60,8 @@ public class MapDeserializer {
         return readFromJson(json);
     }
 
-    public Map readFromJson(String json) {
-        Map map = gson.fromJson(json, Map.class);
+    public LevelMap readFromJson(String json) {
+        LevelMap map = gson.fromJson(json, LevelMap.class);
         return map;
     }
 }

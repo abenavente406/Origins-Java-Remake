@@ -23,10 +23,10 @@ package com.ambenavente.origins.gameplay.world.level;
  * @author Anthony Benavente
  * @version 2/10/14
  */
-public class Layer {
+public class LevelLayer {
 
     private int         parentId;
-    private Tile[][]    tiles;
+    private LevelTile[][]    tiles;
     private boolean     isVisible;
     private float       opacity;
     private int         width;
@@ -34,11 +34,11 @@ public class Layer {
     private int         tileWidth;
     private int         tileHeight;
 
-    public Layer(Map parent) {
-        this(parent, new Tile[parent.getHeight()][parent.getHeight()]);
+    public LevelLayer(LevelMap parent) {
+        this(parent, new LevelTile[parent.getHeight()][parent.getHeight()]);
     }
 
-    public Layer(Map parent, Tile[][] map) {
+    public LevelLayer(LevelMap parent, LevelTile[][] map) {
         this.parentId   = parent.getId();
         this.width      = parent.getWidth();
         this.height     = parent.getHeight();
@@ -47,7 +47,7 @@ public class Layer {
         this.tiles      = map.clone();
     }
 
-    public Tile[][] getTiles() {
+    public LevelTile[][] getTiles() {
         return tiles;
     }
 
@@ -67,7 +67,7 @@ public class Layer {
         return tileHeight;
     }
 
-    public Tile getTile(int x, int y) {
+    public LevelTile getTile(int x, int y) {
         if (x >= 0 &&
             x < width &&
             y >= 0 &&

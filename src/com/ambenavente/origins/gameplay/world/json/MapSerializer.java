@@ -17,9 +17,9 @@
 
 package com.ambenavente.origins.gameplay.world.json;
 
-import com.ambenavente.origins.gameplay.world.level.Layer;
-import com.ambenavente.origins.gameplay.world.level.Map;
-import com.ambenavente.origins.gameplay.world.level.Tile;
+import com.ambenavente.origins.gameplay.world.level.LevelLayer;
+import com.ambenavente.origins.gameplay.world.level.LevelMap;
+import com.ambenavente.origins.gameplay.world.level.LevelTile;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -35,9 +35,9 @@ import java.io.PrintWriter;
 public class MapSerializer {
 
     private Gson gson;
-    private Map map;
+    private LevelMap map;
 
-    public MapSerializer(Map map) {
+    public MapSerializer(LevelMap map) {
         this.gson = new Gson();
         this.map = map;
     }
@@ -74,21 +74,21 @@ public class MapSerializer {
 
     public static void main(String[] args) {
 
-        Tile tiles[][] = new Tile[50][50];
+        LevelTile tiles[][] = new LevelTile[50][50];
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles.length; j++) {
-                tiles[i][j] = new Tile(-1, -1);
+                tiles[i][j] = new LevelTile(-1, -1);
             }
         }
 
-        Map map = new Map(50, 50, 32, 32);
-        Layer layer = new Layer(map, tiles);
+        LevelMap map = new LevelMap(50, 50, 32, 32);
+        LevelLayer layer = new LevelLayer(map, tiles);
         map.addLayer(layer);
 
         MapSerializer serializer = new MapSerializer(map);
         System.out.println(serializer.getJson());
 
-        Map map1 = new MapDeserializer().readFromJson(serializer.getJson());
+        LevelMap map1 = new MapDeserializer().readFromJson(serializer.getJson());
 
         System.out.println(String.valueOf(map.equals(map1)));
 

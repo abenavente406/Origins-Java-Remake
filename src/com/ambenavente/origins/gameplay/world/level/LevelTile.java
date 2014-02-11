@@ -23,12 +23,12 @@ package com.ambenavente.origins.gameplay.world.level;
  * @author Anthony Benavente
  * @version 2/10/14
  */
-public class Tile {
+public class LevelTile {
 
     private int tileId;
     private int tileSetId;
 
-    public Tile(int tileId, int tileSetId) {
+    public LevelTile(int tileId, int tileSetId) {
         this.tileId = tileId;
         this.tileSetId = tileSetId;
     }
@@ -52,8 +52,8 @@ public class Tile {
     @Override
     public boolean equals(Object obj) {
         boolean result = true;
-        if (obj instanceof Tile) {
-            Tile tile   = (Tile)obj;
+        if (obj instanceof LevelTile) {
+            LevelTile tile   = (LevelTile)obj;
             result      &= tile.getTileId()      == tileId;
             result      &= tile.getTileSetId()   == tileSetId;
         }

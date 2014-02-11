@@ -32,7 +32,7 @@ import java.util.List;
  * @author Anthony Benavente
  * @version 2/10/14
  */
-public class Map {
+public class LevelMap {
 
     private static int ID_TRACK;
 
@@ -44,15 +44,15 @@ public class Map {
     private int realWidth;
     private int realHeight;
     private int selectedLayer;
-    private List<Layer> layers;
+    private List<LevelLayer> layers;
     private List<TileSheet> tileSheets;
     private boolean[][] collisionMap;
 
-    public Map() {
+    public LevelMap() {
         this(0, 0, 0, 0);
     }
 
-    public Map(int width, int height, int tileWidth, int tileHeight) {
+    public LevelMap(int width, int height, int tileWidth, int tileHeight) {
         this.id             = ID_TRACK++;
         this.width          = width;
         this.height         = height;
@@ -60,7 +60,7 @@ public class Map {
         this.tileHeight     = tileHeight;
         this.realWidth      = width  * tileWidth;
         this.realHeight     = height * tileHeight;
-        this.layers         = new ArrayList<Layer>();
+        this.layers         = new ArrayList<LevelLayer>();
         this.tileSheets     = new ArrayList<TileSheet>();
     }
 
@@ -70,12 +70,12 @@ public class Map {
         int maxX = toTileX(camera.getX()) + toTileX(camera.getViewWidth());
         int maxY = toTileY(camera.getY()) + toTileY(camera.getViewHeight());
 
-        for (Layer l : layers) {
+        for (LevelLayer l : layers) {
             for (int y = minY; y < maxY + 1; y++) {
                 if (y < height && y >= 0) {
                     for (int x = minX; x < maxX + 1; x++) {
                         if (x < width && x >= 0) {
-                            Tile tile = l.getTile(x, y);
+                            LevelTile tile = l.getTile(x, y);
                             TileSheet sheet =
                                     tileSheets.get(tile.getTileSetId());
                             Rectangle rect = sheet.getRect(tile.getTileId());
@@ -135,7 +135,7 @@ public class Map {
         this.selectedLayer = selectedLayer;
     }
 
-    public void addLayer(Layer layer) {
+    public void addLayer(LevelLayer layer) {
         layers.add(layer);
     }
 
@@ -153,7 +153,7 @@ public class Map {
     }
 
     public void loadMap(String path) {
-        Map map;
+        LevelMap map;
         String line;
         BufferedReader reader;
         FileInputStream stream;
@@ -167,7 +167,7 @@ public class Map {
             line = reader.readLine();
             int width  = Integer.parseInt(line.split(" ")[0]);
             int height = Integer.parseInt(line.split(" ")[1]);
-            Tile[] tiles = new Tile[height * width];
+            LevelTile[] tiles = new LevelTile[height * width];
 
             while ((line = reader.readLine()) != null) {
 
@@ -179,7 +179,7 @@ public class Map {
         }
     }
 
-    public void loadMap(Map map) {
+    public void loadMap(LevelMap map) {
 
     }
 
@@ -190,8 +190,8 @@ public class Map {
     @Override
     public boolean equals(Object obj) {
         boolean result = true;
-        if (obj instanceof Map) {
-            Map map = (Map)obj;
+        if (obj instanceof LevelMap) {
+            LevelMap map = (LevelMap)obj;
 
             result &= map.getHeight()       == getHeight();
             result &= map.getId()           == getId();
