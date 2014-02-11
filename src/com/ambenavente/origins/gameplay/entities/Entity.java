@@ -58,7 +58,7 @@ public abstract class Entity implements Renderable {
         this.width          = 0;
         this.height         = 0;
         this.direction      = Direction.SOUTH;
-        this.walkingSpeed   = 0.0f;
+        this.walkingSpeed   = 1.0f;
         this.isMoving       = false;
 
         init();
