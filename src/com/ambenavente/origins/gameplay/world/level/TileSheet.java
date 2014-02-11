@@ -22,23 +22,68 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
 /**
- * Created with IntelliJ IDEA.
+ * A TileSheet is used for getting images for tiles that are stored in one
+ * file.
  *
  * @author Anthony Benavente
  * @version 2/10/14
  */
 public class TileSheet {
 
+    /**
+     * The image that contains all the images for the tiles in this
+     * tile sheet
+     */
     private Image sourceImage;
+
+    /**
+     * The width of an individual tile in the tile sheet
+     */
     private int tileWidth;
+
+    /**
+     * The height of an individual tile in the tile sheet
+     */
     private int tileHeight;
+
+    /**
+     * The width of the tile sheet in tiles
+     */
     private int width;
+
+    /**
+     * The height of the tile sheet in tiles
+     */
     private int height;
+
+    /**
+     * The width of the tile sheet in pixels
+     */
     private int realWidth;
+
+    /**
+     * The height of the tile sheet in pixels
+     */
     private int realHeight;
+
+    /**
+     * The rectangles in the tile sheet.  Each rectangle represents the
+     * location of a tile
+     */
     private Rectangle[] sourceRects;
+
+    /**
+     * The file location of this tile sheet's image
+     */
     private String path;
 
+    /**
+     * Creates a TileSheet
+     *
+     * @param path       The file location for this TileSheet's image
+     * @param tileHeight The height of an individual tile in the sheet
+     * @param tileWidth  The width of an individual tile in the sheet
+     */
     public TileSheet(String path, int tileHeight, int tileWidth) {
         this.tileHeight = tileHeight;
         this.tileWidth  = tileWidth;
@@ -46,6 +91,9 @@ public class TileSheet {
         init();
     }
 
+    /**
+     * Initializes the tile sheet
+     */
     private void init() {
 
         loadImage();
@@ -58,6 +106,13 @@ public class TileSheet {
         initTiles();
     }
 
+    /**
+     * Loads the tile sheet's image from the path passed into the
+     * constructor
+     *
+     * @return If the load operation succeeded, the function will return
+     * true
+     */
     private boolean loadImage() {
         boolean success = true;
         if (path != null) {
@@ -72,6 +127,9 @@ public class TileSheet {
         return success;
     }
 
+    /**
+     * Initializes the source rectangles in the tile sheet
+     */
     private void initTiles() {
         int totalTiles = width * height;
         sourceRects = new Rectangle[totalTiles];
@@ -87,54 +145,56 @@ public class TileSheet {
         }
     }
 
+    /**
+     * @return The width of an individual tile in the tile sheet
+     */
     public int getTileWidth() {
         return tileWidth;
     }
 
-    public void setTileWidth(int tileWidth) {
-        this.tileWidth = tileWidth;
-    }
-
+    /**
+     * @return The height of an individual tile in the tile sheet
+     */
     public int getTileHeight() {
         return tileHeight;
     }
 
-    public void setTileHeight(int tileHeight) {
-        this.tileHeight = tileHeight;
-    }
-
+    /**
+     * @return The number of tiles wide this tile sheet is
+     */
     public int getWidth() {
         return width;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
+    /**
+     * @return The number of tiles tall this tile sheet is
+     */
     public int getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
+    /**
+     * @return The width of this tile sheet in pixels
+     */
     public int getRealWidth() {
         return realWidth;
     }
 
-    public void setRealWidth(int realWidth) {
-        this.realWidth = realWidth;
-    }
-
+    /**
+     * @return The height of this tile sheet in pixels
+     */
     public int getRealHeight() {
         return realHeight;
     }
 
-    public void setRealHeight(int realHeight) {
-        this.realHeight = realHeight;
-    }
-
+    /**
+     * Gets a specific rectangle by the index in the tile sheet
+     *
+     * @param id The index of the rectangle to get.  If this id is out of
+     *           range, the function throws in IndexOutOfBoundsException
+     * @return The Rectangle containing the image for the id passed in
+     * @throws java.lang.IndexOutOfBoundsException
+     */
     public Rectangle getRect(int id) {
         if (id >= 0 && id < sourceRects.length){
             return sourceRects[id];
@@ -143,10 +203,16 @@ public class TileSheet {
         }
     }
 
+    /**
+     * @return The file location for this TileSheet's image
+     */
     public String getPath() {
         return path;
     }
 
+    /**
+     * @return The image for which this tile sheet gets its tiles
+     */
     public Image getImage() {
         return sourceImage;
     }

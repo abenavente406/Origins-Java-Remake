@@ -27,25 +27,51 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 /**
- * Created with IntelliJ IDEA.
+ * Writes a map object to a json file.
  *
  * @author Anthony Benavente
  * @version 2/10/14
  */
 public class MapSerializer {
 
+    /**
+     * The Gson object for writing json
+     */
     private Gson gson;
+
+    /**
+     * The map object to write
+     */
     private LevelMap map;
 
+    /**
+     * Creates a MapSerializer object
+     *
+     * @param map The map object to write to a file
+     */
     public MapSerializer(LevelMap map) {
         this.gson = new Gson();
         this.map = map;
     }
 
+    /**
+     * @return A json representation of the map object passed into the
+     * constructor
+     */
     public String getJson() {
         return gson.toJson(map);
     }
 
+    /**
+     * Writes a json file that represents the map object passed into the
+     * constructor
+     *
+     * @param path The path to write to.  <em>Note: 'res/json' is tacked
+     *             onto the path that is passed in.  So really, only pass
+     *             in the name of the json file you want.</em>
+     * @return If the write operation completed with no errors, this function
+     * will return true.  False otherwise.
+     */
     public boolean writeToFile(String path) {
         boolean success;
         String fullPath = "res/json/" + path;
@@ -65,6 +91,11 @@ public class MapSerializer {
         return success;
     }
 
+    /**
+     * Verifies that the user is creating exists or does not exist
+     *
+     * @param fullPath The file to check
+     */
     private void verifyFileExists(String fullPath) {
         File file = new File(fullPath);
         if (!file.exists()) {
@@ -72,6 +103,11 @@ public class MapSerializer {
         }
     }
 
+    /**
+     * Test for serializing map data
+     *
+     * @param args No arguments are used in this test
+     */
     public static void main(String[] args) {
 
         LevelTile tiles[][] = new LevelTile[50][50];

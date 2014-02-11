@@ -18,45 +18,46 @@
 package com.ambenavente.origins.gameplay.world.level;
 
 /**
- * Created with IntelliJ IDEA.
+ * A single tile that gets drawn to the map.
  *
  * @author Anthony Benavente
  * @version 2/10/14
  */
 public class LevelTile {
 
+    /**
+     * The id that the tile resides in the tile sheet
+     */
     private int tileId;
+
+    /**
+     * The id of the tile sheet containing this tile's image
+     */
     private int tileSetId;
 
+    /**
+     * Creates a LevelTile object
+     *
+     * @param tileId    The id of the tile
+     * @param tileSetId The id of the tile sheet containing the tile's image
+     */
     public LevelTile(int tileId, int tileSetId) {
         this.tileId = tileId;
         this.tileSetId = tileSetId;
     }
 
+    /**
+     * @return The tile's id
+     */
     public int getTileId() {
         return tileId;
     }
 
-    public void setTileId(int tileId) {
-        this.tileId = tileId;
-    }
-
+    /**
+     * @return The id of the tile sheet containing this tile's image
+     */
     public int getTileSetId() {
         return tileSetId;
     }
 
-    public void setTileSetId(int tileSetId) {
-        this.tileSetId = tileSetId;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        boolean result = true;
-        if (obj instanceof LevelTile) {
-            LevelTile tile   = (LevelTile)obj;
-            result      &= tile.getTileId()      == tileId;
-            result      &= tile.getTileSetId()   == tileSetId;
-        }
-        return result;
-    }
 }

@@ -23,19 +23,32 @@ import com.google.gson.Gson;
 import java.io.*;
 
 /**
- * Created with IntelliJ IDEA.
+ * Reads a json file and spits out a LevelMap object.
  *
  * @author Anthony Benavente
  * @version 2/10/14
  */
 public class MapDeserializer {
 
+    /**
+     * The Gson object used for reading json
+     */
     private Gson gson;
 
+    /**
+     * Creates a MapDeserializer object
+     */
     public MapDeserializer() {
         gson = new Gson();
     }
 
+    /**
+     * Reads a json file and creates a LevelMap object from it
+     *
+     * @param path The path to the json file
+     * @return The level map that is created from the json file that was
+     * just read
+     */
     public LevelMap readFromJsonFile(String path) {
         FileInputStream stream;
         InputStreamReader inputStreamReader;
@@ -60,6 +73,12 @@ public class MapDeserializer {
         return readFromJson(json);
     }
 
+    /**
+     * Creates a LevelMap object from json that is passed in
+     *
+     * @param json The json to convert to a LevelMap object
+     * @return The LevelMap object converted from json
+     */
     public LevelMap readFromJson(String json) {
         LevelMap map = gson.fromJson(json, LevelMap.class);
         return map;
