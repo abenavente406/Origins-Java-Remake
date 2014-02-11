@@ -18,7 +18,7 @@
 package com.ambenavente.origins.gameplay.entities;
 
 /**
- * Created with IntelliJ IDEA.
+ * The directions an entity can be facing: NORTH, EAST, SOUTH, WEST
  *
  * @author Anthony Benavente
  * @version 2/10/14

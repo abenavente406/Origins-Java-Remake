@@ -17,7 +17,6 @@
 
 package com.ambenavente.origins.gameplay.entities;
 
-import com.ambenavente.origins.gameplay.entities.interfaces.Collidable;
 import com.ambenavente.origins.gameplay.entities.interfaces.Renderable;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -26,14 +25,32 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 
 /**
- * Created with IntelliJ IDEA.
+ * Represents an Entity.  An entity is an object in the game that is rendered,
+ * has updatable logic, has a position, and has dimensions.  These are
+ * generally exemplified by the Player class, or by any of the other
+ * "character" classes.  However, another example of entities would be chests
+ * or arrows that are fired by other entities.  This is because they have to be
+ * rendered to the screen in a way that can be easily manipulated through its
+ * coordinates.  Do not get this confused with Tiles though; tiles cannot be
+ * manipulated per pixel coordinate.
  *
  * @author Anthony Benavente
  * @version 2/9/14
  */
 public abstract class Entity implements Renderable {
 
+    /**
+     * The image that is used by entities that don't have an animation
+     * or texture set because the user failed to call the entities
+     * setAvatar or setAnimation method
+     */
     protected static Image NO_TEX;
+
+    /**
+     * Attempts to initialize the no-texture image.  This is in a static method
+     * because the Image constructor throws a SlickException which I wrapped
+     * in a try catch block.
+     */
     static {
         try {
             NO_TEX = new Image("no_tex.png");
@@ -42,24 +59,58 @@ public abstract class Entity implements Renderable {
         }
     }
 
+    /**
+     * The position of the entity in the world
+     */
     private Vector2f pos;
+
+    /**
+     * The width of the entity in pixels
+     */
     private int width;
+
+    /**
+     * The height of the entity in pixels
+     */
     private int height;
+
+    /**
+     * The direction that the entity is facing
+     */
     private Direction direction;
+
+    /**
+     * The default speed that the entity moves at normally
+     */
     private float walkingSpeed;
+
+    /**
+     * If the entity is in motion (if its position is changing)
+     */
     private boolean isMoving;
 
+    /**
+     * Creates an Entity object
+     *
+     * @param x The x coordinate to set the entity at
+     * @param y The y coordinate to set the entity at
+     */
     public Entity(float x, float y) {
         this(new Vector2f(x, y));
     }
 
+    /**
+     * Creates an Entity object
+     *
+     * @param pos The position to set the entity at
+     */
     public Entity(Vector2f pos) {
-        this.pos            = pos;
-        this.width          = 0;
-        this.height         = 0;
-        this.direction      = Direction.SOUTH;
-        this.walkingSpeed   = 1.0f;
-        this.isMoving       = false;
+        this.pos = pos;
+        this.width = 0;
+        this.height = 0;
+        this.direction = Direction.SOUTH;
+        this.walkingSpeed = 1.0f;
+        this.isMoving = false;
 
         init();
     }
@@ -80,54 +131,104 @@ public abstract class Entity implements Renderable {
     @Override
     public abstract void render(Graphics g);
 
+    /**
+     * @return The entity's coordinate position in the world
+     */
     public Vector2f getPos() {
         return pos;
     }
 
+    /**
+     * Sets the entity's position to the passed in coordinate
+     *
+     * @param pos The position to set the entity at
+     */
     protected void setPos(Vector2f pos) {
         this.pos = pos;
     }
 
+    /**
+     * @return The entity's x coordinate of its position in the world
+     */
     public float getX() {
         return pos.x;
     }
 
+    /**
+     * @return The entity's y coordinate of its position in the world
+     */
     public float getY() {
         return pos.y;
     }
 
+    /**
+     * @return The entity's width in pixels
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * Sets the width of the entity in pixels
+     *
+     * @param width The new width to set the entity to
+     */
     protected void setWidth(int width) {
         this.width = width;
     }
 
+    /**
+     * @return The entity's height in pixels
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     * Sets the height of the entity in pixels
+     *
+     * @param height The new height to set the entity to
+     */
     protected void setHeight(int height) {
         this.height = height;
     }
 
+    /**
+     * @return The direction that the entity is facing
+     */
     public Direction getDirection() {
         return direction;
     }
 
+    /**
+     * Sets the direction that the entity is facing
+     *
+     * @param direction The new direction the entity will be facing
+     */
     protected void setDirection(Direction direction) {
         this.direction = direction;
     }
 
+    /**
+     * @return How fast the entity moves when it is moving normally
+     * (pixels/frame)
+     */
     public float getWalkingSpeed() {
         return walkingSpeed;
     }
 
+    /**
+     * Sets how fast the entity moves when it is moving normally
+     *
+     * @param walkingSpeed The new speed at which the entity will normally move
+     */
     protected void setWalkingSpeed(float walkingSpeed) {
         this.walkingSpeed = walkingSpeed;
     }
 
+    /**
+     * @return If the entity is moving or not (if its position is changing)
+     */
     public boolean isMoving() {
         return isMoving;
     }
@@ -137,7 +238,7 @@ public abstract class Entity implements Renderable {
     }
 
     /**
-     * Moves the entity
+     * Moves the entity by a Vector2f amount
      *
      * @param amount A vector representing how much to add onto the position
      *               vector

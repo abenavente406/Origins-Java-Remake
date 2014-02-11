@@ -24,7 +24,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 
 /**
- * Created with IntelliJ IDEA.
+ * Represents a Player that is controlled by the user
  *
  * @author Anthony Benavente
  * @version 2/9/14
@@ -46,6 +46,11 @@ public class Player extends AnimatedEntity {
         getInput(container.getInput());
     }
 
+    /**
+     * Gets the input from the player
+     *
+     * @param input The input object that is used by the GameContainer
+     */
     private void getInput(Input input) {
 
         Vector2f vel = new Vector2f(0, 0);

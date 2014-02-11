@@ -20,7 +20,7 @@ package com.ambenavente.origins.gameplay.entities.interfaces;
 import org.newdawn.slick.Graphics;
 
 /**
- * Created with IntelliJ IDEA.
+ * Implemented by objects that are drawn to the screen
  *
  * @author Anthony Benavente
  * @version 2/10/14

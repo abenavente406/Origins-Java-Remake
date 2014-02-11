@@ -20,11 +20,19 @@ package com.ambenavente.origins.gameplay.entities.interfaces;
 import com.ambenavente.origins.gameplay.entities.player.Player;
 
 /**
- * Created with IntelliJ IDEA.
+ * To be implemented by objects that have events associated with interacting
+ * with a player
  *
  * @author Anthony Benavente
  * @version 2/10/14
  */
 public interface PlayerInteractable {
+
+    /**
+     * Called when something interacts with the player
+     *
+     * @param player The player that this object interacted with
+     */
     void onPlayerInteract(Player player);
+
 }

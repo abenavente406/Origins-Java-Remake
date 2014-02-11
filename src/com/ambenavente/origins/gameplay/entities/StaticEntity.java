@@ -22,13 +22,16 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 /**
- * Created with IntelliJ IDEA.
+ * Represents an entity that only has static images
  *
  * @author Anthony Benavente
  * @version 2/10/14
  */
 public abstract class StaticEntity extends Entity {
 
+    /**
+     * Images that the entity has for all directions
+     */
     private Image[] avatars;
 
     public StaticEntity(float x, float y) {
@@ -54,4 +57,25 @@ public abstract class StaticEntity extends Entity {
     @Override
     public abstract void update(GameContainer container, int delta);
     /* ------------------------ */
+
+    /**
+     * Sets the avatar at a certain direction
+     *
+     * @param direction The direction to set
+     * @param image     The avatar to set for at that direction
+     */
+    public void setAvatar(Direction direction, Image image) {
+        avatars[direction.ordinal()] = image;
+    }
+
+    /**
+     * Gets the avatar at a specified direction (NORTH, SOUTH, EAST, OR WEST)
+     *
+     * @param direction The direction to get the avatar from
+     * @return The avatar at a specified direction (NORTH, SOUTH, EAST,
+     * OR WEST)
+     */
+    public Image getAvatar(Direction direction) {
+        return avatars[direction.ordinal()];
+    }
 }

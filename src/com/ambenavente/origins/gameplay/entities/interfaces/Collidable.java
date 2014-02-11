@@ -20,7 +20,8 @@ package com.ambenavente.origins.gameplay.entities.interfaces;
 import com.ambenavente.origins.gameplay.entities.Entity;
 
 /**
- * Created with IntelliJ IDEA.
+ * Implemented by objects that have events associated with colliding with other
+ * entities or solid objects
  *
  * @author Anthony Benavente
  * @version 2/10/14

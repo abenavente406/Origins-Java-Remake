@@ -22,15 +22,21 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 /**
- * Created with IntelliJ IDEA.
+ * Represents an entity that has animations for each direction it faces
  *
  * @author Anthony Benavente
  * @version 2/10/14
  */
 public abstract class AnimatedEntity extends StaticEntity {
 
-    private boolean isMoving;
+    /**
+     * The animations for the entity while it is moving
+     */
     private Animation[] movingAnimations;
+
+    /**
+     * The animations for the entity while it is standing still
+     */
     private Animation[] stillAnimations;
 
     public AnimatedEntity(float x, float y) {
@@ -62,18 +68,44 @@ public abstract class AnimatedEntity extends StaticEntity {
     public abstract void update(GameContainer container, int delta);
     /* ------------------------ */
 
+    /**
+     * Sets the standing still animation object at the specified direction
+     *
+     * @param dir       The direction to set the animation for
+     * @param animation The animation to insert
+     */
     protected void setStillAnimation(Direction dir, Animation animation) {
         stillAnimations[dir.ordinal()] = animation;
     }
 
+    /**
+     * Sets the moving animation object at the specified direction
+     *
+     * @param dir       The direction to set the animation for
+     * @param animation The animation to insert
+     */
     protected void setMovingAnimation(Direction dir, Animation animation) {
         movingAnimations[dir.ordinal()] = animation;
     }
 
+    /**
+     * Gets the moving animation at the specified direction
+     *
+     * @param dir The direction to get the animation from
+     * @return The animation for the object's moving at the specified
+     * direction
+     */
     public Animation getMovingAnimation(Direction dir) {
         return movingAnimations[dir.ordinal()];
     }
 
+    /**
+     * Gets the still animation at the specified direction
+     *
+     * @param dir The direction to get the animation from
+     * @return The animation for the object's standing still at the specified
+     * direction
+     */
     public Animation getStillAnimation(Direction dir) {
         return stillAnimations[dir.ordinal()];
     }
