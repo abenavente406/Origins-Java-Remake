@@ -17,6 +17,7 @@
 
 package com.ambenavente.origins.gameplay.world.level;
 
+import com.ambenavente.origins.gameplay.world.json.MapDeserializer;
 import com.ambenavente.origins.util.Camera;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
@@ -125,6 +126,7 @@ public class LevelMap {
         this.realHeight     = height * tileHeight;
         this.layers         = new ArrayList<LevelLayer>();
         this.tileSheets     = new ArrayList<TileSheet>();
+        this.collisionMap   = new boolean[height][width];
     }
 
     /**
@@ -278,30 +280,9 @@ public class LevelMap {
      * @param path The path to the json file in the classpath
      */
     public void loadMap(String path) {
-        LevelMap map;
-        String line;
-        BufferedReader reader;
-        FileInputStream stream;
-        InputStreamReader streamReader;
-
-        try {
-            stream = new FileInputStream(path);
-            streamReader = new InputStreamReader(stream);
-            reader = new BufferedReader(streamReader);
-
-            line = reader.readLine();
-            int width  = Integer.parseInt(line.split(" ")[0]);
-            int height = Integer.parseInt(line.split(" ")[1]);
-            LevelTile[] tiles = new LevelTile[height * width];
-
-            while ((line = reader.readLine()) != null) {
-
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        MapDeserializer deserializer = new MapDeserializer();
+        LevelMap map = deserializer.readFromJsonFile(path);
+        loadMap(map);
     }
 
     /**
@@ -312,6 +293,22 @@ public class LevelMap {
      */
     public void loadMap(LevelMap map) {
 
+        // ------------------------------------------ //
+        // Since we're loading this map from another, //
+        // decrement the ID tracker                   //
+        // ------------------------------------------ //
+        ID_TRACK            -= 1;
+
+        this.id             = map.id;
+        this.width          = map.width;
+        this.height         = map.height;
+        this.tileWidth      = map.tileWidth;
+        this.tileHeight     = map.tileHeight;
+        this.realWidth      = width  * tileWidth;
+        this.realHeight     = height * tileHeight;
+        this.layers         = map.layers;
+        this.tileSheets     = map.tileSheets;
+        this.collisionMap   = map.collisionMap.clone();
     }
 
     /**
