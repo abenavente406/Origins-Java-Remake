@@ -1,0 +1,4 @@
+0
+32
+32
+res/tilesheets/dungeon_tiles_2.png
