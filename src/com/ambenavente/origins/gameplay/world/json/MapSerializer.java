@@ -21,10 +21,12 @@ import com.ambenavente.origins.gameplay.world.level.Tile;
 import com.ambenavente.origins.gameplay.world.level.TiledLayer;
 import com.ambenavente.origins.gameplay.world.level.TiledMap;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.lang.reflect.Modifier;
 
 /**
  * Writes a map object to a json file.
@@ -50,7 +52,9 @@ public class MapSerializer {
      * @param map The map object to write to a file
      */
     public MapSerializer(TiledMap map) {
-        this.gson = new Gson();
+        this.gson = new GsonBuilder()
+                .excludeFieldsWithModifiers(Modifier.TRANSIENT)
+                .create();
         this.map = map;
     }
 
@@ -117,7 +121,7 @@ public class MapSerializer {
             }
         }
 
-        TiledMap map = new TiledMap(50, 50, 32, 32);
+        TiledMap map = new TiledMap(50, 50, 32, 32, null);
         TiledLayer layer = new TiledLayer(map, tiles);
         map.addLayer(layer);
 

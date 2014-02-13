@@ -81,6 +81,7 @@ public class MapDeserializer {
      */
     public TiledMap readFromJson(String json) {
         TiledMap map = gson.fromJson(json, TiledMap.class);
+        map.initTileSheets();
         return map;
     }
 }
