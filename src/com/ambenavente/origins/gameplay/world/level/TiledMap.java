@@ -17,12 +17,16 @@
 
 package com.ambenavente.origins.gameplay.world.level;
 
+import com.ambenavente.origins.gameplay.managers.TileSheetManager;
 import com.ambenavente.origins.gameplay.world.json.MapDeserializer;
 import com.ambenavente.origins.util.Camera;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
+import java.security.InvalidKeyException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,7 +94,7 @@ public class TiledMap {
     /**
      * An array list of tile sheets used by the layers in this map
      */
-    private List<TileSheet> tileSheets;
+    private TileSheetManager tileSheets;
 
     /**
      * A 2D array representing where entities may walk.  If an element returns
@@ -104,7 +108,7 @@ public class TiledMap {
      * and with tileWidth and tileHeight of 0
      */
     public TiledMap() {
-        this(0, 0, 0, 0);
+        this(0, 0, 0, 0, null);
     }
 
     /**
@@ -115,7 +119,11 @@ public class TiledMap {
      * @param tileWidth  The width of an individual tile in the map
      * @param tileHeight The height of an individual tile in the map
      */
-    public TiledMap(int width, int height, int tileWidth, int tileHeight) {
+    public TiledMap(int width,
+                    int height,
+                    int tileWidth,
+                    int tileHeight,
+                    TileSheetManager manager) {
         this.id             = ID_TRACK++;
         this.width          = width;
         this.height         = height;
@@ -124,7 +132,7 @@ public class TiledMap {
         this.realWidth      = width  * tileWidth;
         this.realHeight     = height * tileHeight;
         this.layers         = new ArrayList<TiledLayer>();
-        this.tileSheets     = new ArrayList<TileSheet>();
+        this.tileSheets     = manager;
         this.collisionMap   = new boolean[height][width];
     }
 
@@ -152,17 +160,24 @@ public class TiledMap {
                         if (x < width && x >= 0) {
                             Tile tile = l.getTile(x, y);
                             TileSheet sheet =
-                                    tileSheets.get(tile.getTileSetId());
-                            Rectangle rect = sheet.getRect(tile.getTileId());
-                            g.drawImage(sheet.getImage(),
-                                        x,
-                                        y,
-                                        x + tileWidth,
-                                        y + tileHeight,
-                                        rect.getX(),
-                                        rect.getY(),
-                                        rect.getWidth(),
-                                        rect.getHeight());
+                                    null;
+                            try {
+                                sheet = tileSheets.get(tile.getTileSetId());
+                            } catch (InvalidKeyException e) {
+                                e.printStackTrace();
+                            }
+
+                            Image image = sheet.getImage(tile.getTileId());
+
+                            g.drawImage(image,
+                                        x * tileWidth,
+                                        y * tileHeight,
+                                        (x * tileWidth) + tileWidth,
+                                        (y * tileHeight) + tileHeight,
+                                        0,
+                                        0,
+                                        tileWidth,
+                                        tileHeight);
                         }
                     }
                 }
@@ -338,5 +353,18 @@ public class TiledMap {
             result &= map.getWidth()        == getWidth();
         }
         return result;
+    }
+
+    /**
+     * Sets the TileSheetManager that holds all the tile sheets for this map
+     *
+     * @param manager The TileSheetManager to give this map
+     */
+    public void setTileSheetManager(TileSheetManager manager) {
+        this.tileSheets = manager;
+    }
+
+    public void initTileSheets() {
+        tileSheets.initTileSheetImages();
     }
 }
