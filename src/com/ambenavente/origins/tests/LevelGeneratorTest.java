@@ -17,11 +17,16 @@
 
 package com.ambenavente.origins.tests;
 
+import com.ambenavente.origins.gameplay.managers.TileSheetManager;
 import com.ambenavente.origins.gameplay.world.level.Tile;
 import com.ambenavente.origins.gameplay.world.level.TiledLayer;
 import com.ambenavente.origins.gameplay.world.level.TiledMap;
 import com.ambenavente.origins.gameplay.world.level.generator.EnumGenerationAlgorithm;
 import com.ambenavente.origins.gameplay.world.level.generator.TiledLayerGenerator;
+import org.lwjgl.LWJGLException;
+import org.lwjgl.PointerBuffer;
+import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.DisplayMode;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,11 +40,16 @@ import java.util.Scanner;
  */
 public class LevelGeneratorTest extends JFrame {
 
-    private static final int DEFAULT_WIDTH  = 120;
-    private static final int DEFAULT_HEIGHT = 80;
+    private static final int DEFAULT_WIDTH  = 60;
+    private static final int DEFAULT_HEIGHT = 40;
     private static final int TILE_SIZE      = 5;
 
-    public LevelGeneratorTest(int type) {
+    private TileSheetManager manager;
+
+    public LevelGeneratorTest(int type) throws LWJGLException {
+        Display.create();
+        Display.setDisplayMode(new DisplayMode(0, 0));
+        manager = new TileSheetManager();
         EnumGenerationAlgorithm algorithm =
                 (type == 1)
                 ? EnumGenerationAlgorithm.RANDOM
@@ -59,7 +69,11 @@ public class LevelGeneratorTest extends JFrame {
         System.out.println("  >> 2 - Dungeon");
         int type = in.nextInt();
         if (type > 0 && type <= 2) {
-            new LevelGeneratorTest(type);
+            try {
+                new LevelGeneratorTest(type);
+            } catch (LWJGLException e) {
+                e.printStackTrace();
+            }
         } else {
             System.out.println("Invalid choice!");
         }
@@ -85,7 +99,8 @@ public class LevelGeneratorTest extends JFrame {
             TiledMap map = new TiledMap(DEFAULT_WIDTH,
                                         DEFAULT_HEIGHT,
                                         TILE_SIZE,
-                                        TILE_SIZE);
+                                        TILE_SIZE,
+                                        manager);
             TiledLayer layer =
                     TiledLayerGenerator.generateLayer(map, 0, 1, 0,
                             algorithm);

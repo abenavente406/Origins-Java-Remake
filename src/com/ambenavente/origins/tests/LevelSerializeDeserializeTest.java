@@ -17,11 +17,16 @@
 
 package com.ambenavente.origins.tests;
 
+import com.ambenavente.origins.gameplay.managers.TileSheetManager;
 import com.ambenavente.origins.gameplay.world.json.MapDeserializer;
 import com.ambenavente.origins.gameplay.world.json.MapSerializer;
 import com.ambenavente.origins.gameplay.world.level.TiledLayer;
 import com.ambenavente.origins.gameplay.world.level.TiledMap;
 import com.ambenavente.origins.gameplay.world.level.Tile;
+import com.ambenavente.origins.gameplay.world.level.generator.EnumGenerationAlgorithm;
+import com.ambenavente.origins.gameplay.world.level.generator.TiledLayerGenerator;
+import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.Display;
 
 import java.io.File;
 
@@ -32,13 +37,17 @@ import java.io.File;
  * @version 2/10/14
  */
 public class LevelSerializeDeserializeTest {
-    public static void main(String[] args) {
-        final int SIZE = 20;
+    public static void main(String[] args) throws LWJGLException {
+        Display.create();
+
+        final int SIZE = 60;
         final int TILE_SIZE = 32;
 
+        TileSheetManager manager = new TileSheetManager();
         Tile[][] testMap = new Tile[SIZE][SIZE];
-        TiledMap map = new TiledMap(SIZE, SIZE, TILE_SIZE, TILE_SIZE);
-        TiledLayer testLayer = new TiledLayer(map, testMap);
+        TiledMap map = new TiledMap(SIZE, SIZE, TILE_SIZE, TILE_SIZE, manager);
+        TiledLayer testLayer = TiledLayerGenerator.generateLayer(map,
+                0, 1, 0, EnumGenerationAlgorithm.DRUNKEN);
         map.addLayer(testLayer);
 
         MapSerializer serializer = new MapSerializer(map);
@@ -51,5 +60,7 @@ public class LevelSerializeDeserializeTest {
 
         System.out.println("The map saved is the same as the map " +
                 "loaded: " + map2.equals(map));
+
+        Display.destroy();
     }
 }
