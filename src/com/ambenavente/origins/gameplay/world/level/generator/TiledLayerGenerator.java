@@ -75,7 +75,7 @@ public class TiledLayerGenerator {
                                                 int tileSheetId) {
         final int width = map.getWidth();
         final int height = map.getHeight();
-        Tile[][] tiles = DrunkenWalkGenerator.generateDungeon(width,
+        Tile[][] tiles = DrunkenWalkGenerator.badGenerateDungeon(width,
                 height, groundId, wallId, tileSheetId);
         TiledLayer result = new TiledLayer(map, tiles);
         return result;

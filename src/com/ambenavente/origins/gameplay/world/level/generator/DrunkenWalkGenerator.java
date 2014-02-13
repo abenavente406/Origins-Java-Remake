@@ -188,10 +188,10 @@ public class DrunkenWalkGenerator {
                                                int wallId,
                                                int tileSheetId) {
 
-        Tile[][] tiles = new Tile[mapHeight][mapWidth];
+        Tile[][] tiles;
         List<Room> rooms = new ArrayList<Room>();
 
-        initTiles(mapWidth, mapHeight, wallId, tileSheetId);
+        tiles = initTiles(mapWidth, mapHeight, wallId, tileSheetId);
 
         int roomsMin = (int) (mapWidth * mapHeight) / 300;
         int roomsMax = (int) (mapWidth * mapHeight) / 150;
