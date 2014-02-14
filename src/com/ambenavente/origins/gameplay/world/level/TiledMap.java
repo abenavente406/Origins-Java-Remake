@@ -20,10 +20,8 @@ package com.ambenavente.origins.gameplay.world.level;
 import com.ambenavente.origins.gameplay.managers.TileSheetManager;
 import com.ambenavente.origins.gameplay.world.json.MapDeserializer;
 import com.ambenavente.origins.util.Camera;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
 import java.security.InvalidKeyException;
@@ -124,16 +122,16 @@ public class TiledMap {
                     int tileWidth,
                     int tileHeight,
                     TileSheetManager manager) {
-        this.id             = ID_TRACK++;
-        this.width          = width;
-        this.height         = height;
-        this.tileWidth      = tileWidth;
-        this.tileHeight     = tileHeight;
-        this.realWidth      = width  * tileWidth;
-        this.realHeight     = height * tileHeight;
-        this.layers         = new ArrayList<TiledLayer>();
-        this.tileSheets     = manager;
-        this.collisionMap   = new boolean[height][width];
+        this.id = ID_TRACK++;
+        this.width = width;
+        this.height = height;
+        this.tileWidth = tileWidth;
+        this.tileHeight = tileHeight;
+        this.realWidth = width * tileWidth;
+        this.realHeight = height * tileHeight;
+        this.layers = new ArrayList<TiledLayer>();
+        this.tileSheets = manager;
+        this.collisionMap = new boolean[height][width];
     }
 
     /**
@@ -170,14 +168,14 @@ public class TiledMap {
                             Image image = sheet.getImage(tile.getTileId());
 
                             g.drawImage(image,
-                                        x * tileWidth,
-                                        y * tileHeight,
-                                        (x * tileWidth) + tileWidth,
-                                        (y * tileHeight) + tileHeight,
-                                        0,
-                                        0,
-                                        tileWidth,
-                                        tileHeight);
+                                    x * tileWidth,
+                                    y * tileHeight,
+                                    (x * tileWidth) + tileWidth,
+                                    (y * tileHeight) + tileHeight,
+                                    0,
+                                    0,
+                                    tileWidth,
+                                    tileHeight);
                         }
                     }
                 }
@@ -311,18 +309,18 @@ public class TiledMap {
         // Since we're loading this map from another, //
         // decrement the ID tracker                   //
         // ------------------------------------------ //
-        ID_TRACK            -= 1;
+        ID_TRACK -= 1;
 
-        this.id             = map.id;
-        this.width          = map.width;
-        this.height         = map.height;
-        this.tileWidth      = map.tileWidth;
-        this.tileHeight     = map.tileHeight;
-        this.realWidth      = width  * tileWidth;
-        this.realHeight     = height * tileHeight;
-        this.layers         = map.layers;
-        this.tileSheets     = map.tileSheets;
-        this.collisionMap   = map.collisionMap.clone();
+        this.id = map.id;
+        this.width = map.width;
+        this.height = map.height;
+        this.tileWidth = map.tileWidth;
+        this.tileHeight = map.tileHeight;
+        this.realWidth = width * tileWidth;
+        this.realHeight = height * tileHeight;
+        this.layers = map.layers;
+        this.tileSheets = map.tileSheets;
+        this.collisionMap = map.collisionMap.clone();
     }
 
     /**
@@ -344,13 +342,13 @@ public class TiledMap {
     public boolean equals(Object obj) {
         boolean result = true;
         if (obj instanceof TiledMap) {
-            TiledMap map = (TiledMap)obj;
+            TiledMap map = (TiledMap) obj;
 
-            result &= map.getHeight()       == getHeight();
-            result &= map.getId()           == getId();
-            result &= map.getTileWidth()    == getTileWidth();
-            result &= map.getTileHeight()   == getTileHeight();
-            result &= map.getWidth()        == getWidth();
+            result &= map.getHeight() == getHeight();
+            result &= map.getId() == getId();
+            result &= map.getTileWidth() == getTileWidth();
+            result &= map.getTileHeight() == getTileHeight();
+            result &= map.getWidth() == getWidth();
         }
         return result;
     }
@@ -364,7 +362,40 @@ public class TiledMap {
         this.tileSheets = manager;
     }
 
+    /**
+     * Initializes the TileSheets for the map (used when deserializing the map)
+     */
     public void initTileSheets() {
         tileSheets.initTileSheetImages();
+    }
+
+    /**
+     * @return The width of the map in pixels
+     */
+    public int getRealWidth() {
+        return realWidth;
+    }
+
+    /**
+     * @return The height of the map in pixels
+     */
+    public int getRealHeight() {
+        return realHeight;
+    }
+
+    /**
+     * Gets if the tile at the given coordinate can be walked through
+     *
+     * @param x The x coordinate to check
+     * @param y The y coordinate to check
+     * @return If the tile at the given coordinates does not allow entities
+     * to walk through it
+     */
+    public boolean getCollision(float x, float y) {
+        return toTileX(x) < 0
+            || toTileX(x) >= width
+            || toTileY(y) < 0
+            || toTileY(y)  >= height
+            || collisionMap[toTileY(y)][toTileX(x)];
     }
 }
