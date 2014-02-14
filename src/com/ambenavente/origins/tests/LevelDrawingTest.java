@@ -51,9 +51,11 @@ public class LevelDrawingTest extends BasicGame {
     public void init(GameContainer container) throws SlickException {
         manager = new TileSheetManager();
         deserializer = new MapDeserializer();
-        map = deserializer.readFromJsonFile("res/json/test_map.json");
+        map = deserializer.readFromJsonFile("res/json/test_map_2.json");
 
         camera = new Camera(800, 480);
+        camera.setMax(new Vector2f(map.getRealWidth(), map.getRealHeight()));
+        camera.setMin(new Vector2f(0, 0));
     }
 
     @Override
