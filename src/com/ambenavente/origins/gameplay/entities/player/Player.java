@@ -19,6 +19,7 @@ package com.ambenavente.origins.gameplay.entities.player;
 
 import com.ambenavente.origins.gameplay.entities.AnimatedEntity;
 import com.ambenavente.origins.gameplay.entities.Direction;
+import com.ambenavente.origins.gameplay.world.level.TiledMap;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
@@ -39,11 +40,18 @@ public class Player extends AnimatedEntity {
     public void init() {
         // Don't do anything yet
         setWalkingSpeed(2.56f);
+
+        setWidth(32);
+        setHeight(32);
     }
 
     @Override
     public void update(GameContainer container, int delta) {
-        getInput(container.getInput());
+        return;
+    }
+
+    public void update(GameContainer container, TiledMap map, int delta) {
+        getInput(container.getInput(), map);
     }
 
     /**
@@ -51,7 +59,7 @@ public class Player extends AnimatedEntity {
      *
      * @param input The input object that is used by the GameContainer
      */
-    private void getInput(Input input) {
+    private void getInput(Input input, TiledMap map) {
 
         Vector2f vel = new Vector2f(0, 0);
 
@@ -78,6 +86,6 @@ public class Player extends AnimatedEntity {
 
         setMoving(vel.x != 0 || vel.y != 0);
 
-        move(vel);
+        move(vel, map);
     }
 }

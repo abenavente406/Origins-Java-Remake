@@ -18,6 +18,7 @@
 package com.ambenavente.origins.gameplay.entities;
 
 import com.ambenavente.origins.gameplay.entities.interfaces.Renderable;
+import com.ambenavente.origins.gameplay.world.level.TiledMap;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -243,8 +244,7 @@ public abstract class Entity implements Renderable {
      * @param amount A vector representing how much to add onto the position
      *               vector
      */
-    protected void move(Vector2f amount) {
-        pos.x += amount.x;
-        pos.y += amount.y;
+    protected void move(Vector2f amount, TiledMap map) {
+        
     }
 }
