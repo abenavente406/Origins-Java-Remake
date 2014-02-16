@@ -113,8 +113,6 @@ public abstract class Entity implements Renderable {
         this.direction = Direction.SOUTH;
         this.walkingSpeed = 1.0f;
         this.isMoving = false;
-
-        init();
     }
 
     /**
