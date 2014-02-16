@@ -39,19 +39,15 @@ public class Player extends AnimatedEntity {
     @Override
     public void init() {
         // Don't do anything yet
-        setWalkingSpeed(2.56f);
+        setWalkingSpeed(1.56f);
 
-        setWidth(32);
-        setHeight(32);
+        setWidth(20);
+        setHeight(27);
     }
 
     @Override
     public void update(GameContainer container, int delta) {
-        return;
-    }
-
-    public void update(GameContainer container, TiledMap map, int delta) {
-        getInput(container.getInput(), map);
+        getInput(container.getInput());
     }
 
     /**
@@ -59,7 +55,7 @@ public class Player extends AnimatedEntity {
      *
      * @param input The input object that is used by the GameContainer
      */
-    private void getInput(Input input, TiledMap map) {
+    private void getInput(Input input) {
 
         Vector2f vel = new Vector2f(0, 0);
 
@@ -86,6 +82,6 @@ public class Player extends AnimatedEntity {
 
         setMoving(vel.x != 0 || vel.y != 0);
 
-        move(vel, map);
+        move(vel);
     }
 }

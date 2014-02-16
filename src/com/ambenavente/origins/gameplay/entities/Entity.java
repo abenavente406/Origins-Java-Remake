@@ -18,6 +18,7 @@
 package com.ambenavente.origins.gameplay.entities;
 
 import com.ambenavente.origins.gameplay.entities.interfaces.Renderable;
+import com.ambenavente.origins.gameplay.world.World;
 import com.ambenavente.origins.gameplay.world.level.TiledMap;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -244,7 +245,34 @@ public abstract class Entity implements Renderable {
      * @param amount A vector representing how much to add onto the position
      *               vector
      */
-    protected void move(Vector2f amount, TiledMap map) {
-        
+    protected void move(Vector2f amount) {
+        Vector2f v = new Vector2f(0, 0);
+
+        float x1 = pos.x + amount.x + width / 4;
+        float y1 = pos.y + amount.y + height / 2;
+        float x2 = pos.x + amount.x + width - (width / 4);
+        float y2 = pos.y + amount.y + height;
+
+        if (amount.x < 0) {
+            if (!World.getCollision(x1, y1)) {
+                v.x += amount.x;
+            }
+        } else {
+            if (!World.getCollision(x2, y1)) {
+                v.x += amount.x;
+            }
+        }
+
+        if (amount.y < 0) {
+            if (!World.getCollision(x1, y1)) {
+                v.y += amount.y;
+            }
+        } else {
+            if (!World.getCollision(x1, y2)) {
+                v.y += amount.y;
+            }
+        }
+
+        pos.add(v);
     }
 }
