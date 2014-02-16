@@ -398,4 +398,10 @@ public class TiledMap {
             || toTileY(y)  >= height
             || collisionMap[toTileY(y)][toTileX(x)];
     }
+
+    public void setCollision(int x, int y, boolean collision) {
+        if (x >= 0 && x < width && y >= 0 && y < height) {
+            collisionMap[y][x] = collision;
+        }
+    }
 }

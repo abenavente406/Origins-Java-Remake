@@ -18,6 +18,7 @@
 package com.ambenavente.origins.tests;
 
 import com.ambenavente.origins.gameplay.entities.player.Player;
+import com.ambenavente.origins.gameplay.world.World;
 import com.ambenavente.origins.gameplay.world.json.MapDeserializer;
 import com.ambenavente.origins.gameplay.world.level.TiledMap;
 import com.ambenavente.origins.util.Camera;
@@ -36,7 +37,7 @@ public class PlayerTest extends BasicGame {
 
     private Camera camera;
     private Player player;
-    private TiledMap map;
+    private World world;
 
     public PlayerTest(String title) {
         super(title);
@@ -44,23 +45,28 @@ public class PlayerTest extends BasicGame {
 
     @Override
     public void init(GameContainer container) throws SlickException {
-        map     = new MapDeserializer()
-                     .readFromJsonFile("res/json/test_map_2.json");
+        World.init();
+
         camera  = new Camera(0,
                              0,
                              container.getWidth(),
                              container.getHeight());
-        player  = new Player(0, 0);
+        player  = new Player(32, 32);
 
-        camera.setMax(new Vector2f(map.getRealWidth(), map.getRealHeight()));
+        camera.setMax(new Vector2f(World.getActiveMap().getRealWidth(),
+                                   World.getActiveMap().getRealHeight()));
         camera.setMin(new Vector2f(0, 0));
     }
 
     @Override
     public void update(GameContainer container, int i) throws SlickException {
-        player.update(container, map, i);
+        player.update(container, i);
         camera.setX(player.getX() - camera.getViewWidth() / 2);
         camera.setY(player.getY() - camera.getViewHeight() / 2);
+
+        if (container.getInput().isKeyPressed(Input.KEY_ENTER)) {
+            World.nextMap();
+        }
     }
 
     @Override
@@ -69,7 +75,7 @@ public class PlayerTest extends BasicGame {
         graphics.pushTransform();
         graphics.translate(-camera.getX(), -camera.getY());
 
-        map.render(camera, graphics);
+        World.render(camera, graphics);
         player.render(graphics);
 
         graphics.popTransform();

@@ -78,6 +78,14 @@ public class TiledLayerGenerator {
         Tile[][] tiles = DrunkenWalkGenerator.badGenerateDungeon(width,
                 height, groundId, wallId, tileSheetId);
         TiledLayer result = new TiledLayer(map, tiles);
+
+        for (int y = 0; y < tiles.length; y++) {
+            for (int x = 0; x < tiles[y].length; x++) {
+                if (tiles[y][x].getTileId() == wallId){
+                    map.setCollision(x, y, true);
+                }
+            }
+        }
         return result;
     }
 }
