@@ -18,6 +18,7 @@
 package com.ambenavente.origins.tests;
 
 import com.ambenavente.origins.gameplay.entities.player.Player;
+import com.ambenavente.origins.gameplay.managers.SpriteSheetManager;
 import com.ambenavente.origins.gameplay.world.World;
 import com.ambenavente.origins.gameplay.world.json.MapDeserializer;
 import com.ambenavente.origins.gameplay.world.level.TiledMap;
@@ -45,6 +46,7 @@ public class PlayerTest extends BasicGame {
 
     @Override
     public void init(GameContainer container) throws SlickException {
+        SpriteSheetManager.init();
         World.init();
 
         camera  = new Camera(0,
