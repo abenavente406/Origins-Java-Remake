@@ -1,0 +1,4 @@
+0
+32
+32
+res/spritesheets/player.png
