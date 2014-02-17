@@ -51,12 +51,18 @@ public class Ghost extends Monster {
     @Override
     public void init() {
         setMaxHealth(10);
-        setTextureWidth(32);
-        setTextureHeight(32);
-        setWidth(28);
-        setHeight(21);
+        setTextureDimensions(32, 32);
+        setDimensions(28, 21);
         setWalkingSpeed(.93f);
 
+        initImages();
+
+        lookForPlayerAi = new LookForPlayerBehavior(this, getDetectRange());
+        randomMoveAi = new RandomMoveBehavior(this);
+        chasePlayerAi = new ChasePlayerBehavior(this, getInteractRange());
+    }
+
+    private void initImages() {
         Image[] left   = new Image[3];
         Image[] right  = new Image[3];
         Image[] up     = new Image[3];
@@ -78,10 +84,6 @@ public class Ghost extends Monster {
 
         initAvatars(up, down, right, left);
         initAnimations(up, down, right, left);
-
-        lookForPlayerAi = new LookForPlayerBehavior(this, getDetectRange());
-        randomMoveAi = new RandomMoveBehavior(this);
-        chasePlayerAi = new ChasePlayerBehavior(this, getInteractRange());
     }
 
     private void initAvatars(Image[] up, 
