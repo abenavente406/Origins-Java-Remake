@@ -15,9 +15,10 @@
  * limitations under the License.
  */
 
-package com.ambenavente.origins.gameplay.entities.monsters;
+package com.ambenavente.origins.gameplay.entities.ai;
 
-import org.newdawn.slick.GameContainer;
+import com.ambenavente.origins.gameplay.entities.Entity;
+import com.ambenavente.origins.gameplay.entities.interfaces.Behavior;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,18 +26,16 @@ import org.newdawn.slick.GameContainer;
  * @author Anthony Benavente
  * @version 2/17/14
  */
-public class GenericMonster extends Monster {
-    public GenericMonster(float x, float y) {
-        super(x, y);
+public class RandomMoveBehavior implements Behavior {
+
+    private Entity owner;
+
+    public RandomMoveBehavior(Entity owner) {
+        this.owner = owner;
     }
 
     @Override
-    public void init() {
-
-    }
-
-    @Override
-    public void update(GameContainer container, int delta) {
-
+    public void behave() {
+        // TODO: Move randomly
     }
 }
