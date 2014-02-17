@@ -17,6 +17,12 @@
 
 package com.ambenavente.origins.gameplay.managers;
 
+import com.ambenavente.origins.gameplay.entities.monsters.Monster;
+import com.ambenavente.origins.gameplay.entities.player.Player;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -24,4 +30,29 @@ package com.ambenavente.origins.gameplay.managers;
  * @version 2/9/14
  */
 public class EntityManager {
+
+    private Player player;
+    private List<Monster> monsters;
+
+    // TODO: Add array list for NPCs
+
+    public EntityManager() {
+        this(null);
+    }
+
+    public EntityManager(Player player) {
+        if (player == null) {
+            // Create a new player
+            player = new Player(0, 0);
+        } else {
+            // We have to load the player from the player passed in
+            player = new Player(player);
+        }
+
+        monsters = new ArrayList<Monster>();
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
 }
