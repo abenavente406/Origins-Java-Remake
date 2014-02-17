@@ -107,6 +107,11 @@ public abstract class Entity implements Renderable {
     private boolean dead;
 
     /**
+     * The stats for this entity
+     */
+    private EntityStats stats;
+
+    /**
      * Creates an Entity object
      *
      * @param x The x coordinate to set the entity at
@@ -356,5 +361,12 @@ public abstract class Entity implements Renderable {
     protected void heal(float amount) {
         health += amount;
         health  = Math.min(maxHealth, health);
+    }
+
+    /**
+     * @return The stats for the entity
+     */
+    protected EntityStats getStats() {
+        return stats;
     }
 }

@@ -38,7 +38,7 @@ public abstract class Monster extends AnimatedEntity implements PlayerInteractab
 
     @Override
     public void onPlayerInteract(Player player) {
-        hit(player, 10);
+        hit(player, getStats().rollDamage());
     }
 
     @Override
