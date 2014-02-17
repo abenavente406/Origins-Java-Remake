@@ -41,6 +41,9 @@ import org.newdawn.slick.geom.Vector2f;
  */
 public abstract class Entity implements Renderable {
 
+    protected static final int DEFAULT_HEIGHT = 21;
+    protected static final int DEFAULT_WIDTH  = 30;
+
     /**
      * The image that is used by entities that don't have an animation
      * or texture set because the user failed to call the entities
@@ -403,5 +406,15 @@ public abstract class Entity implements Renderable {
 
     protected void setTextureHeight(int textureHeight) {
         this.textureHeight = textureHeight;
+    }
+
+    protected void setDimensions(int width, int height) {
+        setWidth(width);
+        setHeight(height);
+    }
+
+    protected void setTextureDimensions(int width, int height) {
+        setTextureWidth(width);
+        setTextureHeight(height);
     }
 }
