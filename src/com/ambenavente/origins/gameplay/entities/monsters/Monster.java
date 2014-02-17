@@ -30,7 +30,8 @@ import org.newdawn.slick.GameContainer;
  */
 public abstract class Monster extends AnimatedEntity implements PlayerInteractable {
 
-    private int interactRange = 30;
+    private int interactRange   = 30;
+    private int detectRange     = 80;
 
     public Monster(float x, float y) {
         super(x, y);
@@ -47,4 +48,11 @@ public abstract class Monster extends AnimatedEntity implements PlayerInteractab
     @Override
     public abstract void update(GameContainer container, int delta);
 
+    protected int getInteractRange() {
+        return interactRange;
+    }
+
+    protected int getDetectRange() {
+        return detectRange;
+    }
 }
