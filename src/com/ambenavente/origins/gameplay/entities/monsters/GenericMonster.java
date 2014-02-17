@@ -17,34 +17,26 @@
 
 package com.ambenavente.origins.gameplay.entities.monsters;
 
-import com.ambenavente.origins.gameplay.entities.AnimatedEntity;
-import com.ambenavente.origins.gameplay.entities.interfaces.PlayerInteractable;
-import com.ambenavente.origins.gameplay.entities.player.Player;
 import org.newdawn.slick.GameContainer;
 
 /**
  * Created with IntelliJ IDEA.
  *
  * @author Anthony Benavente
- * @version 2/9/14
+ * @version 2/17/14
  */
-public abstract class Monster extends AnimatedEntity implements PlayerInteractable {
-
-    private int interactRange = 30;
-
-    public Monster(float x, float y) {
+public class GenericMonster extends Monster {
+    public GenericMonster(float x, float y) {
         super(x, y);
     }
 
     @Override
-    public void onPlayerInteract(Player player) {
-        hit(player, 10);
+    public void init() {
+
     }
 
     @Override
-    public abstract void init();
+    public void update(GameContainer container, int delta) {
 
-    @Override
-    public abstract void update(GameContainer container, int delta);
-
+    }
 }
