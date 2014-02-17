@@ -49,7 +49,7 @@ public class Skeleton extends Monster {
     public void init() {
         setDimensions(Entity.DEFAULT_WIDTH, Entity.DEFAULT_HEIGHT);
         setTextureDimensions(32, 32);
-        setWalkingSpeed(2.31f);
+        setWalkingSpeed(1.55f);
         setMaxHealth(50);
 
         initImages();
@@ -72,11 +72,11 @@ public class Skeleton extends Monster {
         SpriteSheet entitySheet = SpriteSheetManager.get(
                 SpriteSheetManager.ENTITY_SHEET_ID);
 
-        for (int x = startX; x < startX + horizontalCount; x++) {
-            down[x]    = entitySheet.getSprite(x, startY);
-            left[x]    = entitySheet.getSprite(x, startY + 1);
-            right[x]   = entitySheet.getSprite(x, startY + 2);
-            up[x]      = entitySheet.getSprite(x, startY + 3);
+        for (int x = startX, i = 0; x < startX + horizontalCount; x++, i++) {
+            down[i]    = entitySheet.getSprite(x, startY);
+            left[i]    = entitySheet.getSprite(x, startY + 1);
+            right[i]   = entitySheet.getSprite(x, startY + 2);
+            up[i]      = entitySheet.getSprite(x, startY + 3);
         }
 
         initAvatars(up, down, right, left);

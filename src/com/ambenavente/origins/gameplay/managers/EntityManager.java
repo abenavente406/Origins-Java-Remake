@@ -20,6 +20,7 @@ package com.ambenavente.origins.gameplay.managers;
 import com.ambenavente.origins.gameplay.entities.Entity;
 import com.ambenavente.origins.gameplay.entities.monsters.Ghost;
 import com.ambenavente.origins.gameplay.entities.monsters.Monster;
+import com.ambenavente.origins.gameplay.entities.monsters.Skeleton;
 import com.ambenavente.origins.gameplay.entities.player.Player;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -55,6 +56,7 @@ public class EntityManager {
 
         monsters = new ArrayList<Monster>();
         monsters.add(new Ghost(32 * 4, 32 * 4));
+        monsters.add(new Skeleton(32 * 5, 32 * 4));
 
         // ------------------------------------------
         // Testing adding monsters and benchmarking
