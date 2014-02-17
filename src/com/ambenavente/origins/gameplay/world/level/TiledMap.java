@@ -17,6 +17,7 @@
 
 package com.ambenavente.origins.gameplay.world.level;
 
+import com.ambenavente.origins.gameplay.managers.EntityManager;
 import com.ambenavente.origins.gameplay.managers.TileSheetManager;
 import com.ambenavente.origins.gameplay.world.json.MapDeserializer;
 import com.ambenavente.origins.util.Camera;
@@ -102,6 +103,13 @@ public class TiledMap {
     private boolean[][] collisionMap;
 
     /**
+     * An entity manager is instantiated with each instance of a level because
+     * each level has different entities.  This EntityManager is in charge of
+     * rendering and updating all entities in the level including the player.
+     */
+    private transient EntityManager entities;
+
+    /**
      * Creates a default TiledMap with the dimensions of [width:0, height:0]
      * and with tileWidth and tileHeight of 0
      */
@@ -122,16 +130,17 @@ public class TiledMap {
                     int tileWidth,
                     int tileHeight,
                     TileSheetManager manager) {
-        this.id = ID_TRACK++;
-        this.width = width;
-        this.height = height;
-        this.tileWidth = tileWidth;
-        this.tileHeight = tileHeight;
-        this.realWidth = width * tileWidth;
-        this.realHeight = height * tileHeight;
-        this.layers = new ArrayList<TiledLayer>();
-        this.tileSheets = manager;
-        this.collisionMap = new boolean[height][width];
+        this.id             = ID_TRACK++;
+        this.width          = width;
+        this.height         = height;
+        this.tileWidth      = tileWidth;
+        this.tileHeight     = tileHeight;
+        this.realWidth      = width * tileWidth;
+        this.realHeight     = height * tileHeight;
+        this.layers         = new ArrayList<TiledLayer>();
+        this.tileSheets     = manager;
+        this.collisionMap   = new boolean[height][width];
+        this.entities       = new EntityManager();
     }
 
     /**
@@ -399,9 +408,24 @@ public class TiledMap {
             || collisionMap[toTileY(y)][toTileX(x)];
     }
 
+    /**
+     * Sets the collision at a given tile to be true or false
+     *
+     * @param x The x coordinate to set
+     * @param y The y coordinate to set
+     * @param collision True or false if the tile is solid or not
+     */
     public void setCollision(int x, int y, boolean collision) {
         if (x >= 0 && x < width && y >= 0 && y < height) {
             collisionMap[y][x] = collision;
         }
+    }
+
+    /**
+     * @return The EntityManager in charge of updating and rendering entities
+     * for this level
+     */
+    public EntityManager getEntities() {
+        return entities;
     }
 }
