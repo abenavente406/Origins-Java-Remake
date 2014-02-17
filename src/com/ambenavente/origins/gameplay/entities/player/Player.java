@@ -38,6 +38,12 @@ public class Player extends AnimatedEntity {
         init();
     }
 
+    public Player(Player player) {
+        super(player.getX(), player.getY());
+
+        initFromPlayer(player);
+    }
+
     @Override
     public void init() {
         // Don't do anything yet
@@ -69,6 +75,12 @@ public class Player extends AnimatedEntity {
 
         setWidth(20);
         setHeight(27);
+    }
+
+    private void initFromPlayer(Player player) {
+        init();
+
+        // TODO: Load stuff from the player passed in
     }
 
     @Override
