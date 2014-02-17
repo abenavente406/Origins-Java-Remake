@@ -92,6 +92,21 @@ public abstract class Entity implements Renderable {
     private boolean isMoving;
 
     /**
+     * The maximum amount of health an entity can have
+     */
+    private int maxHealth;
+
+    /**
+     * The amount of health that the entity has out of its max health
+     */
+    private int health;
+
+    /**
+     * If the entity still has health; used for deletion of entities
+     */
+    private boolean dead;
+
+    /**
      * Creates an Entity object
      *
      * @param x The x coordinate to set the entity at
@@ -113,6 +128,7 @@ public abstract class Entity implements Renderable {
         this.direction = Direction.SOUTH;
         this.walkingSpeed = 1.0f;
         this.isMoving = false;
+        this.maxHealth = 30;
     }
 
     /**
@@ -227,6 +243,13 @@ public abstract class Entity implements Renderable {
     }
 
     /**
+     * @return The percentage of health that the entity has left
+     */
+    public float getRemainingHealthPercent() {
+        return (float) health / maxHealth;
+    }
+
+    /**
      * @return If the entity is moving or not (if its position is changing)
      */
     public boolean isMoving() {
@@ -272,5 +295,35 @@ public abstract class Entity implements Renderable {
         }
 
         pos.add(v);
+    }
+
+    /**
+     * This method inflicts damage on another entity
+     *
+     * @param other The entity to hurt
+     */
+    protected void hit(Entity other, float amount) {
+        // TODO: Add weapon system for damage adjustment
+        other.health -= amount;
+
+        if (other.health <= 0) {
+            other.kill();
+        }
+    }
+
+    /**
+     * Immediately kills this entity
+     */
+    protected void kill() {
+        dead = true;
+    }
+
+    /**
+     * An entity is considered dead if its health is equal to or below 0
+     *
+     * @return If the entity is dead or not
+     */
+    public boolean isDead() {
+        return dead;
     }
 }
