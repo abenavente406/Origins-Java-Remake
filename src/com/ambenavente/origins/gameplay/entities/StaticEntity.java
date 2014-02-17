@@ -17,6 +17,7 @@
 
 package com.ambenavente.origins.gameplay.entities;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -46,6 +47,7 @@ public abstract class StaticEntity extends Entity {
         Image image = avatars[getDirection().ordinal()];
         if (image != null) {
             image.draw(getX(), getY());
+            drawShadow(g);
         } else {
             Entity.NO_TEX.draw(getX(), getY());
         }

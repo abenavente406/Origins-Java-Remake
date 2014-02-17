@@ -20,10 +20,7 @@ package com.ambenavente.origins.gameplay.entities;
 import com.ambenavente.origins.gameplay.entities.interfaces.Renderable;
 import com.ambenavente.origins.gameplay.world.World;
 import com.ambenavente.origins.gameplay.world.level.TiledMap;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Vector2f;
 
 /**
@@ -165,6 +162,21 @@ public abstract class Entity implements Renderable {
 
     @Override
     public abstract void render(Graphics g);
+
+    /**
+     * Draws the shadow of the entity as a dark ellipse underneath the texture
+     *
+     * @param g The graphics object to draw the ellipse
+     */
+    protected void drawShadow(Graphics g) {
+        Color col = g.getColor();
+        g.setColor(new Color(0, 0, 0, 0.25f));
+        g.fillOval(getX() + 5,
+                getY() + getTextureHeight() - 2,
+                getTextureWidth() - 8,
+                5);
+        g.setColor(col);
+    }
 
     /**
      * @return The entity's coordinate position in the world

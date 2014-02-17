@@ -53,6 +53,7 @@ public abstract class AnimatedEntity extends StaticEntity {
 
             if (anim != null) {
                 anim.draw(getX(), getY());
+                drawShadow(g);
             } else{
                 super.render(g);
             }
@@ -61,6 +62,7 @@ public abstract class AnimatedEntity extends StaticEntity {
 
             if (anim != null) {
                 anim.draw(getX(), getY());
+                drawShadow(g);
             } else {
                 Entity.NO_TEX.draw(getX(), getY());
             }
