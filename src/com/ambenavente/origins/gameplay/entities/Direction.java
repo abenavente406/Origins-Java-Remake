@@ -17,6 +17,8 @@
 
 package com.ambenavente.origins.gameplay.entities;
 
+import com.ambenavente.origins.util.MyRandom;
+
 /**
  * The directions an entity can be facing: NORTH, EAST, SOUTH, WEST
  *
@@ -27,5 +29,11 @@ public enum Direction {
     NORTH,
     EAST,
     SOUTH,
-    WEST
+    WEST;
+
+    public static Direction getRandDirection() {
+        return Direction.values()[
+                    MyRandom.getRandBetween(0, Direction.values().length)
+               ];
+    }
 }
