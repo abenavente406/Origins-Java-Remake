@@ -129,6 +129,7 @@ public abstract class Entity implements Renderable {
         this.walkingSpeed = 1.0f;
         this.isMoving = false;
         this.maxHealth = 30;
+        this.health = maxHealth;
     }
 
     /**
@@ -325,5 +326,35 @@ public abstract class Entity implements Renderable {
      */
     public boolean isDead() {
         return dead;
+    }
+
+    /**
+     * @return Gets the maximum amount of health an entity can have
+     */
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    /**
+     * Sets the maximum amount of health that an entity can have.  After this
+     * adjustment, the method then checks to make sure that the current health
+     * for the entity is less than or equal to the max health
+     *
+     * @param maxHealth The new max health for this entity
+     */
+    protected void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+        health = Math.min(health, maxHealth);
+    }
+
+    /**
+     * Adds to this entity's health and makes sure that it doesn't exceed the
+     * max health
+     *
+     * @param amount The amount of hp to add
+     */
+    protected void heal(float amount) {
+        health += amount;
+        health  = Math.min(maxHealth, health);
     }
 }
