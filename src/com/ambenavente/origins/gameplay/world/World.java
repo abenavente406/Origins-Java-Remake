@@ -17,9 +17,11 @@
 
 package com.ambenavente.origins.gameplay.world;
 
+import com.ambenavente.origins.gameplay.entities.player.Player;
 import com.ambenavente.origins.gameplay.world.json.MapDeserializer;
 import com.ambenavente.origins.gameplay.world.level.TiledMap;
 import com.ambenavente.origins.util.Camera;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 import java.util.ArrayList;
@@ -59,6 +61,10 @@ public class World {
         }
     }
 
+    public static void update(GameContainer container, int delta) {
+        getActiveMap().update(container, delta);
+    }
+
     public static void render(Camera camera, Graphics g) {
          getActiveMap().render(camera, g);
     }
@@ -85,5 +91,9 @@ public class World {
 
     public static int getTileHeight() {
         return getActiveMap().getTileHeight();
+    }
+
+    public static Player getPlayer() {
+        return getActiveMap().getPlayer();
     }
 }

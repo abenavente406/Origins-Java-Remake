@@ -17,10 +17,12 @@
 
 package com.ambenavente.origins.gameplay.world.level;
 
+import com.ambenavente.origins.gameplay.entities.player.Player;
 import com.ambenavente.origins.gameplay.managers.EntityManager;
 import com.ambenavente.origins.gameplay.managers.TileSheetManager;
 import com.ambenavente.origins.gameplay.world.json.MapDeserializer;
 import com.ambenavente.origins.util.Camera;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Vector2f;
@@ -143,6 +145,10 @@ public class TiledMap {
         this.entities       = new EntityManager();
     }
 
+    public void update(GameContainer container, int delta) {
+        entities.update(container, delta);
+    }
+
     /**
      * Draws each layer of the map to the screen
      *
@@ -190,6 +196,8 @@ public class TiledMap {
                 }
             }
         }
+
+        entities.render(g);
     }
 
     /**
@@ -427,5 +435,12 @@ public class TiledMap {
      */
     public EntityManager getEntities() {
         return entities;
+    }
+
+    /**
+     * @return The current player for this level
+     */
+    public Player getPlayer() {
+        return entities.getPlayer();
     }
 }

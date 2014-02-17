@@ -37,8 +37,6 @@ import java.util.Random;
 public class PlayerTest extends BasicGame {
 
     private Camera camera;
-    private Player player;
-    private World world;
 
     public PlayerTest(String title) {
         super(title);
@@ -53,7 +51,6 @@ public class PlayerTest extends BasicGame {
                              0,
                              container.getWidth(),
                              container.getHeight());
-        player  = new Player(32, 32);
 
         camera.setMax(new Vector2f(World.getActiveMap().getRealWidth(),
                                    World.getActiveMap().getRealHeight()));
@@ -62,9 +59,11 @@ public class PlayerTest extends BasicGame {
 
     @Override
     public void update(GameContainer container, int i) throws SlickException {
-        player.update(container, i);
-        camera.setX(player.getX() - camera.getViewWidth() / 2);
-        camera.setY(player.getY() - camera.getViewHeight() / 2);
+
+        World.update(container, i);
+
+        camera.setX(World.getPlayer().getX() - camera.getViewWidth() / 2);
+        camera.setY(World.getPlayer().getY() - camera.getViewHeight() / 2);
 
         if (container.getInput().isKeyPressed(Input.KEY_ENTER)) {
             World.nextMap();
@@ -78,7 +77,6 @@ public class PlayerTest extends BasicGame {
         graphics.translate(-camera.getX(), -camera.getY());
 
         World.render(camera, graphics);
-        player.render(graphics);
 
         graphics.popTransform();
     }

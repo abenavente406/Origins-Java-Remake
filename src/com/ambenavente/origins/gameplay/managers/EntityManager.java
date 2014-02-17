@@ -17,8 +17,12 @@
 
 package com.ambenavente.origins.gameplay.managers;
 
+import com.ambenavente.origins.gameplay.entities.Entity;
+import com.ambenavente.origins.gameplay.entities.monsters.Ghost;
 import com.ambenavente.origins.gameplay.entities.monsters.Monster;
 import com.ambenavente.origins.gameplay.entities.player.Player;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,16 +47,61 @@ public class EntityManager {
     public EntityManager(Player player) {
         if (player == null) {
             // Create a new player
-            player = new Player(0, 0);
+            this.player = new Player(32, 32);
         } else {
             // We have to load the player from the player passed in
-            player = new Player(player);
+            this.player = new Player(player);
         }
 
         monsters = new ArrayList<Monster>();
+        monsters.add(new Ghost(32 * 4, 32 * 4));
+
+        // ------------------------------------------
+        // Testing adding monsters and benchmarking
+        // 100 monsters:  ~61 fps
+        // 200 monsters:  ~61 fps
+        // 400 monsters:  ~61 fps
+        // 800 monsters:  ~61 fps
+        // 1600 monsters: ~61 fps
+        // 2000 monsters: ~60 fps
+        // 3200 monsters: ~40 fps
+        // ------------------------------------------
+        // MAX MONSTERS: 2000
+        // ------------------------------------------
+//        for (int i = 0; i < 2000; i++) {
+//            monsters.add(new Ghost(32 * 4, 32 * 4));
+//        }
     }
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void update(GameContainer container, int delta) {
+        List<Entity> all = new ArrayList<Entity>();
+        all.addAll(monsters);
+        all.add(player);
+
+        for (int i = all.size() - 1; i >= 0; i--) {
+            Entity current = all.get(i);
+
+            if (current.isDead()) {
+                all.remove(current);
+
+                if (current instanceof Monster) monsters.remove(current);
+            } else {
+                current.update(container, delta);
+            }
+        }
+    }
+
+    public void render(Graphics g) {
+        List<Entity> all = new ArrayList<Entity>();
+        all.addAll(monsters);
+        all.add(player);
+
+        for (int i = all.size() - 1; i >= 0; i--) {
+            all.get(i).render(g);
+        }
     }
 }
