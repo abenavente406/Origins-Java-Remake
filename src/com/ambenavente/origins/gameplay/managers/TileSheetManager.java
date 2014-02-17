@@ -21,6 +21,7 @@ import com.ambenavente.origins.gameplay.world.level.TileSheet;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import javax.management.openmbean.KeyAlreadyExistsException;
 import java.io.*;
 import java.security.InvalidKeyException;
 import java.util.Hashtable;
@@ -102,8 +103,12 @@ public class TileSheetManager {
         }
 
         if (id != -999 && imagePath != null) {
+            if (!tileSheets.containsKey(id)) {
             tileSheets.put(id, new TileSheet(id, imagePath,
                     tileWidth, tileHeight));
+            } else {
+                throw new KeyAlreadyExistsException();
+            }
         } else {
             success = false;
         }
