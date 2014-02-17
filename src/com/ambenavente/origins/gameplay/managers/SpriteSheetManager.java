@@ -32,6 +32,9 @@ import java.util.Hashtable;
  */
 public class SpriteSheetManager {
 
+    public static final int PLAYER_SHEET_ID = 0;
+    public static final int ENTITY_SHEET_ID = 1;
+
     private static final String PATH = "res/spritesheets";
     private static Hashtable<Integer, SpriteSheet> spriteSheets;
 
