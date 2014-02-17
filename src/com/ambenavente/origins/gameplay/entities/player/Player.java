@@ -73,8 +73,10 @@ public class Player extends AnimatedEntity {
         setMovingAnimation(Direction.EAST,  new Animation(_right, 150));
         setMovingAnimation(Direction.WEST,  new Animation(_left, 150));
 
-        setWidth(20);
-        setHeight(27);
+        setTextureWidth(32);
+        setTextureHeight(32);
+        setWidth(24);
+        setHeight(21);
     }
 
     private void initFromPlayer(Player player) {

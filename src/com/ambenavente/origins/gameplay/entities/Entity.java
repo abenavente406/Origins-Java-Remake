@@ -77,6 +77,16 @@ public abstract class Entity implements Renderable {
     private int height;
 
     /**
+     * The width of this entity's texture.  May be 0 if no texture is present.
+     */
+    private int textureWidth;
+
+    /**
+     * The height of this entity's texture.  May be 0 if no texture is present.
+     */
+    private int textureHeight;
+
+    /**
      * The direction that the entity is facing
      */
     private Direction direction;
@@ -227,7 +237,7 @@ public abstract class Entity implements Renderable {
      *
      * @param direction The new direction the entity will be facing
      */
-    protected void setDirection(Direction direction) {
+    public void setDirection(Direction direction) {
         this.direction = direction;
     }
 
@@ -272,20 +282,20 @@ public abstract class Entity implements Renderable {
      * @param amount A vector representing how much to add onto the position
      *               vector
      */
-    protected void move(Vector2f amount) {
+    public void move(Vector2f amount) {
         Vector2f v = new Vector2f(0, 0);
 
-        float x1 = pos.x + amount.x + width / 4;
-        float y1 = pos.y + amount.y + height / 2;
-        float x2 = pos.x + amount.x + width - (width / 4);
-        float y2 = pos.y + amount.y + height;
+        float x1 = pos.x + amount.x + (textureWidth - width);
+        float y1 = pos.y + amount.y + (textureWidth - height);
+        float x2 = pos.x + amount.x + width;
+        float y2 = pos.y + amount.y + textureHeight;
 
         if (amount.x < 0) {
-            if (!World.getCollision(x1, y1)) {
+            if (!World.getCollision(x1, y2)) {
                 v.x += amount.x;
             }
         } else {
-            if (!World.getCollision(x2, y1)) {
+            if (!World.getCollision(x2, y2)) {
                 v.x += amount.x;
             }
         }
@@ -368,5 +378,30 @@ public abstract class Entity implements Renderable {
      */
     protected EntityStats getStats() {
         return stats;
+    }
+
+    /**
+     * Sets if the entity is in motion or not
+     *
+     * @param isMoving If the entity is moving, this should be true.
+     */
+    public void setIsMoving(boolean isMoving) {
+        this.isMoving = isMoving;
+    }
+
+    public int getTextureWidth() {
+        return textureWidth;
+    }
+
+    protected void setTextureWidth(int textureWidth) {
+        this.textureWidth = textureWidth;
+    }
+
+    public int getTextureHeight() {
+        return textureHeight;
+    }
+
+    protected void setTextureHeight(int textureHeight) {
+        this.textureHeight = textureHeight;
     }
 }
