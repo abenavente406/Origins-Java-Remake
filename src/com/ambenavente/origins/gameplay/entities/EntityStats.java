@@ -17,6 +17,8 @@
 
 package com.ambenavente.origins.gameplay.entities;
 
+import java.util.Random;
+
 /**
  * This class is used by the Entity class as a method of keeping track of how
  * much the player's character and other entities have become more powerful.
@@ -28,6 +30,7 @@ package com.ambenavente.origins.gameplay.entities;
  */
 public class EntityStats {
 
+    private static final Random rand = new Random();
     private static final int MAX_LEVEL = 100;
 
     /**
@@ -65,15 +68,28 @@ public class EntityStats {
      */
     private int athleticism;
 
+    /**
+     * The amount of damage the entity does by default.  Gets multiplied by
+     * the strength modifier
+     */
+    private int baseAttack;
+
+    /**
+     * Creates a new batch of entity stats
+     */
     public EntityStats() {
         this.strength = 1;
         this.speed = 1;
         this.constitution = 1;
         this.athleticism = 1;
         this.level = 1;
+        this.baseAttack = 1;
         this.experience = 0;
     }
 
+    /**
+     * @return The strength level/modifier of the entity
+     */
     public int getStrength() {
         return strength;
     }
@@ -82,6 +98,9 @@ public class EntityStats {
         this.strength = clampToMax(strength);
     }
 
+    /**
+     * @return The speed level/modifier of the entity
+     */
     public int getSpeed() {
         return speed;
     }
@@ -90,6 +109,9 @@ public class EntityStats {
         this.speed = clampToMax(speed);
     }
 
+    /**
+     * @return The constitution level/modifier of the entity
+     */
     public int getConstitution() {
         return constitution;
     }
@@ -98,6 +120,9 @@ public class EntityStats {
         this.constitution = clampToMax(constitution);
     }
 
+    /**
+     * @return The athleticism level/modifier of the entity
+     */
     public int getAthleticism() {
         return athleticism;
     }
@@ -106,6 +131,9 @@ public class EntityStats {
         this.athleticism = clampToMax(athleticism);
     }
 
+    /**
+     * @return The general level of the entity
+     */
     public int getLevel() {
         return level;
     }
@@ -114,6 +142,9 @@ public class EntityStats {
         this.level = clampToMax(level);
     }
 
+    /**
+     * @return The amount of xp the entity has ever obtained
+     */
     public int getExperience() {
         return experience;
     }
@@ -124,6 +155,32 @@ public class EntityStats {
         // TODO: Check for level up
     }
 
+    /**
+     * Gets the amount of damage this entity will cause on the next hit
+     *
+     * @return The damage calculated for the next hit
+     */
+    public int rollDamage() {
+        return baseAttack * strength *
+                (rand.nextDouble() > calculateCritChance() ? 2 : 1);
+    }
+
+    /**
+     * Calculates the chance that the entity's attack will be critical
+     *
+     * @return The percentage that the entity's hit will be critical
+     */
+    private float calculateCritChance() {
+        // TODO: Create a formula using the constitution
+        return (float) (1 - rand.nextDouble());
+    }
+
+    /**
+     * Clamps the parameter passed in to be below the MAX_LEVEL constant
+     *
+     * @param level The level to clamp
+     * @return The level after clamping
+     */
     public int clampToMax(int level) {
         return Math.min(level, MAX_LEVEL);
     }
