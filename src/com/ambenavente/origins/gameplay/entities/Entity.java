@@ -316,11 +316,11 @@ public abstract class Entity implements Renderable {
         }
 
         if (amount.y < 0) {
-            if (!World.getCollision(x1, y1)) {
+            if (!World.getCollision(x2, y1) && !World.getCollision(x1, y1)) {
                 v.y += amount.y;
             }
         } else {
-            if (!World.getCollision(x1, y2)) {
+            if (!World.getCollision(x2, y2) && !World.getCollision(x1, y2)) {
                 v.y += amount.y;
             }
         }
