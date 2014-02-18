@@ -73,6 +73,10 @@ public class Player extends AnimatedEntity {
         setMovingAnimation(Direction.EAST,  new Animation(_right, 150));
         setMovingAnimation(Direction.WEST,  new Animation(_left, 150));
 
+        for (Direction dir : Direction.values()) {
+            getMovingAnimation(dir).setPingPong(true);
+        }
+
         setTextureWidth(32);
         setTextureHeight(32);
         setWidth(24);
