@@ -31,8 +31,11 @@ import org.newdawn.slick.GameContainer;
  */
 public abstract class Monster extends AnimatedEntity implements PlayerInteractable {
 
+    private static final int HIT_COOL = 50;
+
     private int interactRange   = 30;
     private int detectRange     = 80;
+    private int hitCoolDown     = HIT_COOL;
 
     public Monster(float x, float y) {
         super(x, y);
@@ -40,7 +43,10 @@ public abstract class Monster extends AnimatedEntity implements PlayerInteractab
 
     @Override
     public void onPlayerInteract(Player player) {
-        hit(player, getStats().rollDamage());
+        if (--hitCoolDown <= 0) {
+            hit(player, getStats().rollDamage());
+            hitCoolDown = HIT_COOL;
+        }
     }
 
     @Override

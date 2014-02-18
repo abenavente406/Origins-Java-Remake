@@ -137,14 +137,15 @@ public abstract class Entity implements Renderable {
      * @param pos The position to set the entity at
      */
     public Entity(Vector2f pos) {
-        this.pos = pos;
-        this.width = 0;
-        this.height = 0;
-        this.direction = Direction.SOUTH;
-        this.walkingSpeed = 1.0f;
-        this.isMoving = false;
-        this.maxHealth = 30;
-        this.health = maxHealth;
+        this.pos            = pos;
+        this.width          = 0;
+        this.height         = 0;
+        this.direction      = Direction.SOUTH;
+        this.walkingSpeed   = 1.0f;
+        this.isMoving       = false;
+        this.maxHealth      = 30;
+        this.health         = maxHealth;
+        this.stats          = new EntityStats();
     }
 
     /**
@@ -335,6 +336,10 @@ public abstract class Entity implements Renderable {
      */
     protected void hit(Entity other, float amount) {
         // TODO: Add weapon system for damage adjustment
+
+        System.out.println(this + " hit " + other +
+                " for " + amount + " damage");
+
         other.health -= amount;
 
         if (other.health <= 0) {

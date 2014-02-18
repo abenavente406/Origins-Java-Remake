@@ -20,6 +20,7 @@ package com.ambenavente.origins.gameplay.entities.ai;
 import com.ambenavente.origins.gameplay.entities.Direction;
 import com.ambenavente.origins.gameplay.entities.Entity;
 import com.ambenavente.origins.gameplay.entities.interfaces.Behavior;
+import com.ambenavente.origins.gameplay.entities.interfaces.PlayerInteractable;
 import com.ambenavente.origins.gameplay.entities.player.Player;
 import com.ambenavente.origins.gameplay.world.World;
 import org.newdawn.slick.geom.Vector2f;
@@ -49,6 +50,10 @@ public class ChasePlayerBehavior implements Behavior {
             owner.setIsMoving(true);
         } else {
             owner.setIsMoving(false);
+
+            if (owner instanceof PlayerInteractable) {
+                ((PlayerInteractable)owner).onPlayerInteract(player);
+            }
         }
 
         facePlayer(player);
