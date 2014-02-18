@@ -106,6 +106,12 @@ public class Skeleton extends Monster {
 
     @Override
     public void update(GameContainer container, int delta) {
-        randomMoveAi.behave();
+        lookForPlayerAi.behave();
+
+        if (!lookForPlayerAi.foundPlayer()) {
+            randomMoveAi.behave();
+        } else {
+            chasePlayerAi.behave();
+        }
     }
 }
