@@ -20,6 +20,8 @@ package com.ambenavente.origins.gameplay.entities.ai;
 import com.ambenavente.origins.gameplay.entities.Entity;
 import com.ambenavente.origins.gameplay.entities.interfaces.Behavior;
 import com.ambenavente.origins.gameplay.entities.player.Player;
+import com.ambenavente.origins.gameplay.world.World;
+import org.newdawn.slick.geom.Vector2f;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,16 +33,31 @@ public class LookForPlayerBehavior implements Behavior {
 
     private int lookingRange;
     private Entity owner;
+    private boolean foundPlayer;
 
     public LookForPlayerBehavior(Entity owner,
                                  int lookingRange) {
-        this.owner = owner;
-        this.lookingRange = lookingRange;
+        this.owner          = owner;
+        this.lookingRange   = lookingRange;
+        this.foundPlayer    = false;
     }
 
     @Override
     public void behave() {
-        // TODO: Be on the lookout for the player
+        if (getPlayerInRange() != null) {
+            foundPlayer = true;
+        } else {
+            foundPlayer = false;
+        }
+    }
+
+    private Player getPlayerInRange() {
+        // TODO: Write an A* algorithm for detecting player
+        Player player = World.getPlayer();
+        if (player.getPos().distance(owner.getPos()) < lookingRange) {
+            return player;
+        }
+        return null;
     }
 
     public int getLookingRange() {
@@ -49,5 +66,9 @@ public class LookForPlayerBehavior implements Behavior {
 
     public void setLookingRange(int lookingRange) {
         this.lookingRange = lookingRange;
+    }
+
+    public boolean foundPlayer() {
+        return foundPlayer;
     }
 }
