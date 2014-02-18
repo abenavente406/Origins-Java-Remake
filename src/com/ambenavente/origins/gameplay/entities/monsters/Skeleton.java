@@ -51,6 +51,7 @@ public class Skeleton extends Monster {
         setTextureDimensions(32, 32);
         setWalkingSpeed(1.55f);
         setMaxHealth(50);
+        setName("Skeleton");
 
         initImages();
 

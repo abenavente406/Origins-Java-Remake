@@ -62,6 +62,11 @@ public abstract class Entity implements Renderable {
     }
 
     /**
+     * The name to reference this entity by (not as an identifier)
+     */
+    private String name;
+
+    /**
      * The position of the entity in the world
      */
     private Vector2f pos;
@@ -433,5 +438,18 @@ public abstract class Entity implements Renderable {
     protected void setTextureDimensions(int width, int height) {
         setTextureWidth(width);
         setTextureHeight(height);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    protected void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

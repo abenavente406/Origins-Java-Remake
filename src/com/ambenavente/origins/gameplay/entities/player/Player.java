@@ -77,6 +77,8 @@ public class Player extends AnimatedEntity {
         setTextureHeight(32);
         setWidth(24);
         setHeight(21);
+
+        setName("Player");
     }
 
     private void initFromPlayer(Player player) {
@@ -87,7 +89,9 @@ public class Player extends AnimatedEntity {
 
     @Override
     public void update(GameContainer container, int delta) {
-        getInput(container.getInput());
+        if (!isDead()){
+            getInput(container.getInput());
+        }
     }
 
     /**

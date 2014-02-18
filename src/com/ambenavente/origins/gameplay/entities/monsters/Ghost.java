@@ -56,6 +56,8 @@ public class Ghost extends Monster {
         lookForPlayerAi = new LookForPlayerBehavior(this, getDetectRange());
         randomMoveAi = new RandomMoveBehavior(this);
         chasePlayerAi = new ChasePlayerBehavior(this, getInteractRange());
+
+        setName("Ghost");
     }
 
     private void initImages() {

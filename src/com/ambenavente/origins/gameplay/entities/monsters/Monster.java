@@ -62,20 +62,4 @@ public abstract class Monster extends AnimatedEntity implements PlayerInteractab
     protected int getDetectRange() {
         return detectRange;
     }
-
-
-    /**
-     * @return Will return the player if the player is in the seeing range of
-     * this monster.  If the player was not found, this method will return null
-     */
-    protected Player getPlayerInSight() {
-        // TODO: Write a player detection algorithm
-        Player player = World.getPlayer();
-
-        if (player.getPos().distance(getPos()) < getDetectRange()) {
-            return player;
-        }
-
-        return null;
-    }
 }
