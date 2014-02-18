@@ -17,9 +17,12 @@
 
 package com.ambenavente.origins.gameplay.entities.ai;
 
+import com.ambenavente.origins.gameplay.entities.Direction;
 import com.ambenavente.origins.gameplay.entities.Entity;
 import com.ambenavente.origins.gameplay.entities.interfaces.Behavior;
 import com.ambenavente.origins.gameplay.entities.player.Player;
+import com.ambenavente.origins.gameplay.world.World;
+import org.newdawn.slick.geom.Vector2f;
 
 /**
  * Created with IntelliJ IDEA.
@@ -39,6 +42,66 @@ public class ChasePlayerBehavior implements Behavior {
 
     @Override
     public void behave() {
-        // TODO: Chase the player
+        Player player = World.getPlayer();
+
+        if (owner.getPos().distance(player.getPos()) > interactRange){
+            owner.move(getDirectionToPlayer(player));
+            owner.setIsMoving(true);
+        } else {
+            owner.setIsMoving(false);
+        }
+
+        facePlayer(player);
+    }
+
+    private Vector2f getDirectionToPlayer(Player player) {
+        // Get the vector in between this entity and the player
+        Vector2f dir = getDirectionVector(player);
+
+        // Normalize the direction vector
+        dir = dir.normalise();
+
+        return new Vector2f(dir.x * owner.getWalkingSpeed(),
+                            dir.y * owner.getWalkingSpeed());
+    }
+
+    private void facePlayer(Player player) {
+        // Get the vector from this entity to the player
+        Vector2f dir = getDirectionToPlayer(player);
+
+        // Find the angle of the direction vector
+        float angle = (float) Math.toRadians(Math.atan(dir.y / dir.x));
+
+        if (angle < 0) {
+            angle = (float) (Math.PI - angle);
+        }
+
+        if (owner.getY() < player.getY()) {
+            if (angle > -Math.PI / 4 && angle <= Math.PI / 4) {
+                owner.setDirection(Direction.EAST);
+            } else if (angle > Math.PI / 4 && angle <= 3 * Math.PI / 4) {
+                owner.setDirection(Direction.NORTH);
+            } else if (angle > 3 * Math.PI / 4 && angle <= 5 * Math.PI / 4) {
+                owner.setDirection(Direction.WEST);
+            } else if (angle > 5 * Math.PI / 4 && angle < 7 * Math.PI / 4) {
+                owner.setDirection(Direction.SOUTH);
+            }
+        } else {
+            if (angle > -Math.PI / 4 && angle <= Math.PI / 4) {
+                owner.setDirection(Direction.WEST);
+            } else if (angle > Math.PI / 4 && angle <= 3 * Math.PI / 4) {
+                owner.setDirection(Direction.NORTH);
+            } else if (angle > 3 * Math.PI / 4 && angle <= 5 * Math.PI / 4) {
+                owner.setDirection(Direction.EAST);
+            } else if (angle > 5 * Math.PI / 4 && angle < 7 * Math.PI / 4) {
+                owner.setDirection(Direction.SOUTH);
+            }
+        }
+    }
+
+    private Vector2f getDirectionVector(Player player) {
+        Vector2f dir = new Vector2f(player.getX() - owner.getX(),
+                player.getY() - owner.getY());
+        return dir;
     }
 }
