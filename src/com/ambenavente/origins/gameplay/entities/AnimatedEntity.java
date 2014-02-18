@@ -42,29 +42,31 @@ public abstract class AnimatedEntity extends StaticEntity {
     public AnimatedEntity(float x, float y) {
         super(x, y);
 
-        this.movingAnimations   = new Animation[Direction.values().length];
-        this.stillAnimations    = new Animation[Direction.values().length];
+        this.movingAnimations = new Animation[Direction.values().length];
+        this.stillAnimations = new Animation[Direction.values().length];
     }
 
     @Override
     public void render(Graphics g) {
-        if (!isMoving()) {
-            Animation anim = stillAnimations[getDirection().ordinal()];
+        if (!isDead()) {
+            if (!isMoving()) {
+                Animation anim = stillAnimations[getDirection().ordinal()];
 
-            if (anim != null) {
-                anim.draw(getX(), getY());
-                drawShadow(g);
-            } else{
-                super.render(g);
-            }
-        } else {
-            Animation anim = movingAnimations[getDirection().ordinal()];
-
-            if (anim != null) {
-                anim.draw(getX(), getY());
-                drawShadow(g);
+                if (anim != null) {
+                    anim.draw(getX(), getY());
+                    drawShadow(g);
+                } else {
+                    super.render(g);
+                }
             } else {
-                Entity.NO_TEX.draw(getX(), getY());
+                Animation anim = movingAnimations[getDirection().ordinal()];
+
+                if (anim != null) {
+                    anim.draw(getX(), getY());
+                    drawShadow(g);
+                } else {
+                    Entity.NO_TEX.draw(getX(), getY());
+                }
             }
         }
     }
