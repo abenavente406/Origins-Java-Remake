@@ -18,6 +18,9 @@
 package com.ambenavente.origins.gameplay.entities.monsters;
 
 import com.ambenavente.origins.gameplay.entities.AnimatedEntity;
+import com.ambenavente.origins.gameplay.entities.ai.ChasePlayerBehavior;
+import com.ambenavente.origins.gameplay.entities.ai.LookForPlayerBehavior;
+import com.ambenavente.origins.gameplay.entities.ai.RandomMoveBehavior;
 import com.ambenavente.origins.gameplay.entities.interfaces.PlayerInteractable;
 import com.ambenavente.origins.gameplay.entities.player.Player;
 import com.ambenavente.origins.gameplay.world.World;
@@ -33,12 +36,23 @@ public abstract class Monster extends AnimatedEntity implements PlayerInteractab
 
     private static final int HIT_COOL = 50;
 
-    private int interactRange   = 30;
-    private int detectRange     = 80;
-    private int hitCoolDown     = HIT_COOL;
+    private LookForPlayerBehavior lookForPlayerAi;
+    private RandomMoveBehavior randomMoveAi;
+    private ChasePlayerBehavior chasePlayerAi;
+    private int interactRange;
+    private int detectRange;
+    private int hitCoolDown;
 
     public Monster(float x, float y) {
         super(x, y);
+
+        interactRange   = 30;
+        detectRange     = 80;
+        hitCoolDown     = HIT_COOL;
+
+        lookForPlayerAi = new LookForPlayerBehavior(this, detectRange);
+        randomMoveAi    = new RandomMoveBehavior(this);
+        chasePlayerAi   = new ChasePlayerBehavior(this, interactRange);
     }
 
     @Override
@@ -53,7 +67,15 @@ public abstract class Monster extends AnimatedEntity implements PlayerInteractab
     public abstract void init();
 
     @Override
-    public abstract void update(GameContainer container, int delta);
+    public void update(GameContainer container, int delta) {
+        lookForPlayerAi.behave();
+
+        if (!lookForPlayerAi.foundPlayer()) {
+            randomMoveAi.behave();
+        } else {
+            chasePlayerAi.behave();
+        }
+    }
 
     protected int getInteractRange() {
         return interactRange;

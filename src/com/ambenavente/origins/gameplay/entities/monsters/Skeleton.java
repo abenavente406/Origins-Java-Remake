@@ -103,15 +103,4 @@ public class Skeleton extends Monster {
         setMovingAnimation(Direction.EAST,  new Animation(right, 150));
         setMovingAnimation(Direction.WEST,  new Animation(left, 150));
     }
-
-    @Override
-    public void update(GameContainer container, int delta) {
-        lookForPlayerAi.behave();
-
-        if (!lookForPlayerAi.foundPlayer()) {
-            randomMoveAi.behave();
-        } else {
-            chasePlayerAi.behave();
-        }
-    }
 }

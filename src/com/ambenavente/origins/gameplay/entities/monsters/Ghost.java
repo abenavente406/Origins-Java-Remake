@@ -35,10 +35,6 @@ import org.newdawn.slick.SpriteSheet;
  */
 public class Ghost extends Monster {
 
-    private LookForPlayerBehavior lookForPlayerAi;
-    private RandomMoveBehavior randomMoveAi;
-    private ChasePlayerBehavior chasePlayerAi;
-
     public Ghost(float x, float y) {
         super(x, y);
         init();
@@ -52,10 +48,6 @@ public class Ghost extends Monster {
         setWalkingSpeed(.93f);
 
         initImages();
-
-        lookForPlayerAi = new LookForPlayerBehavior(this, getDetectRange());
-        randomMoveAi = new RandomMoveBehavior(this);
-        chasePlayerAi = new ChasePlayerBehavior(this, getInteractRange());
 
         setName("Ghost");
     }
@@ -103,16 +95,4 @@ public class Ghost extends Monster {
         setMovingAnimation(Direction.EAST, new Animation(right, 150));
         setMovingAnimation(Direction.WEST, new Animation(left, 150));
     }
-
-    @Override
-    public void update(GameContainer container, int delta) {
-        lookForPlayerAi.behave();
-
-        if (!lookForPlayerAi.foundPlayer()) {
-            randomMoveAi.behave();
-        } else {
-            chasePlayerAi.behave();
-        }
-    }
-
 }
