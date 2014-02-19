@@ -54,8 +54,12 @@ public class Label extends Control {
     @Override
     public void render(Graphics g) {
         Font tmpFont = g.getFont();
+        setWidth(tmpFont.getWidth(getText()));
+        setHeight(tmpFont.getHeight(getText()));
         if (getFont() != null) {
             g.setFont(getFont());
+            setWidth(getFont().getWidth(getText()));
+            setHeight(getFont().getHeight(getText()));
         }
         g.drawString(getText(), getX(), getY());
         g.setFont(tmpFont);

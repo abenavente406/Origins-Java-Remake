@@ -18,8 +18,13 @@
 package com.ambenavente.origins.states;
 
 import com.ambenavente.origins.ui.Label;
+import com.ambenavente.origins.ui.LinkLabel;
+import com.ambenavente.origins.ui.events.ActionArgs;
+import com.ambenavente.origins.ui.events.ActionDoer;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,6 +37,7 @@ public class StateMainMenu extends StateBase {
     private Animation background;
     private Image title;
     private Label label;
+    private LinkLabel linkLabel;
 
     public StateMainMenu(StateBasedGame parent) {
         super(parent);
@@ -45,6 +51,14 @@ public class StateMainMenu extends StateBase {
         label = new Label("lblTest", "Hello");
         label.setX(200);
         label.setY(100);
+        linkLabel = new LinkLabel("lblTest2", "New Game");
+        linkLabel.setActionDoer(new ActionDoer() {
+            @Override
+            public void doAction(ActionArgs e) {
+                getParent().enterState(EnumState.GAMEPLAY,
+                        new FadeOutTransition(), new FadeInTransition());
+            }
+        });
     }
 
     private void initTitle() throws SlickException {
@@ -66,6 +80,7 @@ public class StateMainMenu extends StateBase {
         background.draw(0, 0);
         drawTitle(container, g);
         label.render(g);
+        linkLabel.render(g);
         super.render(container, game, g);
     }
 
@@ -80,6 +95,7 @@ public class StateMainMenu extends StateBase {
                        StateBasedGame game,
                        int delta) throws SlickException {
         label.update(container.getInput(), delta);
+        linkLabel.update(container.getInput(), delta);
     }
 
     @Override
