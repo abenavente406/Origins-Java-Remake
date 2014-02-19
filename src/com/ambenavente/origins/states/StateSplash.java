@@ -17,10 +17,7 @@
 
 package com.ambenavente.origins.states;
 
-import org.newdawn.slick.Font;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
@@ -44,6 +41,8 @@ public class StateSplash extends StateBase {
      */
     private int elapsed;
 
+    private Image title;
+
     public StateSplash(StateBasedGame parent) {
         super(parent);
     }
@@ -52,6 +51,7 @@ public class StateSplash extends StateBase {
     public void init(GameContainer container,
                      StateBasedGame game) throws SlickException {
         elapsed = 0;
+        title = new Image("res/images/title.png");
     }
 
     @Override
@@ -62,23 +62,22 @@ public class StateSplash extends StateBase {
         // TODO: Draw the logo/studio credits
 
         Font font = g.getFont();
-        String title = getParent().getTitle();
         String author = getParent().getAuthor();
 
         int centeredTitleX = container.getWidth() / 2
-                - font.getWidth(title) / 2;
+                - title.getWidth() / 2;
         int centeredTitleY = container.getHeight() / 2
-                - font.getHeight(title) / 2;
+                - title.getHeight() / 2;
 
         int centeredAuthorX = container.getWidth() / 2
                 - font.getWidth(author) / 2;
         int centeredAuthorY = container.getHeight() / 2
                 - font.getHeight(author) / 2
-                + font.getLineHeight();
+                + title.getHeight();
 
-        int combinedHeight = font.getHeight(title + "\n" + author);
+        int combinedHeight = title.getHeight() + font.getHeight(author);
 
-        g.drawString(title, centeredTitleX, centeredTitleY - combinedHeight / 2);
+        g.drawImage(title, centeredTitleX, centeredTitleY - combinedHeight / 2);
         g.drawString(author, centeredAuthorX, centeredAuthorY - combinedHeight / 2);
     }
 
