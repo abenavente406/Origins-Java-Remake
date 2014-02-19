@@ -17,6 +17,7 @@
 
 package com.ambenavente.origins.states;
 
+import com.ambenavente.origins.main.OriginsGame;
 import com.ambenavente.origins.util.Camera;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -32,6 +33,16 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class StateGameplay extends BasicGameState {
 
+    private OriginsGame parent;
+
+    public StateGameplay(StateBasedGame parent) {
+        if (parent instanceof OriginsGame) {
+            this.parent = (OriginsGame) parent;
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
+
     @Override
     public void init(GameContainer container,
                      StateBasedGame stateBasedGame) throws SlickException {
@@ -41,8 +52,14 @@ public class StateGameplay extends BasicGameState {
     @Override
     public void render(GameContainer container,
                        StateBasedGame stateBasedGame,
-                       Graphics graphics) throws SlickException {
+                       Graphics g) throws SlickException {
+        if (parent.getDebug()) {
+            g.drawString(EnumState.values()[getID()].toString(),
+                    0,
+                    container.getHeight() - g.getFont().getLineHeight());
+        }
 
+        // TODO: Draw the game
     }
 
     @Override

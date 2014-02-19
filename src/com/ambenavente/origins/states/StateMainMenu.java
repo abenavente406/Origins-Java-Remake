@@ -17,11 +17,58 @@
 
 package com.ambenavente.origins.states;
 
+import com.ambenavente.origins.main.OriginsGame;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
+
 /**
  * Created with IntelliJ IDEA.
  *
  * @author Anthony Benavente
  * @version 2/9/14
  */
-public class StateMainMenu {
+public class StateMainMenu extends BasicGameState {
+
+    OriginsGame parent;
+
+    public StateMainMenu(StateBasedGame parent) {
+        if (parent instanceof OriginsGame) {
+            this.parent = (OriginsGame) parent;
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    @Override
+    public void init(GameContainer container,
+                     StateBasedGame game) throws SlickException {
+
+    }
+
+    @Override
+    public void render(GameContainer container,
+                       StateBasedGame game,
+                       Graphics g) throws SlickException {
+        if (parent.getDebug()) {
+            g.drawString(EnumState.values()[getID()].toString(),
+                    0,
+                    container.getHeight() - g.getFont().getLineHeight());
+        }
+    }
+
+    @Override
+    public void update(GameContainer container,
+                       StateBasedGame game,
+                       int delta) throws SlickException {
+
+    }
+
+    @Override
+    public int getID() {
+        return EnumState.MENU.getId();
+    }
+
 }

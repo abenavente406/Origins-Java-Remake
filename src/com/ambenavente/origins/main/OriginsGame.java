@@ -19,6 +19,7 @@ package com.ambenavente.origins.main;
 
 import com.ambenavente.origins.states.EnumState;
 import com.ambenavente.origins.states.StateGameplay;
+import com.ambenavente.origins.states.StateMainMenu;
 import com.ambenavente.origins.states.StateSplash;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -39,15 +40,22 @@ public class OriginsGame extends StateBasedGame {
      */
     private boolean debug = false;
 
-    public OriginsGame(String name) {
+    /**
+     * The author of the game
+     */
+    private String author;
+
+    public OriginsGame(String name, String author) {
         super(name);
+        this.author = author;
     }
 
     @Override
     public void initStatesList(GameContainer container)
             throws SlickException {
-        addState(new StateSplash());
-        addState(new StateGameplay());
+        addState(new StateSplash(this));
+        addState(new StateMainMenu(this));
+        addState(new StateGameplay(this));
 
         enterState(EnumState.SPLASH);
     }
@@ -93,5 +101,9 @@ public class OriginsGame extends StateBasedGame {
                            Transition leave,
                            Transition enter) {
         enterState(state.getId(), leave, enter);
+    }
+
+    public String getAuthor() {
+        return author;
     }
 }

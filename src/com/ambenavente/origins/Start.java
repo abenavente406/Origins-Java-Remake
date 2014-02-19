@@ -31,7 +31,8 @@ public class Start {
 
     public static void main(String[] args) throws SlickException {
 
-        OriginsGame originsGame = new OriginsGame("Origins");
+        OriginsGame originsGame = new OriginsGame("Origins",
+                                                  "Anthony Benavente");
 
         if (args[0].equals("debug")) {
             originsGame.setDebug(true);

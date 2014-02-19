@@ -17,6 +17,8 @@
 
 package com.ambenavente.origins.states;
 
+import com.ambenavente.origins.main.OriginsGame;
+import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -42,17 +44,54 @@ public class StateSplash extends BasicGameState {
     /**
      * This is the amount of time that the game has spent in this state
      */
-    private int elapsed = 0;
+    private int elapsed;
+
+    private OriginsGame parent;
+
+    public StateSplash(StateBasedGame parent) {
+        if (parent instanceof OriginsGame) {
+            this.parent = (OriginsGame) parent;
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
 
     @Override
     public void init(GameContainer container,
                      StateBasedGame game) throws SlickException {
+        elapsed = 0;
     }
 
     @Override
     public void render(GameContainer container,
                        StateBasedGame game, Graphics g) throws SlickException {
+        if (parent.getDebug()) {
+            g.drawString(EnumState.values()[getID()].toString(),
+                    0,
+                    container.getHeight() - g.getFont().getLineHeight());
+        }
+
         // TODO: Draw the logo/studio credits
+
+        Font font = g.getFont();
+        String title = parent.getTitle();
+        String author = parent.getAuthor();
+
+        int centeredTitleX = container.getWidth() / 2
+                - font.getWidth(title) / 2;
+        int centeredTitleY = container.getHeight() / 2
+                - font.getHeight(title) / 2;
+
+        int centeredAuthorX = container.getWidth() / 2
+                - font.getWidth(author) / 2;
+        int centeredAuthorY = container.getHeight() / 2
+                - font.getHeight(author) / 2
+                + font.getLineHeight();
+
+        int combinedHeight = font.getHeight(title + "\n" + author);
+
+        g.drawString(title, centeredTitleX, centeredTitleY - combinedHeight / 2);
+        g.drawString(author, centeredAuthorX, centeredAuthorY - combinedHeight / 2);
     }
 
     @Override
@@ -65,9 +104,9 @@ public class StateSplash extends BasicGameState {
         if ((elapsed += delta) >= DURATION) {
             // Move on to the next state
             elapsed = 0;
-            game.enterState(EnumState.MENU.getId(),
-                            new FadeOutTransition(),
-                            new FadeInTransition());
+            parent.enterState(EnumState.MENU,
+                    new FadeOutTransition(),
+                    new FadeInTransition());
         }
     }
 
