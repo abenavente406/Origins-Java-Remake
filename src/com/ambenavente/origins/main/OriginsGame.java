@@ -17,9 +17,13 @@
 
 package com.ambenavente.origins.main;
 
+import com.ambenavente.origins.states.EnumState;
+import com.ambenavente.origins.states.StateGameplay;
+import com.ambenavente.origins.states.StateSplash;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.Transition;
 
 /**
  * Created with IntelliJ IDEA.
@@ -42,7 +46,10 @@ public class OriginsGame extends StateBasedGame {
     @Override
     public void initStatesList(GameContainer container)
             throws SlickException {
+        addState(new StateSplash());
+        addState(new StateGameplay());
 
+        enterState(EnumState.SPLASH);
     }
 
     /**
@@ -61,5 +68,30 @@ public class OriginsGame extends StateBasedGame {
      */
     public void setDebug(boolean debug) {
         this.debug = debug;
+    }
+
+    /**
+     * Overloads the default enter state in order to be able to pass in
+     * an EnumState enumeration rather than an id
+     *
+     * @param state The state to enter
+     */
+    public void enterState(EnumState state) {
+        enterState(state.getId());
+    }
+
+
+    /**
+     * Overloads the default enter state in order to be able to pass in
+     * an EnumState enumeration rather than an id
+     *
+     * @param state The state to enter
+     * @param leave The transition to use when leaving this state
+     * @param enter The transition to use when entering the next state
+     */
+    public void enterState(EnumState state,
+                           Transition leave,
+                           Transition enter) {
+        enterState(state.getId(), leave, enter);
     }
 }
