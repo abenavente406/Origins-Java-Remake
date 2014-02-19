@@ -43,6 +43,11 @@ public class Start {
         AppGameContainer container = new AppGameContainer(originsGame);
         container.setDisplayMode(640, 480, false);
         container.setTargetFrameRate(60);
+
+        if (!originsGame.getDebug()) {
+            container.setShowFPS(false);
+        }
+
         container.start();
     }
 

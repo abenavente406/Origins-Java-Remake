@@ -17,9 +17,7 @@
 
 package com.ambenavente.origins.states;
 
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
@@ -30,6 +28,9 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class StateMainMenu extends StateBase {
 
+    private Animation background;
+    private Image title;
+
     public StateMainMenu(StateBasedGame parent) {
         super(parent);
     }
@@ -37,14 +38,35 @@ public class StateMainMenu extends StateBase {
     @Override
     public void init(GameContainer container,
                      StateBasedGame game) throws SlickException {
+        initBackground();
+        initTitle();
+    }
 
+    private void initTitle() throws SlickException {
+        title = new Image("res/images/title.png");
+    }
+
+    private void initBackground() throws SlickException {
+        Image[] images = new Image[8];
+        for (int i = 0; i < images.length; i++) {
+            images[i] = new Image("res/images/waterfall/water" + i + ".png");
+        }
+        background = new Animation(images, 100);
     }
 
     @Override
     public void render(GameContainer container,
                        StateBasedGame game,
                        Graphics g) throws SlickException {
+        background.draw(0, 0);
+        drawTitle(container, g);
         super.render(container, game, g);
+    }
+
+    private void drawTitle(GameContainer container,
+                           Graphics g) {
+        int centeredX = container.getWidth() / 2 - title.getWidth() / 2;
+        g.drawImage(title, centeredX, 50);
     }
 
     @Override
