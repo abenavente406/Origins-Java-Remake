@@ -34,8 +34,10 @@ public class Start {
         OriginsGame originsGame = new OriginsGame("Origins",
                 "Anthony Benavente");
 
-        if (args[0].equals("debug")) {
-            originsGame.setDebug(true);
+        if (args.length != 0) {
+            if (args[0].equals("debug")) {
+                originsGame.setDebug(true);
+            }
         }
 
         AppGameContainer container = new AppGameContainer(originsGame);
