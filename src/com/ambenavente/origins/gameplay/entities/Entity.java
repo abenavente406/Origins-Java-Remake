@@ -19,7 +19,6 @@ package com.ambenavente.origins.gameplay.entities;
 
 import com.ambenavente.origins.gameplay.entities.interfaces.Renderable;
 import com.ambenavente.origins.gameplay.world.World;
-import com.ambenavente.origins.gameplay.world.level.TiledMap;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -39,7 +38,7 @@ import org.newdawn.slick.geom.Vector2f;
 public abstract class Entity implements Renderable {
 
     protected static final int DEFAULT_HEIGHT = 21;
-    protected static final int DEFAULT_WIDTH  = 30;
+    protected static final int DEFAULT_WIDTH = 30;
 
     /**
      * The image that is used by entities that don't have an animation
@@ -142,15 +141,15 @@ public abstract class Entity implements Renderable {
      * @param pos The position to set the entity at
      */
     public Entity(Vector2f pos) {
-        this.pos            = pos;
-        this.width          = 0;
-        this.height         = 0;
-        this.direction      = Direction.SOUTH;
-        this.walkingSpeed   = 1.0f;
-        this.isMoving       = false;
-        this.maxHealth      = 30;
-        this.health         = maxHealth;
-        this.stats          = new EntityStats();
+        this.pos = pos;
+        this.width = 0;
+        this.height = 0;
+        this.direction = Direction.SOUTH;
+        this.walkingSpeed = 1.0f;
+        this.isMoving = false;
+        this.maxHealth = 30;
+        this.health = maxHealth;
+        this.stats = new EntityStats();
     }
 
     /**
@@ -395,7 +394,7 @@ public abstract class Entity implements Renderable {
      */
     protected void heal(float amount) {
         health += amount;
-        health  = Math.min(maxHealth, health);
+        health = Math.min(maxHealth, health);
     }
 
     /**

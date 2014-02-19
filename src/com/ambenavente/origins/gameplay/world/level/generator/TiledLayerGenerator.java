@@ -43,7 +43,7 @@ public class TiledLayerGenerator {
             case RANDOM:
                 return generateFromRandom(map, groundId, wallId, tileSheetId);
             case DRUNKEN:
-                return generateFromDrunk(map, groundId, wallId ,tileSheetId);
+                return generateFromDrunk(map, groundId, wallId, tileSheetId);
             case PERLIN:
             default:
                 return generateFromRandom(map, groundId, wallId, tileSheetId);
@@ -62,7 +62,7 @@ public class TiledLayerGenerator {
             for (int x = 0; x < width; x++) {
                 boolean ground = RAND.nextBoolean();
                 tiles[y][x] = new Tile(ground ? groundId : wallId,
-                                       tileSheetId);
+                        tileSheetId);
             }
         }
         TiledLayer result = new TiledLayer(map, tiles);
@@ -81,7 +81,7 @@ public class TiledLayerGenerator {
 
         for (int y = 0; y < tiles.length; y++) {
             for (int x = 0; x < tiles[y].length; x++) {
-                if (tiles[y][x].getTileId() == wallId){
+                if (tiles[y][x].getTileId() == wallId) {
                     map.setCollision(x, y, true);
                 }
             }

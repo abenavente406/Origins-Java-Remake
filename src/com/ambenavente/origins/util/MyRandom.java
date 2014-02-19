@@ -35,7 +35,7 @@ public class MyRandom {
      * The high parameter MUST BE greater than the low parameter or else the
      * method will throw an IllegalArgumentException
      *
-     * @param low The lowest possible number for the number
+     * @param low  The lowest possible number for the number
      * @param high The highest possible number (not including this number)
      * @return A random number between low and high
      */
@@ -52,7 +52,7 @@ public class MyRandom {
      * The high parameter MUST BE greater than the low parameter or else the
      * method will throw an IllegalArgumentException
      *
-     * @param low The lowest possible number for the number
+     * @param low  The lowest possible number for the number
      * @param high The highest possible number (not including this number)
      * @return A random number between low and high
      */

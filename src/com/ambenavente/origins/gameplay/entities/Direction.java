@@ -33,7 +33,7 @@ public enum Direction {
 
     public static Direction getRandDirection() {
         return Direction.values()[
-                    MyRandom.getRandBetween(0, Direction.values().length)
-               ];
+                MyRandom.getRandBetween(0, Direction.values().length)
+                ];
     }
 }

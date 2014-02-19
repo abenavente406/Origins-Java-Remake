@@ -17,16 +17,11 @@
 
 package com.ambenavente.origins.tests;
 
-import com.ambenavente.origins.gameplay.entities.player.Player;
 import com.ambenavente.origins.gameplay.managers.SpriteSheetManager;
 import com.ambenavente.origins.gameplay.world.World;
-import com.ambenavente.origins.gameplay.world.json.MapDeserializer;
-import com.ambenavente.origins.gameplay.world.level.TiledMap;
 import com.ambenavente.origins.util.Camera;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Vector2f;
-
-import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
@@ -47,13 +42,13 @@ public class PlayerTest extends BasicGame {
         SpriteSheetManager.init();
         World.init();
 
-        camera  = new Camera(0,
-                             0,
-                             container.getWidth(),
-                             container.getHeight());
+        camera = new Camera(0,
+                0,
+                container.getWidth(),
+                container.getHeight());
 
         camera.setMax(new Vector2f(World.getActiveMap().getRealWidth(),
-                                   World.getActiveMap().getRealHeight()));
+                World.getActiveMap().getRealHeight()));
         camera.setMin(new Vector2f(0, 0));
     }
 

@@ -24,8 +24,7 @@ import com.ambenavente.origins.gameplay.world.level.TiledMap;
 import com.ambenavente.origins.gameplay.world.level.generator.EnumGenerationAlgorithm;
 import com.ambenavente.origins.gameplay.world.level.generator.TiledLayerGenerator;
 import org.lwjgl.LWJGLException;
-import org.lwjgl.PointerBuffer;
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 import javax.swing.*;
@@ -40,9 +39,9 @@ import java.util.Scanner;
  */
 public class LevelGeneratorTest extends JFrame {
 
-    private static final int DEFAULT_WIDTH  = 60;
+    private static final int DEFAULT_WIDTH = 60;
     private static final int DEFAULT_HEIGHT = 40;
-    private static final int TILE_SIZE      = 5;
+    private static final int TILE_SIZE = 5;
 
     private TileSheetManager manager;
 
@@ -52,15 +51,15 @@ public class LevelGeneratorTest extends JFrame {
         manager = new TileSheetManager();
         EnumGenerationAlgorithm algorithm =
                 (type == 1)
-                ? EnumGenerationAlgorithm.RANDOM
-                : EnumGenerationAlgorithm.DRUNKEN;
+                        ? EnumGenerationAlgorithm.RANDOM
+                        : EnumGenerationAlgorithm.DRUNKEN;
         add(new LevelDrawer(algorithm));
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
-}
+    }
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -97,10 +96,10 @@ public class LevelGeneratorTest extends JFrame {
 
         private void generateTiles(EnumGenerationAlgorithm algorithm) {
             TiledMap map = new TiledMap(DEFAULT_WIDTH,
-                                        DEFAULT_HEIGHT,
-                                        TILE_SIZE,
-                                        TILE_SIZE,
-                                        manager);
+                    DEFAULT_HEIGHT,
+                    TILE_SIZE,
+                    TILE_SIZE,
+                    manager);
             TiledLayer layer =
                     TiledLayerGenerator.generateLayer(map, 0, 1, 0,
                             algorithm);
@@ -122,9 +121,9 @@ public class LevelGeneratorTest extends JFrame {
                         case 0:
                             g.setColor(Color.white);
                             g.fillRect(x * TILE_SIZE,
-                                       y * TILE_SIZE,
-                                       TILE_SIZE,
-                                       TILE_SIZE);
+                                    y * TILE_SIZE,
+                                    TILE_SIZE,
+                                    TILE_SIZE);
                             break;
                         case 1:
                         default:

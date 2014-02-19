@@ -63,10 +63,10 @@ public class LevelDrawingTest extends BasicGame {
                        int delta) throws SlickException {
         Input input = container.getInput();
         Vector2f amount = new Vector2f(0, 0);
-        if (input.isKeyDown(Input.KEY_LEFT))     amount.x -= 5;
-        if (input.isKeyDown(Input.KEY_RIGHT))    amount.x += 5;
-        if (input.isKeyDown(Input.KEY_UP))       amount.y -= 5;
-        if (input.isKeyDown(Input.KEY_DOWN))     amount.y += 5;
+        if (input.isKeyDown(Input.KEY_LEFT)) amount.x -= 5;
+        if (input.isKeyDown(Input.KEY_RIGHT)) amount.x += 5;
+        if (input.isKeyDown(Input.KEY_UP)) amount.y -= 5;
+        if (input.isKeyDown(Input.KEY_DOWN)) amount.y += 5;
         camera.setX(camera.getPos().x + amount.x);
         camera.setY(camera.getPos().y + amount.y);
     }

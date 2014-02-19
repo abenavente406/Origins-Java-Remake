@@ -140,11 +140,11 @@ public class DrunkenWalkGenerator {
     private static void addRooms(int width,
                                  int height,
                                  List<Room> rooms) {
-        int iterations  = 0;
-        int roomCount   = randBetween(Math.max(1, getMaxRooms(width, height) / 5),
+        int iterations = 0;
+        int roomCount = randBetween(Math.max(1, getMaxRooms(width, height) / 5),
                 getMaxRooms(width, height));
-        int maxArea     = getMaxRoomSize(roomCount);
-        int maxLength   = (int)(Math.sqrt(maxArea));
+        int maxArea = getMaxRoomSize(roomCount);
+        int maxLength = (int) (Math.sqrt(maxArea));
         do {
             boolean ok = true;
             Room room = new Room();
@@ -171,7 +171,7 @@ public class DrunkenWalkGenerator {
     }
 
     private static int getMaxRoomSize(int maxRooms) {
-        return (int)(22.5 * maxRooms);
+        return (int) (22.5 * maxRooms);
     }
 
     private static List<Room> cloneList(List<Room> list) {
@@ -183,10 +183,10 @@ public class DrunkenWalkGenerator {
     }
 
     public static Tile[][] badGenerateDungeon(int mapWidth,
-                                               int mapHeight,
-                                               int groundId,
-                                               int wallId,
-                                               int tileSheetId) {
+                                              int mapHeight,
+                                              int groundId,
+                                              int wallId,
+                                              int tileSheetId) {
 
         Tile[][] tiles;
         List<Room> rooms = new ArrayList<Room>();
@@ -200,10 +200,10 @@ public class DrunkenWalkGenerator {
         int widthRoot = (int) Math.sqrt(mapWidth * 2);
         int heightRoot = (int) Math.sqrt(mapHeight * 2);
 
-        int minimumWidth    = (int) 4;
-        int maximumWidth    = (int) 8;
-        int minimumHeight   = (int) 3;
-        int maximumHeight   = (int) 10;
+        int minimumWidth = (int) 4;
+        int maximumWidth = (int) 8;
+        int minimumHeight = (int) 3;
+        int maximumHeight = (int) 10;
 
         do {
             boolean ok = false;

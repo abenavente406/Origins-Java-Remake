@@ -132,17 +132,17 @@ public class TiledMap {
                     int tileWidth,
                     int tileHeight,
                     TileSheetManager manager) {
-        this.id             = ID_TRACK++;
-        this.width          = width;
-        this.height         = height;
-        this.tileWidth      = tileWidth;
-        this.tileHeight     = tileHeight;
-        this.realWidth      = width * tileWidth;
-        this.realHeight     = height * tileHeight;
-        this.layers         = new ArrayList<TiledLayer>();
-        this.tileSheets     = manager;
-        this.collisionMap   = new boolean[height][width];
-        this.entities       = new EntityManager();
+        this.id = ID_TRACK++;
+        this.width = width;
+        this.height = height;
+        this.tileWidth = tileWidth;
+        this.tileHeight = tileHeight;
+        this.realWidth = width * tileWidth;
+        this.realHeight = height * tileHeight;
+        this.layers = new ArrayList<TiledLayer>();
+        this.tileSheets = manager;
+        this.collisionMap = new boolean[height][width];
+        this.entities = new EntityManager();
     }
 
     public void update(GameContainer container, int delta) {
@@ -410,17 +410,17 @@ public class TiledMap {
      */
     public boolean getCollision(float x, float y) {
         return toTileX(x) < 0
-            || toTileX(x) >= width
-            || toTileY(y) < 0
-            || toTileY(y)  >= height
-            || collisionMap[toTileY(y)][toTileX(x)];
+                || toTileX(x) >= width
+                || toTileY(y) < 0
+                || toTileY(y) >= height
+                || collisionMap[toTileY(y)][toTileX(x)];
     }
 
     /**
      * Sets the collision at a given tile to be true or false
      *
-     * @param x The x coordinate to set
-     * @param y The y coordinate to set
+     * @param x         The x coordinate to set
+     * @param y         The y coordinate to set
      * @param collision True or false if the tile is solid or not
      */
     public void setCollision(int x, int y, boolean collision) {

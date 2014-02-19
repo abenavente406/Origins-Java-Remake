@@ -45,14 +45,14 @@ public class ChasePlayerBehavior implements Behavior {
     public void behave() {
         Player player = World.getPlayer();
 
-        if (owner.getPos().distance(player.getPos()) > interactRange){
+        if (owner.getPos().distance(player.getPos()) > interactRange) {
             owner.move(getDirectionToPlayer(player));
             owner.setIsMoving(true);
         } else {
             owner.setIsMoving(false);
 
             if (owner instanceof PlayerInteractable) {
-                ((PlayerInteractable)owner).onPlayerInteract(player);
+                ((PlayerInteractable) owner).onPlayerInteract(player);
             }
         }
 
@@ -67,7 +67,7 @@ public class ChasePlayerBehavior implements Behavior {
         dir = dir.normalise();
 
         return new Vector2f(dir.x * owner.getWalkingSpeed(),
-                            dir.y * owner.getWalkingSpeed());
+                dir.y * owner.getWalkingSpeed());
     }
 
     private void facePlayer(Player player) {

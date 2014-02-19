@@ -21,7 +21,6 @@ import com.ambenavente.origins.gameplay.entities.Entity;
 import com.ambenavente.origins.gameplay.entities.interfaces.Behavior;
 import com.ambenavente.origins.gameplay.entities.player.Player;
 import com.ambenavente.origins.gameplay.world.World;
-import org.newdawn.slick.geom.Vector2f;
 
 /**
  * Created with IntelliJ IDEA.
@@ -37,9 +36,9 @@ public class LookForPlayerBehavior implements Behavior {
 
     public LookForPlayerBehavior(Entity owner,
                                  int lookingRange) {
-        this.owner          = owner;
-        this.lookingRange   = lookingRange;
-        this.foundPlayer    = false;
+        this.owner = owner;
+        this.lookingRange = lookingRange;
+        this.foundPlayer = false;
     }
 
     @Override

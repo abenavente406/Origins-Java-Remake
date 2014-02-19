@@ -51,8 +51,8 @@ public class EntityStats {
     private int strength;
 
     /**
-     *  The level of speed.  This pertains to how long it takes for the
-     *  entity's cool down rate after attacking
+     * The level of speed.  This pertains to how long it takes for the
+     * entity's cool down rate after attacking
      */
     private int speed;
 

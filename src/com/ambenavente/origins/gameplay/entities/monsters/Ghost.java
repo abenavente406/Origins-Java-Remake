@@ -18,12 +18,8 @@
 package com.ambenavente.origins.gameplay.entities.monsters;
 
 import com.ambenavente.origins.gameplay.entities.Direction;
-import com.ambenavente.origins.gameplay.entities.ai.ChasePlayerBehavior;
-import com.ambenavente.origins.gameplay.entities.ai.LookForPlayerBehavior;
-import com.ambenavente.origins.gameplay.entities.ai.RandomMoveBehavior;
 import com.ambenavente.origins.gameplay.managers.SpriteSheetManager;
 import org.newdawn.slick.Animation;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 

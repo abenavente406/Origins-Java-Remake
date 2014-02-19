@@ -66,7 +66,7 @@ public class World {
     }
 
     public static void render(Camera camera, Graphics g) {
-         getActiveMap().render(camera, g);
+        getActiveMap().render(camera, g);
     }
 
     public static void nextMap() {

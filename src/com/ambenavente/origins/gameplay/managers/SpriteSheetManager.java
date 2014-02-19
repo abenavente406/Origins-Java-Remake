@@ -17,7 +17,6 @@
 
 package com.ambenavente.origins.gameplay.managers;
 
-import com.ambenavente.origins.gameplay.world.level.TileSheet;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
@@ -49,7 +48,7 @@ public class SpriteSheetManager {
                 return name.endsWith(".txt");
             }
         })) {
-            if (!addTileSheet(f)){
+            if (!addTileSheet(f)) {
                 System.out.println("Error: failed to add tile sheet.");
             }
         }
@@ -58,19 +57,19 @@ public class SpriteSheetManager {
     private static boolean addTileSheet(File f) {
         String fileName = f.getName();
 
-        boolean success         = true;
+        boolean success = true;
 
-        int id                  = -999;
-        int tileWidth           = 0;
-        int tileHeight          = 0;
-        String imagePath        = null;
+        int id = -999;
+        int tileWidth = 0;
+        int tileHeight = 0;
+        String imagePath = null;
 
-        FileInputStream stream  = null;
-        BufferedReader reader   = null;
+        FileInputStream stream = null;
+        BufferedReader reader = null;
 
         try {
-            stream  = new FileInputStream(f);
-            reader  = new BufferedReader(
+            stream = new FileInputStream(f);
+            reader = new BufferedReader(
                     new InputStreamReader(stream)
             );
 

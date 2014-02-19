@@ -20,7 +20,6 @@ package com.ambenavente.origins.gameplay.entities.player;
 import com.ambenavente.origins.gameplay.entities.AnimatedEntity;
 import com.ambenavente.origins.gameplay.entities.Direction;
 import com.ambenavente.origins.gameplay.managers.SpriteSheetManager;
-import com.ambenavente.origins.gameplay.world.level.TiledMap;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -49,30 +48,30 @@ public class Player extends AnimatedEntity {
         // Don't do anything yet
         setWalkingSpeed(1.56f);
 
-        Image[] _left   = new Image[3];
-        Image[] _right  = new Image[3];
-        Image[] _up     = new Image[3];
-        Image[] _down   = new Image[3];
+        Image[] _left = new Image[3];
+        Image[] _right = new Image[3];
+        Image[] _up = new Image[3];
+        Image[] _down = new Image[3];
 
         SpriteSheet playerSheet =
                 SpriteSheetManager.get(SpriteSheetManager.PLAYER_SHEET_ID);
 
         for (int x = 0; x < playerSheet.getHorizontalCount(); x++) {
-            _down[x]    = playerSheet.getSprite(x, 0);
-            _left[x]    = playerSheet.getSprite(x, 1);
-            _right[x]   = playerSheet.getSprite(x, 2);
-            _up[x]      = playerSheet.getSprite(x, 3);
+            _down[x] = playerSheet.getSprite(x, 0);
+            _left[x] = playerSheet.getSprite(x, 1);
+            _right[x] = playerSheet.getSprite(x, 2);
+            _up[x] = playerSheet.getSprite(x, 3);
         }
 
         setAvatar(Direction.NORTH, _up[1]);
         setAvatar(Direction.SOUTH, _down[1]);
-        setAvatar(Direction.EAST,  _right[1]);
-        setAvatar(Direction.WEST,  _left[1]);
+        setAvatar(Direction.EAST, _right[1]);
+        setAvatar(Direction.WEST, _left[1]);
 
         setMovingAnimation(Direction.NORTH, new Animation(_up, 150));
         setMovingAnimation(Direction.SOUTH, new Animation(_down, 150));
-        setMovingAnimation(Direction.EAST,  new Animation(_right, 150));
-        setMovingAnimation(Direction.WEST,  new Animation(_left, 150));
+        setMovingAnimation(Direction.EAST, new Animation(_right, 150));
+        setMovingAnimation(Direction.WEST, new Animation(_left, 150));
 
         for (Direction dir : Direction.values()) {
             getMovingAnimation(dir).setPingPong(true);
@@ -94,7 +93,7 @@ public class Player extends AnimatedEntity {
 
     @Override
     public void update(GameContainer container, int delta) {
-        if (!isDead()){
+        if (!isDead()) {
             getInput(container.getInput());
         }
     }

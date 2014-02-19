@@ -31,10 +31,10 @@ import java.util.Random;
  */
 public class CameraTest extends BasicGame {
 
-    private final int DEFAULT_WIDTH         = 100;
-    private final int DEFAULT_HEIGHT        = 100;
-    private final int DEFAULT_TILE_WIDTH    = 32;
-    private final int DEFAULT_TILE_HEIGHT   = 32;
+    private final int DEFAULT_WIDTH = 100;
+    private final int DEFAULT_HEIGHT = 100;
+    private final int DEFAULT_TILE_WIDTH = 32;
+    private final int DEFAULT_TILE_HEIGHT = 32;
 
     private Random rand;
     private Camera camera;
@@ -46,18 +46,18 @@ public class CameraTest extends BasicGame {
 
     @Override
     public void init(GameContainer container) throws SlickException {
-        rand        = new Random();
-        camera      = new Camera(0,
-                                 0,
-                                 container.getWidth(),
-                                 container.getHeight());
-        tiles       = new ColorTile[DEFAULT_HEIGHT][DEFAULT_WIDTH];
+        rand = new Random();
+        camera = new Camera(0,
+                0,
+                container.getWidth(),
+                container.getHeight());
+        tiles = new ColorTile[DEFAULT_HEIGHT][DEFAULT_WIDTH];
 
         for (int y = 0; y < DEFAULT_HEIGHT; y++) {
             for (int x = 0; x < DEFAULT_WIDTH; x++) {
                 tiles[y][x] = new ColorTile(x,
-                                            y,
-                                            getRandColor());
+                        y,
+                        getRandColor());
             }
         }
     }
@@ -73,15 +73,15 @@ public class CameraTest extends BasicGame {
     public void update(GameContainer container, int i) throws SlickException {
         Input input = container.getInput();
         Vector2f amount = new Vector2f(0, 0);
-        if (input.isKeyDown(Input.KEY_LEFT))     amount.x -= 5;
-        if (input.isKeyDown(Input.KEY_RIGHT))    amount.x += 5;
-        if (input.isKeyDown(Input.KEY_UP))       amount.y -= 5;
-        if (input.isKeyDown(Input.KEY_DOWN))     amount.y += 5;
+        if (input.isKeyDown(Input.KEY_LEFT)) amount.x -= 5;
+        if (input.isKeyDown(Input.KEY_RIGHT)) amount.x += 5;
+        if (input.isKeyDown(Input.KEY_UP)) amount.y -= 5;
+        if (input.isKeyDown(Input.KEY_DOWN)) amount.y += 5;
         camera.setX(camera.getPos().x + amount.x);
         camera.setY(camera.getPos().y + amount.y);
 
-        if (input.isKeyDown(Input.KEY_ADD))          camera.zoomIn(.01f);
-        if (input.isKeyDown(Input.KEY_SUBTRACT))     camera.zoomOut(.01f);
+        if (input.isKeyDown(Input.KEY_ADD)) camera.zoomIn(.01f);
+        if (input.isKeyDown(Input.KEY_SUBTRACT)) camera.zoomOut(.01f);
     }
 
     @Override
@@ -101,9 +101,9 @@ public class CameraTest extends BasicGame {
                     if (x < DEFAULT_WIDTH && x >= 0) {
                         graphics.setColor(tiles[y][x].getColor());
                         graphics.fillRect(x * DEFAULT_TILE_WIDTH,
-                                          y * DEFAULT_TILE_HEIGHT,
-                                          DEFAULT_TILE_WIDTH,
-                                          DEFAULT_TILE_HEIGHT);
+                                y * DEFAULT_TILE_HEIGHT,
+                                DEFAULT_TILE_WIDTH,
+                                DEFAULT_TILE_HEIGHT);
                     }
                 }
             }

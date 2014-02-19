@@ -42,14 +42,14 @@ public class RandomMoveBehavior implements Behavior {
     private boolean isMoving;
 
     public RandomMoveBehavior(Entity owner) {
-        this.owner          = owner;
-        this.timeSinceMove  = 0;
-        this.timeMoving     = 0;
-        this.timeOut        = 0;
-        this.maxTime        = 0;
-        this.isMoving       = false;
-        this.randDirection  = Direction.getRandDirection();
-        this.walkingSpeed   = owner.getWalkingSpeed();
+        this.owner = owner;
+        this.timeSinceMove = 0;
+        this.timeMoving = 0;
+        this.timeOut = 0;
+        this.maxTime = 0;
+        this.isMoving = false;
+        this.randDirection = Direction.getRandDirection();
+        this.walkingSpeed = owner.getWalkingSpeed();
     }
 
     @Override

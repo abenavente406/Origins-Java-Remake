@@ -24,7 +24,6 @@ import com.ambenavente.origins.gameplay.entities.ai.LookForPlayerBehavior;
 import com.ambenavente.origins.gameplay.entities.ai.RandomMoveBehavior;
 import com.ambenavente.origins.gameplay.managers.SpriteSheetManager;
 import org.newdawn.slick.Animation;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 
@@ -61,23 +60,23 @@ public class Skeleton extends Monster {
     }
 
     private void initImages() {
-        Image[] left   = new Image[3];
-        Image[] right  = new Image[3];
-        Image[] up     = new Image[3];
-        Image[] down   = new Image[3];
+        Image[] left = new Image[3];
+        Image[] right = new Image[3];
+        Image[] up = new Image[3];
+        Image[] down = new Image[3];
 
-        final int startX            = 6;
-        final int startY            = 0;
-        final int horizontalCount   = 3;
+        final int startX = 6;
+        final int startY = 0;
+        final int horizontalCount = 3;
 
         SpriteSheet entitySheet = SpriteSheetManager.get(
                 SpriteSheetManager.ENTITY_SHEET_ID);
 
         for (int x = startX, i = 0; x < startX + horizontalCount; x++, i++) {
-            down[i]    = entitySheet.getSprite(x, startY);
-            left[i]    = entitySheet.getSprite(x, startY + 1);
-            right[i]   = entitySheet.getSprite(x, startY + 2);
-            up[i]      = entitySheet.getSprite(x, startY + 3);
+            down[i] = entitySheet.getSprite(x, startY);
+            left[i] = entitySheet.getSprite(x, startY + 1);
+            right[i] = entitySheet.getSprite(x, startY + 2);
+            up[i] = entitySheet.getSprite(x, startY + 3);
         }
 
         initAvatars(up, down, right, left);
@@ -90,8 +89,8 @@ public class Skeleton extends Monster {
                              Image[] left) {
         setAvatar(Direction.NORTH, up[1]);
         setAvatar(Direction.SOUTH, down[1]);
-        setAvatar(Direction.EAST,  right[1]);
-        setAvatar(Direction.WEST,  left[1]);
+        setAvatar(Direction.EAST, right[1]);
+        setAvatar(Direction.WEST, left[1]);
     }
 
     private void initAnimations(Image[] up,
@@ -100,7 +99,7 @@ public class Skeleton extends Monster {
                                 Image[] left) {
         setMovingAnimation(Direction.NORTH, new Animation(up, 150));
         setMovingAnimation(Direction.SOUTH, new Animation(down, 150));
-        setMovingAnimation(Direction.EAST,  new Animation(right, 150));
-        setMovingAnimation(Direction.WEST,  new Animation(left, 150));
+        setMovingAnimation(Direction.EAST, new Animation(right, 150));
+        setMovingAnimation(Direction.WEST, new Animation(left, 150));
     }
 }

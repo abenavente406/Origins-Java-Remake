@@ -83,12 +83,12 @@ public class TiledLayer {
      * @param map    The array of tiles to set to this layer's tiles
      */
     public TiledLayer(TiledMap parent, Tile[][] map) {
-        this.parentId   = parent.getId();
-        this.width      = parent.getWidth();
-        this.height     = parent.getHeight();
-        this.tileWidth  = parent.getTileWidth();
+        this.parentId = parent.getId();
+        this.width = parent.getWidth();
+        this.height = parent.getHeight();
+        this.tileWidth = parent.getTileWidth();
         this.tileHeight = parent.getTileHeight();
-        this.tiles      = map.clone();
+        this.tiles = map.clone();
     }
 
     /**
@@ -143,9 +143,9 @@ public class TiledLayer {
      */
     public Tile getTile(int x, int y) {
         if (x >= 0 &&
-            x < width &&
-            y >= 0 &&
-            y < height) {
+                x < width &&
+                y >= 0 &&
+                y < height) {
             return tiles[y][x];
         } else {
             throw new IndexOutOfBoundsException();

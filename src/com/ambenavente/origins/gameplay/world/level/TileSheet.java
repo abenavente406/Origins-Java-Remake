@@ -17,7 +17,6 @@
 
 package com.ambenavente.origins.gameplay.world.level;
 
-import com.google.gson.annotations.Expose;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -91,8 +90,8 @@ public class TileSheet {
      */
     public TileSheet(int id, String path, int tileHeight, int tileWidth) {
         this.tileHeight = tileHeight;
-        this.tileWidth  = tileWidth;
-        this.path       = path;
+        this.tileWidth = tileWidth;
+        this.path = path;
         init();
     }
 
@@ -124,8 +123,8 @@ public class TileSheet {
             try {
                 sourceImage = new Image(path);
                 spriteSheet = new SpriteSheet(sourceImage,
-                                              tileWidth,
-                                              tileHeight);
+                        tileWidth,
+                        tileHeight);
                 success = true;
             } catch (SlickException e) {
                 e.printStackTrace();
@@ -146,9 +145,9 @@ public class TileSheet {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 sourceRects[tile++] = new Rectangle(x * tileWidth,
-                                                    y * tileHeight,
-                                                    tileWidth,
-                                                    tileHeight);
+                        y * tileHeight,
+                        tileWidth,
+                        tileHeight);
             }
         }
     }
@@ -204,7 +203,7 @@ public class TileSheet {
      * @throws java.lang.IndexOutOfBoundsException
      */
     public Rectangle getRect(int id) {
-        if (id >= 0 && id < sourceRects.length){
+        if (id >= 0 && id < sourceRects.length) {
             return sourceRects[id];
         } else {
             throw new IndexOutOfBoundsException();
@@ -215,8 +214,8 @@ public class TileSheet {
         if (id >= 0 && id < sourceRects.length) {
             Rectangle rect = sourceRects[id];
 
-            int tx = (int)rect.getX() / tileWidth;
-            int ty = (int)rect.getY() / tileHeight;
+            int tx = (int) rect.getX() / tileWidth;
+            int ty = (int) rect.getY() / tileHeight;
 
             return spriteSheet.getSprite(tx, ty);
         } else {

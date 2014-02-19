@@ -23,7 +23,6 @@ import com.ambenavente.origins.gameplay.entities.ai.LookForPlayerBehavior;
 import com.ambenavente.origins.gameplay.entities.ai.RandomMoveBehavior;
 import com.ambenavente.origins.gameplay.entities.interfaces.PlayerInteractable;
 import com.ambenavente.origins.gameplay.entities.player.Player;
-import com.ambenavente.origins.gameplay.world.World;
 import org.newdawn.slick.GameContainer;
 
 /**
@@ -46,13 +45,13 @@ public abstract class Monster extends AnimatedEntity implements PlayerInteractab
     public Monster(float x, float y) {
         super(x, y);
 
-        interactRange   = 30;
-        detectRange     = 80;
-        hitCoolDown     = HIT_COOL;
+        interactRange = 30;
+        detectRange = 80;
+        hitCoolDown = HIT_COOL;
 
         lookForPlayerAi = new LookForPlayerBehavior(this, detectRange);
-        randomMoveAi    = new RandomMoveBehavior(this);
-        chasePlayerAi   = new ChasePlayerBehavior(this, interactRange);
+        randomMoveAi = new RandomMoveBehavior(this);
+        chasePlayerAi = new ChasePlayerBehavior(this, interactRange);
     }
 
     @Override

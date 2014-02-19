@@ -88,7 +88,7 @@ public class ImageToMapSerializer {
         return tiles;
     }
 
-    public ColorTile lookUpTile(Color color){
+    public ColorTile lookUpTile(Color color) {
         for (ColorTile tile : ColorTile.values()) {
             if (tile.getColor().equals(color)) return tile;
         }
@@ -103,10 +103,10 @@ public class ImageToMapSerializer {
         Display.create();
 
         TiledMap map = new TiledMap(70,
-                                    70,
-                                    32,
-                                    32,
-                                    new TileSheetManager());
+                70,
+                32,
+                32,
+                new TileSheetManager());
         ImageToMapSerializer serializer = new ImageToMapSerializer(map,
                 "res/map_images/test_map.png");
 

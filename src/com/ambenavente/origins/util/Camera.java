@@ -106,13 +106,13 @@ public class Camera {
      * @param viewHeight The height of the camera's viewing area in pixels
      */
     public Camera(Vector2f pos, int viewWidth, int viewHeight) {
-        this.pos        = pos;
-        this.viewWidth  = viewWidth;
+        this.pos = pos;
+        this.viewWidth = viewWidth;
         this.viewHeight = viewHeight;
-        this.max        = new Vector2f(Float.MAX_VALUE, Float.MAX_VALUE);
-        this.min        = new Vector2f(-Float.MAX_VALUE - 1,
-                                       -Float.MAX_VALUE - 1);
-        this.bounds     = new Rectangle(pos.x, pos.y, viewWidth, viewHeight);
+        this.max = new Vector2f(Float.MAX_VALUE, Float.MAX_VALUE);
+        this.min = new Vector2f(-Float.MAX_VALUE - 1,
+                -Float.MAX_VALUE - 1);
+        this.bounds = new Rectangle(pos.x, pos.y, viewWidth, viewHeight);
     }
 
     /**
@@ -282,7 +282,7 @@ public class Camera {
      * @param zoom The zoom setting that the camera sees
      */
     public void setZoom(float zoom) {
-        if      (zoom < .05f)  zoom = .05f;
+        if (zoom < .05f) zoom = .05f;
         else if (zoom > 15.0f) zoom = 15.0f;
 
         this.zoom = zoom;

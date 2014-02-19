@@ -18,8 +18,6 @@
 package com.ambenavente.origins.gameplay.managers;
 
 import com.ambenavente.origins.gameplay.world.level.TileSheet;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
 import java.io.*;
@@ -47,7 +45,7 @@ public class TileSheetManager {
         initTileSheets();
     }
 
-    private void initTileSheets()  {
+    private void initTileSheets() {
         File file = new File(directory);
 
         for (File f : file.listFiles(new FilenameFilter() {
@@ -56,7 +54,7 @@ public class TileSheetManager {
                 return name.endsWith(".txt");
             }
         })) {
-            if (!addTileSheet(f)){
+            if (!addTileSheet(f)) {
                 System.out.println("Error: failed to add tile sheet.");
             }
         }
@@ -65,19 +63,19 @@ public class TileSheetManager {
     private boolean addTileSheet(File f) {
         String fileName = f.getName();
 
-        boolean success         = true;
+        boolean success = true;
 
-        int id                  = -999;
-        int tileWidth           = 0;
-        int tileHeight          = 0;
-        String imagePath        = null;
+        int id = -999;
+        int tileWidth = 0;
+        int tileHeight = 0;
+        String imagePath = null;
 
-        FileInputStream stream  = null;
-        BufferedReader reader   = null;
+        FileInputStream stream = null;
+        BufferedReader reader = null;
 
         try {
-            stream  = new FileInputStream(f);
-            reader  = new BufferedReader(
+            stream = new FileInputStream(f);
+            reader = new BufferedReader(
                     new InputStreamReader(stream)
             );
 
@@ -104,8 +102,8 @@ public class TileSheetManager {
 
         if (id != -999 && imagePath != null) {
             if (!tileSheets.containsKey(id)) {
-            tileSheets.put(id, new TileSheet(id, imagePath,
-                    tileWidth, tileHeight));
+                tileSheets.put(id, new TileSheet(id, imagePath,
+                        tileWidth, tileHeight));
             } else {
                 throw new KeyAlreadyExistsException();
             }
