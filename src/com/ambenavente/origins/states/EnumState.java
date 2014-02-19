@@ -25,8 +25,9 @@ package com.ambenavente.origins.states;
  */
 public enum EnumState {
 
-    MENU(0),
-    GAMEPLAY(1);
+    SPLASH(0),
+    MENU(1),
+    GAMEPLAY(2);
 
     private final int ID;
 
