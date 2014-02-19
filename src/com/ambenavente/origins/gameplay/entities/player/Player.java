@@ -54,7 +54,8 @@ public class Player extends AnimatedEntity {
         Image[] _up     = new Image[3];
         Image[] _down   = new Image[3];
 
-        SpriteSheet playerSheet = SpriteSheetManager.get(0);
+        SpriteSheet playerSheet =
+                SpriteSheetManager.get(SpriteSheetManager.PLAYER_SHEET_ID);
 
         for (int x = 0; x < playerSheet.getHorizontalCount(); x++) {
             _down[x]    = playerSheet.getSprite(x, 0);
