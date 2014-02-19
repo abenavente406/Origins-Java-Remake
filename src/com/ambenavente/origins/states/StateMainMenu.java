@@ -17,11 +17,9 @@
 
 package com.ambenavente.origins.states;
 
-import com.ambenavente.origins.main.OriginsGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
@@ -30,16 +28,10 @@ import org.newdawn.slick.state.StateBasedGame;
  * @author Anthony Benavente
  * @version 2/9/14
  */
-public class StateMainMenu extends BasicGameState {
-
-    OriginsGame parent;
+public class StateMainMenu extends StateBase {
 
     public StateMainMenu(StateBasedGame parent) {
-        if (parent instanceof OriginsGame) {
-            this.parent = (OriginsGame) parent;
-        } else {
-            throw new IllegalArgumentException();
-        }
+        super(parent);
     }
 
     @Override
@@ -52,11 +44,7 @@ public class StateMainMenu extends BasicGameState {
     public void render(GameContainer container,
                        StateBasedGame game,
                        Graphics g) throws SlickException {
-        if (parent.getDebug()) {
-            g.drawString(EnumState.values()[getID()].toString(),
-                    0,
-                    container.getHeight() - g.getFont().getLineHeight());
-        }
+        super.render(container, game, g);
     }
 
     @Override

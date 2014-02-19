@@ -17,12 +17,10 @@
 
 package com.ambenavente.origins.states;
 
-import com.ambenavente.origins.main.OriginsGame;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
@@ -33,7 +31,7 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
  * @author Anthony Benavente
  * @version 2/19/14
  */
-public class StateSplash extends BasicGameState {
+public class StateSplash extends StateBase {
 
     /**
      * This is the length of time that the game will stay in the splash state
@@ -46,14 +44,8 @@ public class StateSplash extends BasicGameState {
      */
     private int elapsed;
 
-    private OriginsGame parent;
-
     public StateSplash(StateBasedGame parent) {
-        if (parent instanceof OriginsGame) {
-            this.parent = (OriginsGame) parent;
-        } else {
-            throw new IllegalArgumentException();
-        }
+        super(parent);
     }
 
     @Override
@@ -64,18 +56,14 @@ public class StateSplash extends BasicGameState {
 
     @Override
     public void render(GameContainer container,
-                       StateBasedGame game, Graphics g) throws SlickException {
-        if (parent.getDebug()) {
-            g.drawString(EnumState.values()[getID()].toString(),
-                    0,
-                    container.getHeight() - g.getFont().getLineHeight());
-        }
-
+                       StateBasedGame game,
+                       Graphics g) throws SlickException {
+        super.render(container, game, g);
         // TODO: Draw the logo/studio credits
 
         Font font = g.getFont();
-        String title = parent.getTitle();
-        String author = parent.getAuthor();
+        String title = getParent().getTitle();
+        String author = getParent().getAuthor();
 
         int centeredTitleX = container.getWidth() / 2
                 - font.getWidth(title) / 2;
@@ -96,7 +84,8 @@ public class StateSplash extends BasicGameState {
 
     @Override
     public void update(GameContainer container,
-                       StateBasedGame game, int delta) throws SlickException {
+                       StateBasedGame game,
+                       int delta) throws SlickException {
         // ------------------------------------------------------------------
         // Adding the milliseconds since the last frame to duration.
         // This increases elapsed at a constant rate no matter machine speed
@@ -104,7 +93,7 @@ public class StateSplash extends BasicGameState {
         if ((elapsed += delta) >= DURATION) {
             // Move on to the next state
             elapsed = 0;
-            parent.enterState(EnumState.MENU,
+            getParent().enterState(EnumState.MENU,
                     new FadeOutTransition(),
                     new FadeInTransition());
         }
