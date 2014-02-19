@@ -17,6 +17,7 @@
 
 package com.ambenavente.origins.states;
 
+import com.ambenavente.origins.ui.Label;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -30,6 +31,7 @@ public class StateMainMenu extends StateBase {
 
     private Animation background;
     private Image title;
+    private Label label;
 
     public StateMainMenu(StateBasedGame parent) {
         super(parent);
@@ -40,6 +42,9 @@ public class StateMainMenu extends StateBase {
                      StateBasedGame game) throws SlickException {
         initBackground();
         initTitle();
+        label = new Label("lblTest", "Hello");
+        label.setX(200);
+        label.setY(100);
     }
 
     private void initTitle() throws SlickException {
@@ -60,6 +65,7 @@ public class StateMainMenu extends StateBase {
                        Graphics g) throws SlickException {
         background.draw(0, 0);
         drawTitle(container, g);
+        label.render(g);
         super.render(container, game, g);
     }
 
@@ -73,7 +79,7 @@ public class StateMainMenu extends StateBase {
     public void update(GameContainer container,
                        StateBasedGame game,
                        int delta) throws SlickException {
-
+        label.update(container.getInput(), delta);
     }
 
     @Override

@@ -18,11 +18,15 @@
 package com.ambenavente.origins.ui;
 
 import com.ambenavente.origins.gameplay.entities.interfaces.Renderable;
+import com.ambenavente.origins.ui.events.ActionArgs;
+import com.ambenavente.origins.ui.events.ActionDoer;
 import com.ambenavente.origins.ui.events.MouseEventArgs;
 import com.ambenavente.origins.ui.events.MouseEventListener;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
 /**
@@ -45,6 +49,8 @@ public abstract class Control implements Renderable, MouseEventListener {
     private Font font;
     private Color foreColor;
     private Color backColor;
+    private Rectangle bounds;
+    protected ActionDoer doer;
 
     public Control() {
         this("");
@@ -74,9 +80,10 @@ public abstract class Control implements Renderable, MouseEventListener {
         this.font       = null;
         this.foreColor  = Color.white;
         this.backColor  = Color.black;
+        this.bounds     = new Rectangle(pos.x, pos.y, width, height);
     }
 
-    public abstract void update(int delta);
+    public abstract void update(Input input, int delta);
 
     @Override
     public void render(Graphics g) {
@@ -103,5 +110,138 @@ public abstract class Control implements Renderable, MouseEventListener {
 
     @Override
     public void onMouseDown(MouseEventArgs e) {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Vector2f getPos() {
+        return pos;
+    }
+
+    public void setPos(Vector2f pos) {
+        this.pos = pos;
+        updateBounds();
+    }
+
+    public float getX() {
+        return pos.x;
+    }
+
+    public void setX(float x) {
+        pos.x = x;
+        updateBounds();
+    }
+
+    public float getY() {
+        return pos.y;
+    }
+
+    public void setY(float y) {
+        pos.y = y;
+        updateBounds();
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+        updateBounds();
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+        updateBounds();
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
+    }
+
+    public boolean isHasFocus() {
+        return hasFocus;
+    }
+
+    public void setHasFocus(boolean hasFocus) {
+        this.hasFocus = hasFocus;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean isEnabled) {
+        this.isEnabled = isEnabled;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean isVisible) {
+        this.isVisible = isVisible;
+    }
+
+    public Font getFont() {
+        return font;
+    }
+
+    public void setFont(Font font) {
+        this.font = font;
+    }
+
+    public Color getForeColor() {
+        return foreColor;
+    }
+
+    public void setForeColor(Color foreColor) {
+        this.foreColor = foreColor;
+    }
+
+    public Color getBackColor() {
+        return backColor;
+    }
+
+    public void setBackColor(Color backColor) {
+        this.backColor = backColor;
+    }
+
+    public Rectangle getBounds() {
+        return bounds;
+    }
+
+    private void updateBounds() {
+        bounds.setBounds(pos.x, pos.y, width, height);
+    }
+
+    public void setActionDoer(ActionDoer doer) {
+        this.doer = doer;
+    }
+
+    protected boolean mouseInBounds(Vector2f mousePos) {
+        return bounds.contains(mousePos.x, mousePos.y);
     }
 }
