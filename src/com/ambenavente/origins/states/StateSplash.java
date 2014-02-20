@@ -34,7 +34,7 @@ public class StateSplash extends StateBase {
      * This is the length of time that the game will stay in the splash state
      * (in milliseconds)
      */
-    private final static float DURATION = 3000f;
+    private final static float DURATION = 2500f;
 
     /**
      * This is the amount of time that the game has spent in this state
@@ -78,7 +78,7 @@ public class StateSplash extends StateBase {
         int combinedHeight = title.getHeight() + font.getHeight(author);
 
         g.drawImage(title, centeredTitleX, centeredTitleY - combinedHeight / 2);
-        g.drawString(author, centeredAuthorX, centeredAuthorY - combinedHeight / 2);
+        //g.drawString(author, centeredAuthorX, centeredAuthorY - combinedHeight / 2);
     }
 
     @Override
