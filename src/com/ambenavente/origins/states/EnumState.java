@@ -27,7 +27,8 @@ public enum EnumState {
 
     SPLASH(0),
     MENU(1),
-    GAMEPLAY(2);
+    GAMEPLAY(2),
+    EXIT(3);
 
     private final int ID;
 
