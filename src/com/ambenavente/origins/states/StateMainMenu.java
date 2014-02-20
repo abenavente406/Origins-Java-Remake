@@ -17,11 +17,13 @@
 
 package com.ambenavente.origins.states;
 
+import com.ambenavente.origins.ui.ControlManager;
 import com.ambenavente.origins.ui.Label;
 import com.ambenavente.origins.ui.LinkLabel;
 import com.ambenavente.origins.ui.events.ActionArgs;
 import com.ambenavente.origins.ui.events.ActionDoer;
 import org.newdawn.slick.*;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
@@ -36,8 +38,7 @@ public class StateMainMenu extends StateBase {
 
     private Animation background;
     private Image title;
-    private Label label;
-    private LinkLabel linkLabel;
+    private ControlManager manager;
 
     public StateMainMenu(StateBasedGame parent) {
         super(parent);
@@ -48,17 +49,72 @@ public class StateMainMenu extends StateBase {
                      StateBasedGame game) throws SlickException {
         initBackground();
         initTitle();
-        label = new Label("lblTest", "Hello");
-        label.setX(200);
-        label.setY(100);
-        linkLabel = new LinkLabel("lblTest2", "New Game");
-        linkLabel.setActionDoer(new ActionDoer() {
+        initControls(container);
+    }
+
+    private void initControls(GameContainer container) {
+        final int marginBottom = 25;
+
+        manager = new ControlManager();
+
+        Vector2f startPos = new Vector2f(container.getWidth() / 2, 200);
+
+        LinkLabel lblNewGame = new LinkLabel("lblNewGame", "New Game");
+        lblNewGame.setWidth(container.getDefaultFont().getWidth(lblNewGame.getText()));
+        lblNewGame.setHeight(container.getDefaultFont().getHeight(lblNewGame.getText()));
+        lblNewGame.setPos(startPos.copy().add(new Vector2f(-lblNewGame.getWidth() / 2, 0)));
+        lblNewGame.setActionDoer(new ActionDoer() {
             @Override
             public void doAction(ActionArgs e) {
                 getParent().enterState(EnumState.GAMEPLAY,
                         new FadeOutTransition(), new FadeInTransition());
             }
         });
+
+
+        startPos.y += lblNewGame.getHeight() + marginBottom;
+
+        LinkLabel lblContinue = new LinkLabel("lblContinue", "Continue");
+        lblContinue.setWidth(container.getDefaultFont().getWidth(lblContinue.getText()));
+        lblContinue.setHeight(container.getDefaultFont().getHeight(lblContinue.getText()));
+        lblContinue.setPos(startPos.copy().add(new Vector2f(-lblContinue.getWidth() / 2, 0)));
+        lblContinue.setActionDoer(new ActionDoer() {
+            @Override
+            public void doAction(ActionArgs e) {
+                // TODO: Continue
+            }
+        });
+
+        startPos.y += lblNewGame.getHeight() + marginBottom;
+
+        LinkLabel lblLoadGame = new LinkLabel("lblLoadGame", "Load Game");
+        lblLoadGame.setWidth(container.getDefaultFont().getWidth(lblLoadGame.getText()));
+        lblLoadGame.setHeight(container.getDefaultFont().getHeight(lblLoadGame.getText()));
+        lblLoadGame.setPos(startPos.copy().add(new Vector2f(-lblLoadGame.getWidth() / 2, 0)));
+        lblLoadGame.setActionDoer(new ActionDoer() {
+            @Override
+            public void doAction(ActionArgs e) {
+                // TODO: Enter the load game state
+            }
+        });
+
+        startPos.y += lblNewGame.getHeight() + marginBottom;
+
+        LinkLabel lblQuit = new LinkLabel("lblQuit", "Quit");
+        lblQuit.setWidth(container.getDefaultFont().getWidth(lblQuit.getText()));
+        lblQuit.setHeight(container.getDefaultFont().getHeight(lblQuit.getText()));
+        lblQuit.setPos(startPos.copy().add(new Vector2f(-lblQuit.getWidth() / 2, 0)));
+        lblQuit.setActionDoer(new ActionDoer() {
+            @Override
+            public void doAction(ActionArgs e) {
+                getParent().enterState(EnumState.EXIT);
+            }
+        });
+
+        manager.add(lblNewGame);
+        manager.add(lblContinue);
+        manager.add(lblLoadGame);
+        manager.add(lblQuit);
     }
 
     private void initTitle() throws SlickException {
@@ -79,8 +135,7 @@ public class StateMainMenu extends StateBase {
                        Graphics g) throws SlickException {
         background.draw(0, 0);
         drawTitle(container, g);
-        label.render(g);
-        linkLabel.render(g);
+        manager.render(g);
         super.render(container, game, g);
     }
 
@@ -94,8 +149,7 @@ public class StateMainMenu extends StateBase {
     public void update(GameContainer container,
                        StateBasedGame game,
                        int delta) throws SlickException {
-        label.update(container.getInput(), delta);
-        linkLabel.update(container.getInput(), delta);
+        manager.update(container.getInput(), delta);
     }
 
     @Override
