@@ -17,9 +17,13 @@
 
 package com.ambenavente.origins.states;
 
+import com.ambenavente.origins.gameplay.managers.SpriteSheetManager;
+import com.ambenavente.origins.gameplay.world.World;
+import com.ambenavente.origins.util.Camera;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
@@ -30,6 +34,8 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class StateGameplay extends StateBase {
 
+    private Camera camera;
+
     public StateGameplay(StateBasedGame parent) {
         super(parent);
     }
@@ -37,7 +43,17 @@ public class StateGameplay extends StateBase {
     @Override
     public void init(GameContainer container,
                      StateBasedGame stateBasedGame) throws SlickException {
+        SpriteSheetManager.init();
+        World.init();
 
+        camera = new Camera(0,
+                0,
+                container.getWidth(),
+                container.getHeight());
+
+        camera.setMax(new Vector2f(World.getActiveMap().getRealWidth(),
+                World.getActiveMap().getRealHeight()));
+        camera.setMin(new Vector2f(0, 0));
     }
 
     @Override
@@ -47,13 +63,21 @@ public class StateGameplay extends StateBase {
         super.render(container, stateBasedGame, g);
 
         // TODO: Draw the game
+        g.pushTransform();
+        g.translate(-camera.getX(), -camera.getY());
+
+        World.render(camera, g);
+
+        g.popTransform();
     }
 
     @Override
     public void update(GameContainer container,
                        StateBasedGame stateBasedGame,
                        int i) throws SlickException {
-
+        World.update(container, i);
+        camera.setX(World.getPlayer().getX() - camera.getViewWidth() / 2);
+        camera.setY(World.getPlayer().getY() - camera.getViewHeight() / 2);
     }
 
     @Override

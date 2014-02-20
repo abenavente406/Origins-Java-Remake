@@ -59,7 +59,6 @@ public class StateSplash extends StateBase {
                        StateBasedGame game,
                        Graphics g) throws SlickException {
         super.render(container, game, g);
-        // TODO: Draw the logo/studio credits
 
         Font font = g.getFont();
         String author = getParent().getAuthor();
