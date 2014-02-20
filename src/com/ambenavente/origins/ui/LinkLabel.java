@@ -19,6 +19,7 @@ package com.ambenavente.origins.ui;
 
 import com.ambenavente.origins.ui.events.MouseEventArgs;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
@@ -29,7 +30,7 @@ import org.newdawn.slick.geom.Vector2f;
  * @author Anthony Benavente
  * @version 2/19/14
  */
-public class LinkLabel extends Label {
+public class LinkLabel extends Control {
 
     private MouseEventArgs lastMouseEvents;
     private MouseEventArgs currMouseEvents;
@@ -38,7 +39,7 @@ public class LinkLabel extends Label {
     private Color highlightColor;
 
     public LinkLabel(String title, String text) {
-        super(title, text);
+        super(title);
 
         setText(text);
         lastMousePos = new Vector2f(0, 0);
@@ -82,7 +83,16 @@ public class LinkLabel extends Label {
         } else {
             g.setColor(getForeColor());
         }
-        super.render(g);
+        Font tmpFont = g.getFont();
+        setWidth(tmpFont.getWidth(getText()));
+        setHeight(tmpFont.getHeight(getText()));
+        if (getFont() != null) {
+            g.setFont(getFont());
+            setWidth(getFont().getWidth(getText()));
+            setHeight(getFont().getHeight(getText()));
+        }
+        g.drawString(getText(), getX(), getY());
+        g.setFont(tmpFont);
         g.setColor(tmp);
     }
 
