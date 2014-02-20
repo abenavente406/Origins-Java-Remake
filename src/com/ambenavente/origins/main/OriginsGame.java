@@ -17,10 +17,7 @@
 
 package com.ambenavente.origins.main;
 
-import com.ambenavente.origins.states.EnumState;
-import com.ambenavente.origins.states.StateGameplay;
-import com.ambenavente.origins.states.StateMainMenu;
-import com.ambenavente.origins.states.StateSplash;
+import com.ambenavente.origins.states.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
@@ -56,6 +53,7 @@ public class OriginsGame extends StateBasedGame {
         addState(new StateSplash(this));
         addState(new StateMainMenu(this));
         addState(new StateGameplay(this));
+        addState(new StateExit(this));
 
         enterState(EnumState.SPLASH);
     }
