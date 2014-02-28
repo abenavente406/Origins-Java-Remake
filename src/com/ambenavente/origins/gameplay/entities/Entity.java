@@ -20,6 +20,7 @@ package com.ambenavente.origins.gameplay.entities;
 import com.ambenavente.origins.gameplay.entities.interfaces.Renderable;
 import com.ambenavente.origins.gameplay.world.World;
 import org.newdawn.slick.*;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
 /**
@@ -126,6 +127,11 @@ public abstract class Entity implements Renderable {
     private EntityStats stats;
 
     /**
+     * The bounding box used for collision detection with entities
+     */
+    private Rectangle bounds;
+
+    /**
      * Creates an Entity object
      *
      * @param x The x coordinate to set the entity at
@@ -141,15 +147,16 @@ public abstract class Entity implements Renderable {
      * @param pos The position to set the entity at
      */
     public Entity(Vector2f pos) {
-        this.pos = pos;
-        this.width = 0;
-        this.height = 0;
-        this.direction = Direction.SOUTH;
-        this.walkingSpeed = 1.0f;
-        this.isMoving = false;
-        this.maxHealth = 30;
-        this.health = maxHealth;
-        this.stats = new EntityStats();
+        this.pos            = pos;
+        this.width          = 0;
+        this.height         = 0;
+        this.direction      = Direction.SOUTH;
+        this.walkingSpeed   = 1.0f;
+        this.isMoving       = false;
+        this.maxHealth      = 30;
+        this.health         = maxHealth;
+        this.stats          = new EntityStats();
+        this.bounds         = new Rectangle(pos.x, pos.y, width, height);
     }
 
     /**
@@ -197,6 +204,7 @@ public abstract class Entity implements Renderable {
      */
     protected void setPos(Vector2f pos) {
         this.pos = pos;
+        updateBounds();
     }
 
     /**
@@ -227,6 +235,7 @@ public abstract class Entity implements Renderable {
      */
     protected void setWidth(int width) {
         this.width = width;
+        updateBounds();
     }
 
     /**
@@ -243,6 +252,7 @@ public abstract class Entity implements Renderable {
      */
     protected void setHeight(int height) {
         this.height = height;
+        updateBounds();
     }
 
     /**
@@ -330,7 +340,7 @@ public abstract class Entity implements Renderable {
             }
         }
 
-        pos.add(v);
+        setPos(new Vector2f(pos.x + v.x, pos.y + v.y));
     }
 
     /**
@@ -413,38 +423,91 @@ public abstract class Entity implements Renderable {
         this.isMoving = isMoving;
     }
 
+    /**
+     * @return The width of the entity's main texture
+     */
     public int getTextureWidth() {
         return textureWidth;
     }
 
+    /**
+     * Sets the width of the entity's main texture
+     *
+     * @param textureWidth The new width to set for the entity's texture
+     */
     protected void setTextureWidth(int textureWidth) {
         this.textureWidth = textureWidth;
+        updateBounds();
     }
 
+    /**
+     * @return The height of the entity's main texture
+     */
     public int getTextureHeight() {
         return textureHeight;
     }
 
+    /**
+     * Sets the height of the entity's main texture
+     *
+     * @param textureHeight The new width to set for the entity's texture
+     */
     protected void setTextureHeight(int textureHeight) {
         this.textureHeight = textureHeight;
+        updateBounds();
     }
 
+    /**
+     * Sets the width and height of this entity that will be used for collision
+     * detection
+     *
+     * @param width The new width to set the entity to
+     * @param height The new height to set the entity to
+     */
     protected void setDimensions(int width, int height) {
         setWidth(width);
         setHeight(height);
     }
 
+    /**
+     * Sets the width and height of this entity's main texture
+     *
+     * @param width The new width to set the entity to
+     * @param height The new height to set the entity to
+     */
     protected void setTextureDimensions(int width, int height) {
         setTextureWidth(width);
         setTextureHeight(height);
     }
 
+    /**
+     * @return The name that this entity goes by
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the name that this entity will be called
+     *
+     * @param name The new name of the entity
+     */
     protected void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @return The bounding box for this entity
+     */
+    public Rectangle getBounds() {
+        return bounds;
+    }
+
+    /**
+     * Call this whenever you change the dimension or position of this entity
+     */
+    private void updateBounds() {
+        bounds.setBounds(pos.x, pos.y, width, height);
     }
 
     @Override
