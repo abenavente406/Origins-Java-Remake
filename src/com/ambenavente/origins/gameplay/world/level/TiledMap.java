@@ -150,6 +150,7 @@ public class TiledMap {
         this.tileSheets = manager;
         this.collisionMap = new boolean[height][width];
         this.entities = new EntityManager();
+        this.exitZones = new ArrayList<ExitZone>();
     }
 
     public void update(GameContainer container, int delta) {
