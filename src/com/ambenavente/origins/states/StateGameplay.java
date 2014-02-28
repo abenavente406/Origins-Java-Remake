@@ -34,6 +34,11 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class StateGameplay extends StateBase {
 
+    enum GameplayState {
+        PLAYING,
+        PAUSED;
+    }
+
     private Camera camera;
 
     public StateGameplay(StateBasedGame parent) {
