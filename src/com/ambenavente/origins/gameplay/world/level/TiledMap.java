@@ -20,11 +20,13 @@ package com.ambenavente.origins.gameplay.world.level;
 import com.ambenavente.origins.gameplay.entities.player.Player;
 import com.ambenavente.origins.gameplay.managers.EntityManager;
 import com.ambenavente.origins.gameplay.managers.TileSheetManager;
+import com.ambenavente.origins.gameplay.world.World;
 import com.ambenavente.origins.gameplay.world.json.MapDeserializer;
 import com.ambenavente.origins.util.Camera;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 import java.security.InvalidKeyException;
@@ -112,6 +114,11 @@ public class TiledMap {
     private transient EntityManager entities;
 
     /**
+     * A list of places where the player can leave or enter the map
+     */
+    private List<ExitZone> exitZones;
+
+    /**
      * Creates a default TiledMap with the dimensions of [width:0, height:0]
      * and with tileWidth and tileHeight of 0
      */
@@ -147,6 +154,32 @@ public class TiledMap {
 
     public void update(GameContainer container, int delta) {
         entities.update(container, delta);
+
+        for (ExitZone zone : exitZones) {
+            Shape playerBounds = getPlayer().getBounds();
+            if (zone.getBounds().contains(playerBounds)) {
+                World.goTo(zone.getTargetId());
+                zone.setInUse(true);
+
+                getExitZone(zone.getTargetId()).setInUse(true);
+            }
+        }
+    }
+
+    /**
+     * Gets the exit zone that is pointed
+     * @param targetId
+     * @return
+     */
+    private ExitZone getExitZone(int targetId) {
+        ExitZone zone = null;
+        for (ExitZone z : exitZones) {
+            if (z.getTargetId() == targetId) {
+                zone = z;
+                break;
+            }
+        }
+        return zone;
     }
 
     /**
