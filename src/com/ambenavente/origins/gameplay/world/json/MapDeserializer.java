@@ -20,7 +20,11 @@ package com.ambenavente.origins.gameplay.world.json;
 import com.ambenavente.origins.gameplay.world.level.TiledMap;
 import com.google.gson.Gson;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Reads a json file and spits out a TiledMap object.
