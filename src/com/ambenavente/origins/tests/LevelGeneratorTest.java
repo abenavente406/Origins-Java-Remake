@@ -17,6 +17,7 @@
 
 package com.ambenavente.origins.tests;
 
+import com.ambenavente.origins.gameplay.managers.SpriteSheetManager;
 import com.ambenavente.origins.gameplay.managers.TileSheetManager;
 import com.ambenavente.origins.gameplay.world.level.Tile;
 import com.ambenavente.origins.gameplay.world.level.TiledLayer;
@@ -49,6 +50,7 @@ public class LevelGeneratorTest extends JFrame {
         Display.create();
         Display.setDisplayMode(new DisplayMode(0, 0));
         manager = new TileSheetManager();
+        SpriteSheetManager.init();
         EnumGenerationAlgorithm algorithm =
                 (type == 1)
                         ? EnumGenerationAlgorithm.RANDOM
