@@ -37,6 +37,10 @@ public class SpriteSheetManager {
     private static final String PATH = "res/spritesheets";
     private static Hashtable<Integer, SpriteSheet> spriteSheets;
 
+    static {
+        init();
+    }
+
     public static void init() {
         spriteSheets = new Hashtable<Integer, SpriteSheet>();
 
