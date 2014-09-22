@@ -48,7 +48,6 @@ public class StateGameplay extends StateBase {
     @Override
     public void init(GameContainer container,
                      StateBasedGame stateBasedGame) throws SlickException {
-        SpriteSheetManager.init();
         World.init();
 
         camera = new Camera(0,
