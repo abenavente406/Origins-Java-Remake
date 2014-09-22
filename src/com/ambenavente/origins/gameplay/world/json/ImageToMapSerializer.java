@@ -39,7 +39,8 @@ public class ImageToMapSerializer {
 
         GRASS(new Color(0, 255, 0)),
         GRASS_BLADES(new Color(0, 120, 0)),
-        FLOWER(new Color(255, 255, 0));
+        FLOWER(new Color(255, 255, 0)),
+        ROCK(new Color(128, 128, 128));
 
         private Color color;
 
@@ -81,6 +82,10 @@ public class ImageToMapSerializer {
                         break;
                     case FLOWER:
                         tiles[i][j] = new Tile(2, 1);
+                        break;
+                    case ROCK:
+                        tiles[i][j] = new Tile(3, 1);
+                        parent.setCollision(j, i, true);
                         break;
                 }
             }
