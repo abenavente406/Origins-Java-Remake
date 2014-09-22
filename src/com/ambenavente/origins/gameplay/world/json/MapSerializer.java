@@ -17,11 +17,14 @@
 
 package com.ambenavente.origins.gameplay.world.json;
 
+import com.ambenavente.origins.gameplay.managers.TileSheetManager;
 import com.ambenavente.origins.gameplay.world.level.Tile;
 import com.ambenavente.origins.gameplay.world.level.TiledLayer;
 import com.ambenavente.origins.gameplay.world.level.TiledMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.Display;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -112,7 +115,8 @@ public class MapSerializer {
      *
      * @param args No arguments are used in this test
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws LWJGLException {
+        Display.create();
 
         Tile tiles[][] = new Tile[50][50];
         for (int i = 0; i < tiles.length; i++) {
@@ -121,7 +125,9 @@ public class MapSerializer {
             }
         }
 
-        TiledMap map = new TiledMap(50, 50, 32, 32, null);
+        TileSheetManager tileSheets = new TileSheetManager();
+        tileSheets.initTileSheetImages();
+        TiledMap map = new TiledMap(50, 50, 32, 32, tileSheets);
         TiledLayer layer = new TiledLayer(map, tiles);
         map.addLayer(layer);
 
