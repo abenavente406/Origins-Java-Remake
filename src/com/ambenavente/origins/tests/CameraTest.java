@@ -73,10 +73,10 @@ public class CameraTest extends BasicGame {
     public void update(GameContainer container, int i) throws SlickException {
         Input input = container.getInput();
         Vector2f amount = new Vector2f(0, 0);
-        if (input.isKeyDown(Input.KEY_LEFT)) amount.x -= 5;
-        if (input.isKeyDown(Input.KEY_RIGHT)) amount.x += 5;
-        if (input.isKeyDown(Input.KEY_UP)) amount.y -= 5;
-        if (input.isKeyDown(Input.KEY_DOWN)) amount.y += 5;
+        if (input.isKeyDown(Input.KEY_LEFT)) amount.x -= 5 * camera.getZoom();
+        if (input.isKeyDown(Input.KEY_RIGHT)) amount.x += 5 * camera.getZoom();
+        if (input.isKeyDown(Input.KEY_UP)) amount.y -= 5 * camera.getZoom();
+        if (input.isKeyDown(Input.KEY_DOWN)) amount.y += 5 * camera.getZoom();
         camera.setX(camera.getPos().x + amount.x);
         camera.setY(camera.getPos().y + amount.y);
 
@@ -90,14 +90,15 @@ public class CameraTest extends BasicGame {
         graphics.pushTransform();
         graphics.translate(-camera.getX(), -camera.getY());
         graphics.scale(camera.getZoom(), camera.getZoom());
-        int minX = toTileX(camera.getX());
-        int minY = toTileY(camera.getY());
-        int maxX = toTileX(camera.getX()) + toTileX(camera.getViewWidth());
-        int maxY = toTileY(camera.getY()) + toTileY(camera.getViewHeight());
-
-        for (int y = minY; y < maxY + 1; y++) {
+        int minX = toTileX(camera.getX()/camera.getZoom());
+        int minY = toTileY(camera.getY()/camera.getZoom());
+        int maxX = minX +
+                toTileX(camera.getViewWidth()/camera.getZoom());
+        int maxY = minY +
+                toTileY(camera.getViewHeight()/camera.getZoom());
+        for (int y = minY; y <= maxY + 1; y++) {
             if (y < DEFAULT_HEIGHT && y >= 0) {
-                for (int x = minX; x < maxX + 1; x++) {
+                for (int x = minX; x <= maxX + 1; x++) {
                     if (x < DEFAULT_WIDTH && x >= 0) {
                         graphics.setColor(tiles[y][x].getColor());
                         graphics.fillRect(x * DEFAULT_TILE_WIDTH,

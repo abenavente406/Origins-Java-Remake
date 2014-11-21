@@ -195,15 +195,15 @@ public class TiledMap {
         // Optimized rendering function to only draw what the camera //
         // can see                                                   //
         // --------------------------------------------------------- //
-        int minX = toTileX(camera.getX());
-        int minY = toTileY(camera.getY());
-        int maxX = toTileX(camera.getX()) + toTileX(camera.getViewWidth());
-        int maxY = toTileY(camera.getY()) + toTileY(camera.getViewHeight());
+        int minX = toTileX(camera.getX()/camera.getZoom());
+        int minY = toTileY(camera.getY()/camera.getZoom());
+        int maxX = minX + toTileX(camera.getViewWidth()/camera.getZoom());
+        int maxY = minY + toTileY(camera.getViewHeight()/camera.getZoom());
 
         for (TiledLayer l : layers) {
-            for (int y = minY; y < maxY + 1; y++) {
+            for (int y = minY; y <= maxY + 1; y++) {
                 if (y < height && y >= 0) {
-                    for (int x = minX; x < maxX + 1; x++) {
+                    for (int x = minX; x <= maxX + 1; x++) {
                         if (x < width && x >= 0) {
                             Tile tile = l.getTile(x, y);
                             TileSheet sheet =
